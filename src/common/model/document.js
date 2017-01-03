@@ -59,9 +59,13 @@ export default class extends think.model.base {
      * @returns boolean fasle 失败 ， int  成功 返回完整的数据
      */
     async updates(data){
-        //  console.log(data);
-
-        // return false;
+       // console.log(data);
+        for(let v in data){
+            let vs = v.split("|||");
+            if(vs.length>1){
+             data[vs[1]]=(think.isEmpty(data[v])||data[v]==0)?0:new Date(data[v]).getTime();
+            };
+        }
         data=data||null;
         //检查文档类型是否符合要求
         let type = data.type||2;
@@ -73,7 +77,7 @@ export default class extends think.model.base {
         }
         //添加或者新增基础内容
         if(think.isEmpty(data.id)){//新增数据
-            data.create_time = !think.isEmpty( data.create_time)? new Date(data.create_time).valueOf():new Date().getTime();
+            data.create_time = data.create_time!=0? new Date(data.create_time).valueOf():new Date().getTime();
             data.update_time=new Date().getTime();
             data.status= await this.getStatus(data.id,data.category_id);
             var id = await this.add(data);//添加基础数据
@@ -119,12 +123,13 @@ export default class extends think.model.base {
                  * @param mod_type "模型类型 0独立模型，1系统模型"
                  */
                 await this.model("keyword").addkey(data.keyname,id,data.uid,data.model_id,0);
-
+                //添加到搜索
+                await this.model("search").addsearch(data.model_id,id,data);
             }
         }else {//更新内容
             data.update_time=new Date().getTime();
             data.status= await this.getStatus(data.id,data.category_id);
-            data.create_time = !think.isEmpty( data.create_time)? new Date(data.create_time).valueOf():new Date().getTime();
+            data.create_time = data.create_time!=0? new Date(data.create_time).valueOf():new Date().getTime();
             //更新关键词
             await this.model("keyword").updatekey(data.keyname,data.id,data.userid,data.model_id,0);
             let status = this.update(data);
@@ -132,6 +137,8 @@ export default class extends think.model.base {
                 this.error = '更新基础内容出错！';
                 return false;
             }else {
+                //更新搜索
+                await this.model("search").updatesearch(data.model_id,data);
                 if(data.sort_id !=0 && !think.isEmpty(data.sort_id)){
                     let sortdata = {};
                     let sortarr = [];

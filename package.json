@@ -24,7 +24,9 @@
     "jimp":"latest",
     "qiniu":"latest",
     "urllib": ">=0.5.2",
-    "moment": "latest"
+    "moment": "latest",
+    "superagent": "latest",
+    "segment":"latest"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
