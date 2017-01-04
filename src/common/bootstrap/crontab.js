@@ -23,7 +23,7 @@ let fn = () => {
 // }
 
 // 每天隔8小时执行一次
-//let jobId = crontab.scheduleJob("0 */8 * * *", spider);
+let jobId1 = crontab.scheduleJob("0 */8 * * *", spider);
 let spider = () => {
     var exec = require('child_process').exec;
     think.log("start spider  ....................");
@@ -36,11 +36,12 @@ let spider = () => {
     });
 }
 
+// 每天隔8小时执行一次
+let jobId2 = crontab.scheduleJob("0 */8 * * *", scan);
 let scan = () => {
     var fs = require('fs');
     let ArticleService = think.service("article");
     
-
     var files = fs.readdirSync(think.ROOT_PATH + "/spider/result/");
     files.forEach(function(file){
         fs.readFile(think.ROOT_PATH + "/spider/result/"+file, 'utf8', function (err, data) {
