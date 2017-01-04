@@ -124,7 +124,6 @@ export default class extends Base {
       //如果已经登陆直接跳转到用户中心
       if (this.is_login) {
         this.redirect("/uc/index")
-
       }
       this.meta_title = "用户登录";
       //判断浏览客户端

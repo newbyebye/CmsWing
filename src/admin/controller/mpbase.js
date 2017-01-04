@@ -150,8 +150,7 @@ export default class extends Base {
      */
      async massAction(){
         this.meta_title="群发功能";
-         let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
-        //let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
+        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
         let self = this;
         //调用用户分组API
         let aa = function(api){
@@ -380,6 +379,7 @@ export default class extends Base {
             return deferred.promise;
         }
         let res = await users(api);
+        think.log(res);
         let useropenid = res['data']['openid'];
         let count = res['count'];
         //self.end(useropenid);
@@ -1456,7 +1456,10 @@ export default class extends Base {
         let wxsubmit = function (api, data) {
             let deferred = think.defer();
             api.createMenu(data, (err, result)=> {
+                console.log("#####");
+                console.log(err, result);
                 if (err) {
+                    think.log("error", result);
                     deferred.reject(false);
                 } else {
                     deferred.resolve(result);
@@ -1535,7 +1538,7 @@ export default class extends Base {
         let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
         let res = await wxsubmit(api, final);
         // let res = true;
-        console.log(res);
+        think.log("return ...", res);
         if (res) {
             return self.success({name: '微信菜单生成成功'});
         } else {

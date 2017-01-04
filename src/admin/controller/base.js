@@ -13,9 +13,6 @@ export default class extends think.controller.base {
      */
     init(http) {
         super.init(http);
-        // http.action = http.method.toLowerCase();
-        //console.log(http.method.toLowerCase())
-
     }
 
     async __before() {
@@ -31,8 +28,10 @@ export default class extends think.controller.base {
         //网站配置
         this.setup = await this.model("setup").getset();
         // console.log(this.setup);
+        let is_admin = await this.is_admin();
         //后台菜单
-        this.adminmenu = await this.model('menu').adminmenu();
+        this.adminmenu = await this.model('menu').getallmenu(this.user.uid,is_admin);
+        //console.log(this.adminmenu);
         this.assign("setup", this.setup);
         //菜单当前状态
 
@@ -41,10 +40,10 @@ export default class extends think.controller.base {
          */
         //let url = `${this.http.module}/${this.http.controller}/${think.sep+this.http.action}`;
         //console.log(url);
-        let is_admin = await this.is_admin();
+
         //console.log(is_admin);
         let url = `${this.http.module}/${this.http.controller}/${this.http.action}`;
-        console.log(url);
+        //console.log(url);
         if (!is_admin) {
             let Auth = think.adapter("auth", "rbac");
             let auth = new Auth(this.user.uid);
@@ -60,7 +59,7 @@ export default class extends think.controller.base {
         //this.active = this.http.url.slice(1),
             // console.log(this.active);
             this.active =this.http.module+"/"+this.http.controller+"/"+this.http.action;
-            think.log(this.active);
+            //think.log(this.active);
             this.assign({
                 "navxs": false,
                 "bg": "bg-black"

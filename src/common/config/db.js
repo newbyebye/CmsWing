@@ -9,10 +9,10 @@ export default {
     mysql: {
       host: '127.0.0.1',
       port: '3306',
-      database: 'cmswing',
+      database: 'alpha',
       user: 'root',
       password: '',
-      prefix: 'cmswing_',
+      prefix: 'alpha_',
       encoding: 'UTF8MB4_GENERAL_CI'
     },
     mongo: {

@@ -44,8 +44,13 @@
                           <i class="fa fa-angle-left text"></i>
                           <i class="fa fa-angle-down text-active"></i>
                         </span>
+                                {%if v.ico%}
+                                <i class="fa {{v.ico}}">
+                                </i>
+                                {%else%}
                                 <i class="icon-screen-desktop icon">
                                 </i>
+                                {%endif%}
                                 <span>{{v.title}}</span>
                             </a>
                             <ul class="nav dk text-sm">
@@ -95,7 +100,7 @@
                             <a href="/admin/mpbase/index">公共账号设置</a>
                         </li>
                         <li>
-                            <a href="profile.html">群发功能</a>
+                            <a href="/admin/mpbase/mass">群发功能</a>
                         </li>
                         <li>
                             <a href="#">
@@ -104,10 +109,10 @@
                             </a>
                         </li>
                         <li>
-                            <a href="docs.html">自动回复</a>
+                            <a href="/admin/mpbase/autoreply">自动回复</a>
                         </li>
                         <li>
-                            <a href="docs.html">自定义菜单</a>
+                            <a href="/admin/mpbase/custommenu">自定义菜单</a>
                         </li>
                         <li class="divider"></li>
                         <li>

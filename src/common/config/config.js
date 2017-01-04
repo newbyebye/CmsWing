@@ -1,6 +1,6 @@
 'use strict';
 /**
- * config
+ * config 
  */
 export default {
   //key: value

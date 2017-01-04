@@ -1,5 +1,5 @@
 {
-  "name": "CmsWing",
+  "name": "alpha",
   "description": "application created by thinkjs",
   "version": "1.0.0",
   "scripts": {
@@ -24,7 +24,9 @@
     "jimp":"latest",
     "qiniu":"latest",
     "urllib": ">=0.5.2",
-    "moment": "latest"
+    "moment": "latest",
+    "superagent": "latest",
+    "segment":"latest"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
