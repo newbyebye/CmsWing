@@ -1,0 +1,323 @@
+**************111**
+**********2222******
+http://m.jiemian.com/lists/2_1.html
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
+error [Failure instance: Traceback: <class 'SyntaxError'>: invalid syntax (connections.py, line 36)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:914:_bootstrap_inner
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/threading.py:862:run
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_threadworker.py:46:work
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/_threads/_team.py:190:doWork
+--- <exception caught here> ---
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:246:inContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/threadpool.py:262:<lambda>
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:118:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/python/context.py:81:callWithContext
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:464:_runInteraction
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:36:__init__
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:76:reconnect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/twisted/enterprise/adbapi.py:431:connect
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/MySQL_python-1.2.5-py3.5-macosx-10.6-intel.egg/MySQLdb/__init__.py:80:Connect
+]
