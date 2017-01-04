@@ -27,7 +27,7 @@ export default class extends Base {
     if(is_weixin(this.userAgent()) && think.isEmpty(openid)){
       this.cookie("cmswing_wx_url",this.http.url);
       var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.setup.wx_AppID, `http://${this.http.host}/uc/weixin/getopenid?showwxpaytitle=1`);
-      //console.log(oauthUrl)
+      console.log(oauthUrl)
       this.redirect(oauthUrl);
     }
 

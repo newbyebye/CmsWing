@@ -13,7 +13,8 @@ export default class extends think.controller.base {
   }
 
   async __before() {
-    await this.action("uc/weixin", "oauth");
+    // TODO: 微信重定向失败
+    //await this.action("uc/weixin", "oauth");
     //网站配置
     this.setup = await this.model("setup").getset();
     // console.log(this.setup);
