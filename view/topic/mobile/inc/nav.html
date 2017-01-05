@@ -3,24 +3,18 @@
         <span class="mui-icon iconfont icon-home"></span>
         <span class="mui-tab-label">首页</span>
     </a>
-    <a class="mui-tab-item {% if 8 == category.model %}mui-active{%endif%}" href="/question">
+    <a class="mui-tab-item {% if '2,3' == category.model %}mui-active{%endif%}" href="/article">
         <span class="mui-icon iconfont icon-community"></span>
-        <span class="mui-tab-label">社区</span>
+        <span class="mui-tab-label">文库</span>
     </a>
-    <a class="mui-tab-item" href="#wait">
-        <span class="mui-icon mui-icon-contact"></span>
-        <span class="mui-tab-label">招聘</span>
+    <a class="mui-tab-item {% if 8 == category.model %}mui-active{%endif%}" href="/question">
+        <span class="mui-icon mui-icon-flag"></span>
+        <span class="mui-tab-label">任务</span>
     </a>
     <a class="mui-tab-item {% if 4 == category.model %}mui-active{%endif%}" href="/shangchengceshi">
         <span class="mui-icon iconfont icon-shoplight"></span>
-        <span class="mui-tab-label">购物</span>
+        <span class="mui-tab-label">广告</span>
     </a>
-    {#
-    <a class="mui-tab-item" href="#tabbar-with-chat">
-        <span class="mui-icon iconfont icon-gouwuche"><span class="mui-badge">9</span></span>
-        <span class="mui-tab-label">购物车</span>
-    </a>
-    #}
     {% if controller.is_login %}
     <a class="mui-tab-item" href="/uc">
         <span class="mui-icon iconfont icon-my"></span>

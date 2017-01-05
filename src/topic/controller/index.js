@@ -99,16 +99,17 @@ export default class extends Base {
   async routeAction(){
     // this.end( this.get('category'));
     let cate = await this.category(this.get('category').split("-")[0]);
+    console.log("routeAction ******** ", cate);
     let type = cate.allow_publish;
     if(cate.mold == 2){
-      type = 'sp';
+      type = 'sp'; // 单页面
     }
 
     switch (type){
       case 0:
-        if(cate.mold==1){
+        if(cate.mold==1){ // 独立模型
           await this.action("mod/index","index");
-        }else {
+        }else {// 系统模型
           await this.action("cover","index");
         }
             break;
