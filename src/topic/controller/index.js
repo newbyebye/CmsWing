@@ -100,6 +100,12 @@ export default class extends Base {
     // this.end( this.get('category'));
     let cate = await this.category(this.get('category').split("-")[0]);
     console.log("routeAction ******** ", cate);
+
+    if (cate.name == "article"){
+      await this.action("article", "index");
+      return;
+    }
+
     let type = cate.allow_publish;
     if(cate.mold == 2){
       type = 'sp'; // 单页面

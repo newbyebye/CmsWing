@@ -75,5 +75,5 @@ let jobId2 = crontab.scheduleJob("0 */4 * * *", scan);
 
 if (think.env === "development"){
     //spider();
-    scan();
+    //scan();
 }
