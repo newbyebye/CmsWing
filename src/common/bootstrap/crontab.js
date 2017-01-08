@@ -58,7 +58,7 @@ let scan = async() => {
                 obj.id = '';
                 obj.model_id = '2';
                 obj.category_id = '39';
-                obj.uid = '1';
+                obj.uid = '3';
                 obj.pid = '0';
                 obj.topid = '0';
                 obj.type = '2';
