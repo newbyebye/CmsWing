@@ -53,6 +53,60 @@ export default class extends think.model.base {
         return info;
     }
 
+    async downLoadImg(url_file){
+      var url = require('url');
+      var fs = require('fs');
+      var http = require('http');
+
+      function download_file(url_file) {
+        let deferred = think.defer();
+
+        var options = {
+            host: url.parse(url_file).host,
+            port: 80,
+            path: url.parse(url_file).pathname
+        };
+
+        let uploadPath = '/upload/download/'+dateformat("Y-m-d",new Date().getTime());
+        think.mkdir(think.RESOURCE_PATH + uploadPath);
+
+        //use the date as the file name
+        var name = options.path;
+        name = name.substr(name.lastIndexOf("/"));
+
+        console.log(url_file, uploadPath + name);
+        var file = fs.createWriteStream(think.RESOURCE_PATH + uploadPath + name);
+
+        http.get(options,function(res) {
+            res.on('data',function(data) {
+                file.write(data);
+            }).on('end',function() {
+                file.end();
+                deferred.resolve(uploadPath + name)
+                console.log('download success');
+            });
+        });
+
+        return deferred.promise;
+      }
+
+      let name = await download_file(url_file);
+      let data ={
+          path: name,
+          create_time:new Date().getTime(),
+          status:1,
+      };
+
+      let id  = await this.model("picture").data(data).add();
+      return id;
+    }
+
+    async updates_robot(data){
+        let id  = await this.downLoadImg("http:"+ data.img);
+        data.cover_id = id;
+        let res = await this.updates(data);
+    }
+
     /**
      * 更新或者新增一个文档
      * @param data 手动传入的数据

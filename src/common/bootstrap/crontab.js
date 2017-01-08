@@ -6,6 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 import crontab from "node-crontab";
+//import url;
 
 
 let fn = () => {
@@ -26,7 +27,7 @@ let fn = () => {
 let spider = () => {
     var exec = require('child_process').exec;
     think.log("start spider  ....................");
-    var child = exec("cd " + think.ROOT_PATH + "/spider/alpha;scrapy crawl jiemian", function (error, stdout, stderr) {
+    var child = exec("cd " + think.ROOT_PATH + "/spider/alpha;scrapy crawl jiemian >/dev/null", function (error, stdout, stderr) {
         console.log('stdout: ' + stdout);
         console.log('stderr: ' + stderr);
         if (error !== null){
@@ -34,21 +35,22 @@ let spider = () => {
         }
     });
 }
-// 每天隔4小时执行一次
-let jobId1 = crontab.scheduleJob("0 */4 * * *", spider);
+// 每天隔12小时执行一次
+//let jobId1 = crontab.scheduleJob("0 */12 * * *", spider);
 
 
-let scan = () => {
+
+let scan = async() => {
     var fs = require('fs');
     let ArticleService = think.service("article");
-    
+    think.log("start scan  ....................");
     var files = fs.readdirSync(think.ROOT_PATH + "/spider/result/");
     files.forEach(function(file){
         fs.readFile(think.ROOT_PATH + "/spider/result/"+file, 'utf8', function (err, data) {
             if (err) throw err; // we'll not consider error handling for now
             // 解析完成之后删除文件
             // TODO: 去重
-            fs.unlink(think.ROOT_PATH + "/spider/result/"+file);
+            fs.unlink(think.ROOT_PATH + "/spider/result/"+file);            
             var objs = JSON.parse(data);
             objs.forEach(function(obj){
                 let articleService = new ArticleService();
@@ -64,16 +66,17 @@ let scan = () => {
                 obj.display = '1',
                 obj['date|||deadline'] = '';
                 obj['date|||create_time']= obj.time;
+
                 articleService.addArticle(obj);
             });
         });
     });
 }
 
-// 每天隔4小时执行一次
-let jobId2 = crontab.scheduleJob("0 */4 * * *", scan);
+// 每天隔12小时执行一次
+//let jobId2 = crontab.scheduleJob("0 */12 * * *", scan);
 
 if (think.env === "development"){
     //spider();
-    //scan();
+    scan();
 }

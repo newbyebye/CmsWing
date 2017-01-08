@@ -13,6 +13,6 @@ export default class extends think.service.base {
    * 新增文档
    */
   async addArticle(data){
-      let res = await this.model('document').updates(data);
+      let res = await this.model('document').updates_robot(data);
   }
 }

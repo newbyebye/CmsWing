@@ -51,7 +51,7 @@ import datetime
 class JsonWriterPipeline(object):
 
     def open_spider(self, spider):
-        self.file = open('../result/%s.json' % (datetime.datetime.now().strftime('%b-%d-%y_%H:%M:%S')), 'w')
+        self.file = open('../result/%s.json' % (datetime.datetime.now().strftime('%b-%d-%y_%H_%M_%S')), 'w')
         self.file.write('[')
         self.firstLine = True
 
@@ -69,9 +69,7 @@ class JsonWriterPipeline(object):
         return item
 
 class AlphaPipeline(object):
-    def __init__(self):
-        #print("**************111**")
-        
+    def __init__(self):    
         self.db_pool = adbapi.ConnectionPool('MySQLdb',
                                              db='alpha',
                                              user='root',
@@ -80,8 +78,6 @@ class AlphaPipeline(object):
                                              port=3307,
                                              charset='utf8',
                                              use_unicode=True)
-        #self.db_pool=MySQLdb.connect(host="localhost",port=3307,user="root",passwd="123456",db="alpha")
-        #print("**********2222******")
     
     def process_item(self, item, spider):
         query = self.db_pool.runInteraction(self._conditional_insert, item)
@@ -111,7 +107,6 @@ class AlphaPipeline(object):
                 item['articleSourceTitle'],
                 item['time']
                 )
-            #print("insert into alpha_document_article(title, url, md5, content, author, summary, img, article_img, article_img_from, article_source, article_source_link, article_source_title, create_time) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", values)
             tx.execute("insert into alpha_document_article(title, url, md5, content, author, summary, img, article_img, article_img_from, article_source, article_source_link, article_source_title, create_time) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", values)
 
     def handle_error(self, e):
