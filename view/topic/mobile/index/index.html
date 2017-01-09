@@ -19,14 +19,14 @@
                 {%set pnus = slider|length -1%}
                 <div class="mui-slider-item mui-slider-item-duplicate">
                     <a href="{{slider[pnus].name|get_url(slider[pnus].id)}}">
-                        <img src="{{slider[pnus].cover_id|get_pic('m=1,w=360,h=202')}}">
+                        <img src="{{slider[pnus].cover_id|get_pic('m=1,w=360,h=130')}}">
                         <p class="mui-slider-title">{{slider[pnus].title}}</p>
                     </a>
                 </div>
                 {% for v in slider%}
                 <div class="mui-slider-item">
                     <a href="{{v.name|get_url(v.id)}}">
-                        <img src="{{v.cover_id|get_pic('m=1,w=360,h=202')}}">
+                        <img src="{{v.cover_id|get_pic('m=1,w=360,h=130')}}">
                         <p class="mui-slider-title">{{v.title}}</p>
                     </a>
                 </div>
@@ -34,7 +34,7 @@
                 <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
                 <div class="mui-slider-item mui-slider-item-duplicate">
                     <a href="{{slider[0].name|get_url(slider[0].id)}}">
-                        <img src="{{slider[0].cover_id|get_pic('m=1,w=360,h=202')}}">
+                        <img src="{{slider[0].cover_id|get_pic('m=1,w=360,h=130')}}">
                         <p class="mui-slider-title">{{slider[0].title}}</p>
                     </a>
                 </div>
