@@ -1,16 +1,11 @@
 {% extends "../inc/base.html" %}
 {% block content %}
 
-<header class="mui-bar mui-bar-nav">
-    <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
-    <span class="mui-icon iconfont icon-cart"><span class="mui-badge">9</span></span>
-    <h1 class="mui-title">{{controller.setup.WEB_SITE_TITLE}}</h1>
-    <span class="mui-icon iconfont icon-search mui-pull-right"></span>
-</header>
+
 
 {% include "../inc/nav.html" %}
 <!--这里放置真实显示的DOM内容-->
-<div class=" mui-scroll-wrapper" style="top:44px" >
+<div class=" mui-scroll-wrapper">
     <div class="mui-scroll">
         {% topic data = "slider",limit= "5",cid=category.id,position='4',issub="1",ispic="1"%}
         <div id="sliderpic" class="mui-slider">
@@ -19,14 +14,14 @@
                 {%set pnus = slider|length -1%}
                 <div class="mui-slider-item mui-slider-item-duplicate">
                     <a href="{{slider[pnus].name|get_url(slider[pnus].id)}}">
-                        <img src="{{slider[pnus].cover_id|get_pic('m=1,w=360,h=130')}}">
+                        <img src="{{slider[pnus].cover_id|get_pic('m=1,w=360,h=180')}}">
                         <p class="mui-slider-title">{{slider[pnus].title}}</p>
                     </a>
                 </div>
                 {% for v in slider%}
                 <div class="mui-slider-item">
                     <a href="{{v.name|get_url(v.id)}}">
-                        <img src="{{v.cover_id|get_pic('m=1,w=360,h=130')}}">
+                        <img src="{{v.cover_id|get_pic('m=1,w=360,h=180')}}">
                         <p class="mui-slider-title">{{v.title}}</p>
                     </a>
                 </div>
@@ -34,7 +29,7 @@
                 <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
                 <div class="mui-slider-item mui-slider-item-duplicate">
                     <a href="{{slider[0].name|get_url(slider[0].id)}}">
-                        <img src="{{slider[0].cover_id|get_pic('m=1,w=360,h=130')}}">
+                        <img src="{{slider[0].cover_id|get_pic('m=1,w=360,h=180')}}">
                         <p class="mui-slider-title">{{slider[0].title}}</p>
                     </a>
                 </div>
