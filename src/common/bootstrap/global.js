@@ -1036,7 +1036,7 @@ global.buildselfmenu = function(data){
  */
 /** global checkMobile */
 global.checkMobile = function(agent) {
-    let flag = false;
+    let flag = true;
     agent = agent.toLowerCase();
     let keywords = ["android", "iphone", "ipod", "ipad", "windows phone", "mqqbrowser"];
 

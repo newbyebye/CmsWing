@@ -54,7 +54,6 @@ let scan = async() => {
             var objs = JSON.parse(data);
             objs.forEach(function(obj){
                 let articleService = new ArticleService();
-
                 obj.id = '';
                 obj.model_id = '2';
                 obj.category_id = '39';

@@ -1,0 +1,100 @@
+{% extends "../inc/base.html" %}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <!--
+    <a href="/uc/cart/index" class="mui-icon iconfont icon-cart"><span class="mui-badge">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></a> -->
+    <h1 class="mui-title">制作春联</h1>
+    <!-- <a class="mui-icon iconfont icon-search mui-pull-right"></a> -->
+</header>
+{% include "../inc/nav.html" %}
+{%if category.id%}
+{% groups data="groups",cid=category.id%}
+{%set cate = category.id|get_cate()%}
+{%endif%}
+
+<div class="mui-content">
+
+<form action="/chunlian/gen" method="post" class="form-post" >
+<div class="mui-input-group mui-table-view">
+    <div class="mui-input-row">
+        <label>姓名</label>
+        <input type="text" placeholder="会根据姓名来生成春联哦" name="name" value="{{info.name}}">
+    </div>
+    <div class="mui-input-row">
+        <label>祝福</label>
+        <input type="text" placeholder="写上一句祝福的话吧" name="msg" value="{{info.msg}}">
+    </div>
+
+        <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
+            <input type="hidden" value="{{http.referrer()}}" name="resurl" class="id">
+            <button  type="submit" class="mui-btn mui-btn-primary mui-btn-block addr">开始制作</button>
+        </div>
+</div>
+</form>
+    
+</div>
+
+
+{% endblock%}
+
+{% block script %}
+<script>
+
+    //console.log();
+    mui.init();
+    
+    mui("#sliderSegmentedControl").on("tap","a.mui-control-item",function(){
+        var url = this.getAttribute("data-url");
+        //打开关于页面
+        //alert(url)
+        mui.openWindow({
+            url: url
+        });
+    })
+    mui("#pullrefresh .mui-table-view").on("tap","li.mui-table-view-cell > a",function(){
+        var url = this.getAttribute("href");
+        //打开关于页面
+        mui.openWindow({
+            url: url
+        });
+    })
+    var tops=parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
+    var size=parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
+    //记录位置
+    window.onscroll = function () {
+        var patt1 = /\(.*?\)/;
+        var srtY = document.querySelector('#pullrefresh .mui-scroll').style.transform || document.querySelector('#pullrefresh .mui-scroll').style["-webkit-transform"];
+        if (srtY) {
+            var Y = parseInt(srtY.match(patt1)[0].split(",")[1])
+        } else {
+            var Y = 0;
+        }
+        var S = document.querySelector('#pullrefresh .mui-table-view').querySelectorAll('li.mui-table-view-cell').length;
+        if (window.sessionStorage) {
+            sessionStorage.setItem("{{http.url}}_top", Y);
+            sessionStorage.setItem("{{http.url}}_size", S);
+        }
+    }
+
+    mui.ready(function() {
+
+        var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+        for(var i = 0;i<btn.length;i++){
+            btn[i].addEventListener("tap",function () {
+                var href = this.getAttribute("href");
+                if(href=="#wait"){
+                    //todo
+                    mui.toast("功能开发中。。。")
+                    return
+                }
+                mui.openWindow({url: href})
+
+            })
+        }
+    });
+
+
+</script>
+
+{% endblock %}

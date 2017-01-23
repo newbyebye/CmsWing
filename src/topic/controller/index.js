@@ -47,11 +47,22 @@ export default class extends Base {
    */
   async routeAction(){
     // this.end( this.get('category'));
-    let cate = await this.category(this.get('category').split("-")[0]);
+    console.log("*************" + this.get('category'));
+    let cate = await this.category(this.get('category').split("/")[0]);
     console.log("routeAction ******** ", cate);
 
     if (cate.name == "article"){
       await this.action("article", "index");
+      return;
+    }
+
+    let a = "index";
+    if (this.get('category').indexOf("/") != -1){
+       a = this.get('category').split("/")[1];
+    }
+    console.log("&&&&&&&&&", a);
+    if (cate.name == "chunlian"){
+      await this.action("chunlian", a);
       return;
     }
 
