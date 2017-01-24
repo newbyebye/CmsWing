@@ -1272,3 +1272,40 @@ global.priv = async(catid,roleid,action,is_admin=0,type=true)=>{
         return true;
     }
 }
+
+
+global.gen_chunlian = async(name, msg)=>{
+    var token = require('crypto').randomBytes(32).toString('hex')+".png";
+    var deferred = think.defer();
+    var gm = require('gm');
+    var imageMagick = gm.subClass({ imageMagick: true });
+    let img = imageMagick(560, 960, 'red');
+    img.font(think.RESOURCE_PATH+"/static/chunlian/msyh.ttf").fontSize(60)
+      .fill('yellow')
+      .drawText(50, 250, "丹")
+      .drawText(50, 320, "凤")
+      .drawText(50, 390, "来")
+      .drawText(50, 460, "仪")
+      .drawText(50, 530, "春")
+      .drawText(50, 600, "回")
+      .drawText(50, 670, "大")
+      .drawText(50, 740, "地")
+      .drawText(440, 250, "金")
+      .drawText(440, 320, "鸡")
+      .drawText(440, 390, "报")
+      .drawText(440, 460, "晓")
+      .drawText(440, 530, "福")
+      .drawText(440, 600, "满")
+      .drawText(440, 670, "人")
+      .drawText(440, 740, "间")
+      .draw('image over 205,800,150,150 "'+think.RESOURCE_PATH+"/static/qt.png"+'"')
+      .write(think.RESOURCE_PATH+"/static/chunlian/" + token, function(err){
+        if (err){
+            deferred.resolve(err);
+        }else{
+            console.log(think.RESOURCE_PATH+"/static/chunlian/" + token);
+            deferred.resolve("/static/chunlian/" + token);
+        }
+      });
+    return deferred.promise;
+}
