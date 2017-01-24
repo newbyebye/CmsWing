@@ -40,6 +40,8 @@
                       signature: data.signature,
                       jsApiList: [
                         'checkJsApi',
+                        'getNetworkType',
+                        'previewImage',
                         'onMenuShareTimeline',
                         'onMenuShareAppMessage',
                         'onMenuShareQQ',
@@ -59,17 +61,13 @@
     }
 
     wx.ready(function (){
-        wx.onMenuShareTimeline({
-            title: '', // 分享标题
-            link: '', // 分享链接
+        let shareData = {
+            title: '微合宝', // 分享标题
+            link: 'http://ad.weishitianli.com/{{info.img}}', // 分享链接
             imgUrl: 'http://ad.weishitianli.com/{{info.img}}', // 分享图标
-            success: function () { 
-                // 用户确认分享后执行的回调函数
-            },
-            cancel: function () { 
-                // 用户取消分享后执行的回调函数
-            }
-        });
+        };
+        wx.onMenuShareTimeline(shareData);
+        wx.onMenuShareAppMessage(shareData);
     });
 
     function weshare(){
