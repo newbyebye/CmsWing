@@ -93,8 +93,15 @@ export default class extends Base {
         this.redirect(this.cookie("cmswing_wx_url"));
       }
     }
+  }
 
-
+  async jsconfigAction(){
+    console.log(this.param("url"));
+    let self = this;
+    this.api.getJsConfig({"url": this.param("url")}, function(err, result){
+      console.log(result);
+      return self.json(result);
+    });
   }
 
   /**
