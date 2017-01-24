@@ -1280,25 +1280,18 @@ global.gen_chunlian = async(name, msg)=>{
     var gm = require('gm');
     var imageMagick = gm.subClass({ imageMagick: true });
     let img = imageMagick(560, 960, 'red');
+    let count = await think.model('chunlian', think.config("db")).count();
+    let rnd = Math.floor(Math.random()*count + 1);
+    let chunlian = await think.model('chunlian', think.config("db")).where({"id":rnd}).find();
+
+
     img.font(think.RESOURCE_PATH+"/static/chunlian/msyh.ttf").fontSize(60)
       .fill('yellow')
-      .drawText(50, 250, "丹")
-      .drawText(50, 320, "凤")
-      .drawText(50, 390, "来")
-      .drawText(50, 460, "仪")
-      .drawText(50, 530, "春")
-      .drawText(50, 600, "回")
-      .drawText(50, 670, "大")
-      .drawText(50, 740, "地")
-      .drawText(440, 250, "金")
-      .drawText(440, 320, "鸡")
-      .drawText(440, 390, "报")
-      .drawText(440, 460, "晓")
-      .drawText(440, 530, "福")
-      .drawText(440, 600, "满")
-      .drawText(440, 670, "人")
-      .drawText(440, 740, "间")
-      .draw('image over 205,800,150,150 "'+think.RESOURCE_PATH+"/static/qt.png"+'"')
+    for (var i = 0 ; i < chunlian.count; i++){
+        img.drawText(50, 250+70*i, chunlian.up[i])
+           .drawText(440, 250+70*i, chunlian.down[i])
+    }
+    img.draw('image over 205,800,150,150 "'+think.RESOURCE_PATH+"/static/qt.png"+'"')
       .write(think.RESOURCE_PATH+"/static/chunlian/" + token, function(err){
         if (err){
             deferred.resolve(err);
