@@ -1298,7 +1298,7 @@ global.gen_chunlian = async(up, down, title)=>{
     }
 
     if (title.trim().length > 0){
-        img.drawText(280 - (title.trim().length/2) * 60, 100, title.trim());
+        img.drawText(280 - (title.trim().length/2) * 60, 150, title.trim());
     }
 
     img.draw('image over 205,800,150,150 "'+think.RESOURCE_PATH+"/static/qt.png"+'"')
