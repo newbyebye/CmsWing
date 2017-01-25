@@ -58,11 +58,11 @@ export default class extends Base {
   }
 
   async genAction(){
-    console.log(this.param("name"), this.param("msg"));
+    console.log(this.param("up"), this.param("down"), this.param("title"));
 
-    let img = await gen_chunlian(this.param("name"), this.param("msg"));
+    let img = await gen_chunlian(this.param("up"), this.param("down"), this.param("title"));
 
-    let info = {"name": this.param("name"), "msg": this.param("msg"), "img": img};
+    let info = {"up": this.param("up"), "down": this.param("down"), "title": this.param("title"), "img":img};
     this.assign("info", info);
 
     //判断浏览客户端

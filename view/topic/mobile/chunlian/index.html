@@ -18,12 +18,16 @@
 <form action="/chunlian/gen" method="post" class="form-post" >
 <div class="mui-input-group mui-table-view">
     <div class="mui-input-row">
-        <label>姓名</label>
-        <input type="text" placeholder="会根据姓名来生成春联哦" name="name" value="{{info.name}}">
+        <label>上联</label>
+        <input type="text" placeholder="写句上联" name="up" value="{{info.up}}">
     </div>
     <div class="mui-input-row">
-        <label>祝福</label>
-        <input type="text" placeholder="写上一句祝福的话吧" name="msg" value="{{info.msg}}">
+        <label>下联</label>
+        <input type="text" placeholder="写句下联" name="down" value="{{info.down}}">
+    </div>
+    <div class="mui-input-row">
+        <label>横批</label>
+        <input type="text" placeholder="再加个横排" name="title" value="{{info.title}}">
     </div>
 
         <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">

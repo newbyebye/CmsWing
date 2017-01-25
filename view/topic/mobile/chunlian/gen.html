@@ -33,7 +33,7 @@
         $.ajax({url:"/uc/weixin/jsconfig?url="+window.location.origin + window.location.pathname,
                 success : function(data) {
                     wx.config({
-                      debug: true,
+                      debug: false,
                       appId: data.appId,
                       timestamp: data.timestamp,
                       nonceStr: data.nonceStr,
@@ -62,7 +62,7 @@
 
     wx.ready(function (){
         let shareData = {
-            title: '微合宝', // 分享标题
+            title: '我亲手贴了对联，你也来试试吧sds', // 分享标题
             link: 'http://ad.weishitianli.com/{{info.img}}', // 分享链接
             imgUrl: 'http://ad.weishitianli.com/{{info.img}}', // 分享图标
         };
