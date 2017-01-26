@@ -1304,7 +1304,7 @@ global.gen_chunlian = async(up, down, title)=>{
 
     console.log(chunlian.title.length);
     if (chunlian.title.length > 0){
-        img.drawText(280 - (chunlian.title.length * 30), 150, title.trim());
+        img.drawText(280 - (chunlian.title.length * 30), 150, chunlian.title;
     }
 
     img.draw('image over 205,800,150,150 "'+think.RESOURCE_PATH+"/static/qt.png"+'"')
