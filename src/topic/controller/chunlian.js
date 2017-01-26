@@ -67,12 +67,18 @@ export default class extends Base {
 
     //判断浏览客户端
     if(checkMobile(this.userAgent())){
-      return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+      return this.display(`mobile/${this.http.controller}/${this.http.action}`);
     }else{
       //debugger;
       //console.log(think.datetime(new Date(), "YYYY-MM-DD"));
       return this.display();
     }
+  }
+
+  async showAction(){
+    let info = {"img":img};
+    this.assign("info", info);
+    return this.display(`mobile/${this.http.controller}/gen`);
   }
   
 }
