@@ -62,7 +62,7 @@ export default class extends Base {
 
     let img = await gen_chunlian(this.param("up"), this.param("down"), this.param("title"));
 
-    let info = {"up": this.param("up"), "down": this.param("down"), "title": this.param("title"), "img":img};
+    let info = {"up": this.param("up"), "down": this.param("down"), "title": this.param("title"), "img":img, "png":img.substr(17)};
     this.assign("info", info);
 
     //判断浏览客户端
@@ -76,7 +76,7 @@ export default class extends Base {
   }
 
   async showAction(){
-    let info = {"img":this.param("img")};
+    let info = {"img":"/static/chunlian/" + this.param("img"), "png": this.param("img")};
     this.assign("info", info);
     return this.display(`mobile/${this.http.controller}/gen`);
   }

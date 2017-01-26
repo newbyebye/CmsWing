@@ -57,7 +57,7 @@
     wx.ready(function (){
         let shareData = {
             title: '我亲手贴了春联，你也来试试吧', // 分享标题
-            link: 'http://ad.weishitianli.com/chuanlian/show?img={{info.img}}', // 分享链接
+            link: 'http://ad.weishitianli.com/chuanlian/show/img/{{info.png}}', // 分享链接
             imgUrl: 'http://ad.weishitianli.com/{{info.img}}', // 分享图标
         };
         wx.onMenuShareTimeline(shareData);
