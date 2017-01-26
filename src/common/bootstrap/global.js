@@ -1284,6 +1284,8 @@ global.gen_chunlian = async(up, down, title)=>{
     let rnd = Math.floor(Math.random()*count + 1);
     let chunlian = await think.model('chunlian', think.config("db")).where({"id":rnd}).find();
 
+    console.log(chunlian);
+
     if (up.trim().length > 0 && up.trim().length == down.trim().length){
         chunlian.up = up;
         chunlian.down = down;
@@ -1300,6 +1302,7 @@ global.gen_chunlian = async(up, down, title)=>{
            .drawText(440, 250+70*i, chunlian.down[i])
     }
 
+    console.log(chunlian.title.length);
     if (chunlian.title.length > 0){
         img.drawText(280 - (chunlian.title.length * 30), 150, title.trim());
     }
