@@ -76,7 +76,7 @@ export default class extends Base {
   }
 
   async showAction(){
-    let info = {"img":img};
+    let info = {"img":this.param("img")};
     this.assign("info", info);
     return this.display(`mobile/${this.http.controller}/gen`);
   }
