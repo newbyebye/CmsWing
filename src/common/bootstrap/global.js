@@ -1287,18 +1287,21 @@ global.gen_chunlian = async(up, down, title)=>{
     if (up.trim().length > 0 && up.trim().length == down.trim().length){
         chunlian.up = up;
         chunlian.down = down;
-        chunlian.count = up.trim().length;
+    }
+
+    if (title.trim().length > 0){
+        chunlian.title = title.trim();
     }
 
     img.font(think.RESOURCE_PATH+"/static/chunlian/msyh.ttf").fontSize(60)
       .fill('yellow')
-    for (var i = 0 ; i < chunlian.count; i++){
+    for (var i = 0 ; i < chunlian.up.length; i++){
         img.drawText(50, 250+70*i, chunlian.up[i])
            .drawText(440, 250+70*i, chunlian.down[i])
     }
 
-    if (title.trim().length > 0){
-        img.drawText(280 - (title.trim().length/2) * 60, 150, title.trim());
+    if (chunlian.title.length > 0){
+        img.drawText(280 - (chunlian.title.length * 30), 150, title.trim());
     }
 
     img.draw('image over 205,800,150,150 "'+think.RESOURCE_PATH+"/static/qt.png"+'"')
