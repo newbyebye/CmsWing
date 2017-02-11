@@ -3,6 +3,24 @@
 import Base from './base.js';
 
 export default class extends Base {
+  
+  async adhtml(id){
+    let ad = await this.model('ad').where({'id': id}).find();
+    if (!think.isEmpty(ad)){
+      let pic = await this.model('picture').where({id: ad.picture_id}).find();
+
+      let html =`<div class="mui-bar-ad">`;
+      html += `<font>广告</font>`;
+      html += `<a href="http://`+ ad.redirect +`" onclick="adhits('`+id+`')">`;
+      html += `<img src="`+pic.path+`" style="min-width: 360px;"></a></div>`;
+      return html;
+    }
+    else{
+      return "";
+    }
+    
+  }
+
   //详情页[核心]
   async indexAction() {
     /* 标识正确性检测*/
@@ -12,6 +30,7 @@ export default class extends Base {
     //} //if(!(id && think.isString(id))){
     //    this.fail('文档ID错误！');
     //}
+
     /* 获取详细信息*/
     let document = this.model('document');
     let info = await document.detail(id);
@@ -61,12 +80,28 @@ export default class extends Base {
       keywords = (info.keyname).split(",");
     }
     this.assign("keywords",keywords);
+
     //访问统计
     await document.where({id:info.id}).increment('view');
     //外链
     if(!think.isEmpty(info.link_id)&&info.link_id!=0){
       return this.redirect(info.link_id);
     }
+
+    if (this.is_login){
+      let defaultAd = await this.model('ad').where({user_id:this.user.uid, default:1}).find();
+      if (!think.isEmpty(defaultAd)){
+        let aAd = await this.model('ad_article').where({document_id:id, ad_id:defaultAd.id}).find();
+        if (!think.isEmpty(aAd)){
+          return this.redirect("/ad/"+aAd.id);
+        }
+        else{
+          let aAdId = await this.model("ad_article").data({document_id: id, ad_id:defaultAd.id}).add();
+          return this.redirect("/ad/"+aAdId);
+        }
+      }
+    }
+
     //获取面包屑信息
     let breadcrumb = await this.model('category').get_parent_category(cate.id,true);
     this.assign('breadcrumb', breadcrumb);
@@ -168,7 +203,172 @@ export default class extends Base {
       } else {
         temp = model;
       }
-       // console.log(temp);
+      console.log("*************");
+        //console.log(info);
+      //内容分页
+      if(!think.isEmpty(info.content)){
+        info.content=info.content.split("_ueditor_page_break_tag_");
+      }
+      return this.display(temp);
+    }
+  }
+
+  async adAction(){
+    /* 标识正确性检测*/
+    let adId = this.get('id') || 0;
+    console.log(adId);
+
+    let ad = await this.model('ad_article').where({id:adId}).find();
+    if (think.isEmpty(ad)){
+        return think.statusAction(404, this.http);
+    }
+    
+    console.log("****", ad);
+    let id = ad.document_id;
+    /* 获取详细信息*/
+    let document = this.model('document');
+    let info = await document.detail(id);
+    if(info.errno==702){
+      this.http.error = new Error(info.errmsg);
+      return think.statusAction(702, this.http);
+    }
+
+    await this.assign("adhtml", this.adhtml(ad.ad_id));
+    //访问统计
+    await this.model('ad_article').where({id:adId}).increment('view');
+
+    //不同的设备,压缩不同的图片尺寸
+    let str = info.content;
+    if(!think.isEmpty(str)){
+      let img;
+      if(checkMobile(this.userAgent())){
+        //手机端
+        img = image_view(str,640,4);
+      }else {
+        //pc端
+
+        img = image_view(str,847,0);
+      }
+      info.content=img
+    }
+    //console.log(info);
+    //分类信息
+    let cate = await this.category(info.category_id);
+    cate = think.extend({}, cate);
+    //seo
+    this.meta_title = info.title; //标题
+    this.keywords = info.keyname ? info.keyname : ''; //seo关键词
+    this.description = info.description ? info.description : ""; //seo描述
+    //keywords
+    let keywords;
+    if(!think.isEmpty(info.keyname)){
+      keywords = (info.keyname).split(",");
+    }
+    this.assign("keywords",keywords);
+    
+    
+    //外链
+    if(!think.isEmpty(info.link_id)&&info.link_id!=0){
+      return this.redirect(info.link_id);
+    }
+
+  
+    //获取面包屑信息
+    let breadcrumb = await this.model('category').get_parent_category(cate.id,true);
+    this.assign('breadcrumb', breadcrumb);
+
+
+    //获取模板
+    let temp;
+    let model = await this.model('model').get_model(info.model_id, 'name');
+
+    //详情模版 TODO
+    //手机版模版
+
+    this.assign('category', cate);
+    //console.log(info);
+    //目录/文章/段落
+    let pid;
+    let pinfo;
+    if(info.pid !=0){
+      let i = info.id;
+      //
+      while (i!=0)
+      {
+        let nav = await document.where({id:i}).find();
+        if(nav.pid==0) {
+          pinfo = nav;
+          pid= nav.id;
+        }
+        i = nav.pid;
+
+      }
+
+    }else {
+      pinfo = info;
+      pid= info.id;
+    }
+    //获取最后更新时间
+    let lastinfo = await document.where({topid:pid}).order("update_time DESC").find();
+    //console.log(lasttime);
+    this.assign("lastinfo",lastinfo);
+    //console.log(pid);
+    let plist = await document.where({pid:pid}).order("level DESC").select();
+    this.assign("pinfo",pinfo);
+    this.assign("plist",plist);
+    //console.log(plist);
+    if(plist[0]){
+      //let lastlevel = plist[0].level;
+      //console.log(lastlevel);
+      this.assign("lastlevel",plist[0]);
+    }
+    //console.log(plist);
+    //文档无限级目录
+    let ptree_ = await document.where({topid:pid}).field('id,title,pid,name,level as sort').select();
+    let ptree = get_children(ptree_,pid,1);
+    //console.log(ptree);
+    this.assign('topid',pid);
+    this.assign("ptree",ptree);
+
+    //如果是目录并且模板为空,模块为视频时，目录id，显示最后更新的主题
+    if(info.type == 1 && (think.isEmpty(info.template)||info.template==0)&&info.model_id==6){
+      if(plist[0]){
+        console.log(111111);
+        let model_id =  plist[0].model_id;
+        let p_id = plist[0].id;
+        let table = await this.model("model").get_table_name(model_id);
+        let p_info = await this.model(table).find(p_id);
+        info = think.extend(info,p_info);
+
+      }
+    }
+    //console.log(info);
+    this.assign('info', info);
+    //判断浏览客户端
+    if(checkMobile(this.userAgent())){
+      //手机模版
+      if (!think.isEmpty(info.template) && info.template !=0) {
+        temp = info.template; //todo 已设置详情模板
+      } else if (!think.isEmpty(cate.template_m_detail)) {
+        temp = cate.template_m_detail; //分类已经设置模板
+      } else {
+        temp = model;
+      }
+      console.log(temp);
+      //内容分页
+      if(!think.isEmpty(info.content)){
+        info.content=info.content.split("_ueditor_page_break_tag_");
+      }
+      return this.display(`mobile/${this.http.controller}/${temp}`)
+    }else{
+      if (!think.isEmpty(info.template) && info.template !=0) {
+        temp = info.template; //已设置详情模板
+      } else if (!think.isEmpty(cate.template_detail)) {
+        temp = cate.template_detail; //分类已经设置模板
+      } else {
+        temp = model;
+      }
+      console.log("*************");
         //console.log(info);
       //内容分页
       if(!think.isEmpty(info.content)){

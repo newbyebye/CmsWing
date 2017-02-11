@@ -163,4 +163,9 @@ export default class extends Base {
     this.redirect("/uc/ad");
   }
   
+  async adhitsAction(){
+    //访问统计
+    await this.model('ad').where({id:this.param("id")}).increment('view');
+    this.json({});
+  }
 }

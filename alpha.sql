@@ -2591,3 +2591,17 @@ CREATE TABLE `alpha_ad` (
 
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `alpha_ad_article`;
+CREATE TABLE `alpha_ad_article` ( 
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `document_id` bigint(11) DEFAULT NULL COMMENT '图片id',
+  `ad_id` bigint(11) DEFAULT NULL COMMENT '嵌入广告id',
+  `view` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '文章浏览量',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+
+
+
+

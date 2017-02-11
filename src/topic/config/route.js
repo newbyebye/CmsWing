@@ -5,6 +5,7 @@ export default [
     [/^index\/(.*)$/, "topic/index/index?order=:1"],
     [/^index$/, "topic/index/index"],
     [/^p\/(.*)$/, "topic/detail/index?id=:1"],
+    [/^ad\/(.*)$/, "topic/detail/ad?id=:1"],
     [/^dlink\/(.*)$/, "topic/detail/downloadgetid?id=:1"],
     [/^keywords\/(.*)$/,"topic/list/keywords?key=:1"],
     [/^topic\/(.*)$/,"topic/keyword/index?key=:1"],
