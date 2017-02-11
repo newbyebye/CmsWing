@@ -94,7 +94,7 @@ export default class extends Base {
         }
         v.uid = await get_nickname(v.uid);
         v.url = get_url(v.name,v.id);
-        v.update_time = moment(v.update_time).fromNow()
+        v.update_time = moment(v.update_time).fromNow();
       }
       return this.json(data);
     }

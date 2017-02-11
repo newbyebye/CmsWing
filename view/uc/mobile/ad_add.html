@@ -1,0 +1,70 @@
+{% extends "../../topic/mobile/inc/base.html" %}
+{% block content %}
+
+
+<header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+            <h1 class="mui-title">{% if ad.id %}更新广告{%else%}添加广告{%endif%}</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded" style="margin: 5px;">
+        <form id="form" action="/uc/ad/update" enctype="multipart/form-data" method="post">
+            <h5>广告标题(*)</h5>
+            <div class="mui-input-row">
+                <input id="ad_title" name="ad_title" type="text" value="{{ad.title}}" placeholder="广告标题">
+            </div>
+
+            <h5>广告显示图片(*)(建议420*100)</h5>
+            <div >
+                <img class="showimg" src="{{ad.picture_url}}" height='100' width='100%' onclick="$('input[id=file]').click();" />
+            </div>
+            <input id="file" name="file" type="file" style="display:none">
+            <div class="input-append">
+               <input id="photoCover" class="input-large" type="text" style="display:none">
+            </div>
+
+            <h5>跳转链接地址</h5>
+            <div class="mui-input-row">
+                <input id="ad_redirect" name="ad_redirect" type="text" value="{{ad.redirect}}" placeholder="URL地址：可是微店、H5、官网等">
+            </div>
+
+            <input id="ad_id" name="ad_id" type="hidden" value="{{ad.id}}">
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="formSubmit()">{% if ad.id %}更新广告{%else%}添加广告{%endif%}</button>
+  
+        </form>
+    </div>
+</div>
+{% endblock%}
+
+{% block script %}
+<script>
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+    $(function(){
+        $('input[id=file]').change(function() {
+           $('#photoCover').val($(this).val());
+        });
+
+       $("#file").change(function(e){
+             var file = e.target.files||e.dataTransfer.files;
+             if(file){
+                 var reader = new FileReader();
+                 reader.onload=function(){
+                    var img = document.getElementsByClassName("showimg")[0];
+                    img.src = this.result;
+                 }
+                reader.readAsDataURL(file[0]);
+            }
+      });
+    });
+
+    function formSubmit(){
+        document.getElementById("form").submit();
+    }
+
+
+</script>
+
+{% endblock %}

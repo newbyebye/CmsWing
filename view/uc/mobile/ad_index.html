@@ -1,0 +1,56 @@
+{% extends "../../topic/mobile/inc/base.html" %}
+{% block content %}
+{% include "../../topic/mobile/inc/nav.html" %}
+
+<!--下拉刷新容器-->
+<div id="pullrefresh" class="mui-content">
+    <div class="mui-content-padded">
+        <button id="addAd" type="button" class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" onclick="openAddAd()">添加广告</button>
+    </div>
+  
+       {%for v in list%}
+            <div class="mui-card">
+                <div class="mui-card-header">{{v.title}}
+                <a class="mui-card-link">点击量:&nbsp{{v.view}}</a>
+                </div>
+                <div class="mui-card-content" >
+                    <img src="{{v.picture_url}}" alt="" height='100' width="100%"/>
+                </div>
+                <div class="mui-card-footer">
+                    <a class="mui-card-link" href="/uc/ad/default/id/{{v.id}}" {% if v.default %} style="color: #FF0000"{%endif%}  >设为默认</a>
+                    <a class="mui-card-link" href="/uc/ad/edit/id/{{v.id}}">编辑</a>
+                    <a class="mui-card-link" href="/uc/ad/del/id/{{v.id}}">删除</a>
+                </div>
+            </div>
+       {%endfor%}
+
+</div>
+{% endblock%}
+
+{% block script %}
+<script>
+    mui.init();
+    mui.ready(function() {
+        var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+        for(var i = 0;i<btn.length;i++){
+            btn[i].addEventListener("tap",function () {
+                var href = this.getAttribute("href");
+                if(href=="#wait"){
+                    //todo
+                    mui.toast("功能开发中。。。")
+                    return
+                }
+                mui.openWindow({url: href})
+
+            })
+        }
+
+
+    });
+
+    function openAddAd(){
+        mui.openWindow("/uc/ad/add");
+    }
+</script>
+
+{% endblock %}

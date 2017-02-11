@@ -22,7 +22,7 @@ export default class extends Base {
   //上传文件
   async uploadAction(){
 
-      let file = think.extend({}, this.file('file'));
+    let file = think.extend({}, this.file('file'));
     let filepath = file.path;
     let basename = path.basename(filepath);
       let data;

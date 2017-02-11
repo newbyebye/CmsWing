@@ -1,41 +1,12 @@
 {% extends "../inc/base.html" %}
 {% block content %}
-<header class="mui-bar mui-bar-nav">
-    <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
-    <!--
-    <a href="/uc/cart/index" class="mui-icon iconfont icon-cart"><span class="mui-badge">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></a> -->
-    <h1 class="mui-title">{{controller.setup.WEB_SITE_TITLE}}</h1>
-    <!-- <a class="mui-icon iconfont icon-search mui-pull-right"></a> -->
-</header>
+
 {% include "../inc/nav.html" %}
 {%if category.id%}
 {% groups data="groups",cid=category.id%}
 {%set cate = category.id|get_cate()%}
 {%endif%}
-<div id="slider" class="mui-slider" style="top:44px" >
-    <div id="sliderSegmentedControl" {%if sort|length>0 or column|length>0 or groups|length>0%} style="width: 90%" {%endif%} class="mui-scroll-wrapper mui-scroll-bar mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-        <div class="mui-scroll">
-            <a class="mui-control-item bar-item {%if order ==100%} mui-active{%endif%}" href="#item1mobile" data-url="/article">
-                推荐
-            </a>
-            <a class="mui-control-item bar-item {%if order ==2%} mui-active{%endif%}" href="#item2mobile" data-url="/article-2">
-                热点
-            </a>
-        </div>
-    </div>
-    <div class="mui-slider-group " style="height: 0px;" >
-        <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 
-        </div>
-        <div id="item2mobile" class="mui-slider-item mui-control-content">
-        </div>
-        
-    </div>
-
-    {%if sort|length>0 or column|length>0 or groups|length>0%}
-    <a href="#more" class="mui-icon iconfont icon-sort mui-pull-right more-icon "></a>
-    {%endif%}
-</div>
 <!--下拉刷新容器-->
 <div id="pullrefresh" class="mui-content mui-scroll-wrapper list-content">
     <div class="mui-scroll">
@@ -56,7 +27,7 @@
                     <p class="item_info">
 
                         <span class="src space">{{v.uid|get_nickname}}</span>
-                        <span class="cmt space">评论&nbsp;2323</span>
+                        <span class="cmt space"></span>
 
                         <span class="time" >{{v.update_time|moment}}</span>
 
@@ -74,7 +45,7 @@
                             <p class="item_info">
 
                                 <span class="src space">{{v.uid|get_nickname}}</span>
-                                <span class="cmt space">评论&nbsp;2323</span>
+                                <span class="cmt space"></span>
 
                                 <span class="time" >{{v.update_time|moment}}</span>
 
@@ -109,7 +80,7 @@
                     <p class="item_info">
 
                         <span class="src space">{{v.uid|get_nickname}}</span>
-                        <span class="cmt space">评论&nbsp;2323</span>
+                        <span class="cmt space"></span>
 
                         <span class="time" >{{v.update_time|moment}}</span>
 
@@ -126,7 +97,7 @@
                             <h4 class="dotdot line2 ">{{v.title}}</h4>
                             <p class="item_info">
                                 <span class="src space">{{v.uid|get_nickname}}</span>
-                                <span class="cmt space">评论&nbsp;2323</span>
+                                <span class="cmt space"></span>
 
                                 <span class="time" >{{v.update_time|moment}}</span>
 
@@ -149,7 +120,7 @@
                     <p class="item_info">
 
                         <span class="src space">{{v.uid|get_nickname}}</span>
-                        <span class="cmt space">评论&nbsp;0</span>
+                        <span class="cmt space"></span>
 
                         <span class="time" >{{v.update_time|moment}}</span>
 
@@ -186,7 +157,7 @@
             <p class="item_info">
 
                 <span class="src space"><%=v.uid%></span>
-                <span class="cmt space">评论&nbsp;2323</span>
+                <span class="cmt space"></span>
 
                 <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
 
@@ -204,7 +175,7 @@
                     <p class="item_info">
 
                         <span class="src space"><%=v.uid%></span>
-                        <span class="cmt space">评论&nbsp;2323</span>
+                        <span class="cmt space"></span>
 
                         <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
 
@@ -238,7 +209,7 @@
             <p class="item_info">
 
                 <span class="src space"><%=v.uid%></span>
-                <span class="cmt space">评论&nbsp;2323</span>
+                <span class="cmt space"></span>
 
                 <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
 
@@ -255,7 +226,7 @@
                     <h4 class="dotdot line2 "><%=v.title%></h4>
                     <p class="item_info">
                         <span class="src space"><%=v.uid%></span>
-                        <span class="cmt space">评论&nbsp;2323</span>
+                        <span class="cmt space"></span>
 
                         <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
 
@@ -278,7 +249,7 @@
             <p class="item_info">
 
                 <span class="src space"><%=v.uid%></span>
-                <span class="cmt space">评论&nbsp;0</span>
+                <span class="cmt space"></span>
 
                 <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
 
@@ -436,10 +407,12 @@
 //            $('header').on('doubleTap',function () {
 //                alert(3)
 //            })
+            /*
             document.querySelector('header h1').addEventListener('tap',function () {
                 //内容区滚动到顶部
                 mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
             });
+            */
             var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
             for(var i = 0;i<btn.length;i++){
                 btn[i].addEventListener("tap",function () {
