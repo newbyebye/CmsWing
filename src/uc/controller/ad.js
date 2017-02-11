@@ -20,7 +20,7 @@ export default class extends Base {
       v.picture_url = pic.path;
     }
     this.assign("list",data);
-    console.log(data);
+    //console.log(data);
     
     //判断浏览客户端
     if (checkMobile(this.userAgent())) {
@@ -90,7 +90,7 @@ export default class extends Base {
   async updateAction(){
     await this.weblogin();
 
-    console.log("", this.param("ad_title"), this.param("ad_id"), this.param("ad_redirect"));
+    //console.log("", this.param("ad_title"), this.param("ad_id"), this.param("ad_redirect"));
     let file = think.extend({}, this.file('file'));
 
     let res;
@@ -144,6 +144,10 @@ export default class extends Base {
           picture_id: res,
           title : this.param("ad_title"),
           redirect : this.param("ad_redirect")
+        }
+        let ad = await this.model("ad").where({user_id:this.user.uid}).find();
+        if (think.isEmpty(ad)){
+          data.default = 1;
         }
         await this.model("ad").data(data).add();
       }
