@@ -174,6 +174,7 @@ export default class extends Base {
         return this.fail("手机号码已存在，请重新填写！")
       }
     }
+    /*
     if(think.isEmpty(data.email)){
       return this.fail("电子邮箱不能为空！")
     }else{
@@ -182,6 +183,7 @@ export default class extends Base {
         return this.fail("电子邮箱已存在，请重新填写！")
       }
     }
+    */
     if(think.isEmpty(data.password) && think.isEmpty(data.password2)){
       return this.fail("密码不能为空！")
     }else{
