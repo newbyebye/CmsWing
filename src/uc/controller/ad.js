@@ -126,11 +126,12 @@ export default class extends Base {
         console.log(res);
 
         let filename = res.headers["content-disposition"].split("=")[1].replace('"', "").replace('"', "");
-        let uploadPath = think.RESOURCE_PATH + '/upload/picture/'+dateformat("Y-m-d",new Date().getTime());
+        let dateStr = dateformat("Y-m-d",new Date().getTime());
+        let uploadPath = think.RESOURCE_PATH + '/upload/picture/'+dateStr;
         think.mkdir(uploadPath);
 
         fs.writeFileSync(uploadPath+"/"+filename, data);
-        deferred.resolve('/upload/picture/'+dateformat("Y-m-d",new Date().getTime()));
+        deferred.resolve('/upload/picture/'+dateStr+ "/"+filename);
       }
     });
 
