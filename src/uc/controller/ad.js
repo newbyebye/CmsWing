@@ -34,7 +34,20 @@ export default class extends Base {
   async addAction() {
     //判断是否登陆
     await this.weblogin();
-    this.assign("ad", {id : 0, type: this.param("type"), is_weixin: is_weixin(this.userAgent())});
+
+    let ad = {id : 0, type: this.param("type"), is_weixin: false};
+    if (is_weixin(this.userAgent())){
+      ad.is_weixin = true;
+
+      let wxUser = await this.model("wx_user").where({uid: this.user.uid}).find();
+      if (!think.isEmpty(wx_user)){
+        ad.title = wxUser.nickname;
+        ad.picture_url = wxUser.headimgurl;
+        ad.phone = this.user.mobile;
+      }
+    }
+
+    this.assign("ad", ad);
     //判断浏览客户端
     if (checkMobile(this.userAgent())) {
       this.active = "ad/add";
@@ -104,19 +117,20 @@ export default class extends Base {
 
     let type = parseInt(this.param("ad_type"));
     
-    console.log("**** ", type);
- 
-    //console.log("", this.param("ad_title"), this.param("ad_id"), this.param("ad_redirect"));
     let file;
     let title;
+    let serverId;
     if (type == 0){
       file = think.extend({}, this.file('file'));
       title = this.param("ad_title");
+      serverId = this.param("wx_serverId1");
     }
     else{
       file = think.extend({}, this.file('file2'));
       title = this.param("ad_title2");
+      serverId = this.param("wx_serverId2");
     }
+    console.log("*** ", file, title, serverId);
 
     let res;
     if (file.originalFilename != ""){
