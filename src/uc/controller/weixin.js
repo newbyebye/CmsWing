@@ -96,10 +96,9 @@ export default class extends Base {
   }
 
   async jsconfigAction(){
-    console.log(this.param("url"));
     let self = this;
     this.api.getJsConfig({"url": this.param("url")}, function(err, result){
-      console.log(result);
+      //console.log(result);
       return self.json(result);
     });
   }

@@ -3,8 +3,15 @@
 import Base from './base.js';
 import * as fs from 'fs';
 import * as path from 'path';
+import API from 'wechat-api';
 
 export default class extends Base {
+  async __before() {
+    //网站配置
+    this.setup = await this.model("setup").getset();
+    this.api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+  }
+
   /**
    * index action
    * @return {Promise} []
@@ -112,6 +119,20 @@ export default class extends Base {
     this.redirect("/uc/ad");
   }
 
+  wxGetMedia(serverId){
+    var deferred = think.defer();
+    this.api.getMedia(serverId, function(err, data, res){
+      if (err){
+        deferred.reject(null);
+      }else{
+        console.log(res);
+        deferred.resolve(data);
+      }
+    });
+
+    return deferred.promise;
+  }
+
   async updateAction(){
     await this.weblogin();
 
@@ -131,7 +152,6 @@ export default class extends Base {
       serverId = this.param("wx_serverId2");
     }
     console.log("*** ", file, title, serverId, this.param("ad_picUrl"));
-
     let res;
     if (file.originalFilename != ""){
         let filepath = file.path;
@@ -174,6 +194,27 @@ export default class extends Base {
             }
         }
     }
+    else if (this.param("ad_picUrl").startsWith("http://") || this.param("ad_picUrl").startsWith("https://")){
+        let pic = await this.model("picture").where({path:this.param("ad_picUrl")}).find();
+        if (think.isEmpty(pic)){
+          let data = {
+                    path: this.param("ad_picUrl"),
+                    url: this.param("ad_picUrl"),
+                    create_time:new Date().getTime(),
+                    status:1,
+          }
+          res = await this.model("picture").data(data).add();
+        }
+        else{
+          res = pic.id;
+        }
+    }
+    else if (!think.isEmpty(serverId)){
+      let data = await wxGetMedia(serverId);
+      if (think.isEmpty(data)){
+
+      }
+    }
 
     if (this.param("ad_id") == 0){
       // 新增
@@ -193,6 +234,7 @@ export default class extends Base {
         }
         await this.model("ad").data(data).add();
       }
+
     }
     else{
       // updata
