@@ -17,7 +17,7 @@
 
             <h5>广告显示图片(*)(建议420*100)</h5>
             <div >
-                <img class="showimg" src="{{ad.picture_url}}" height='100' width='100%' onclick="$('input[id=file]').click();" />
+                <img id="showimg" class="showimg" src="{{ad.picture_url}}" height='100' width='100%' onclick="{% if ad.is_weixin %}wechatImg1();{%else%}$('input[id=file]').click();{%endif%}" />
             </div>
             <input id="file" name="file" type="file" style="display:none">
 
@@ -33,7 +33,7 @@
                  
                 <div class="mui-row" style="height: 100px">
                     <div class="mui-col-sm-4 mui-col-xs-4 ">
-                        <img class="list_img_holder" src="{{ad.picture_url}}" height='80px' width='80px' onclick="$('input[id=file2]').click();">
+                        <img id="list_img_holder" class="list_img_holder" src="{{ad.picture_url}}" height='80px' width='80px' onclick="{% if ad.is_weixin %}wechatImg2();{%else%}$('input[id=file2]').click();{%endif%}">
                         <input id="file2" name="file2" type="file" style="display:none">
                     </div>
                     <div class="mui-col-sm-8 mui-col-xs-8">
@@ -58,28 +58,54 @@
 {% endblock%}
 
 {% block script %}
+{% if ad.is_weixin %}
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+{%endif%}
 <script>
     mui.init({
         swipeBack: true //启用右滑关闭功能
     });
+{% if ad.is_weixin %}
+    function wxinit(){
+        $.ajax({url:"/uc/weixin/jsconfig?url="+window.location.origin + window.location.pathname,
+                success : function(data) {
+                    wx.config({
+                      debug: false,
+                      appId: data.appId,
+                      timestamp: data.timestamp,
+                      nonceStr: data.nonceStr,
+                      signature: data.signature,
+                      jsApiList: [
+                        'checkJsApi',
+                        'chooseImage',
+                        'previewImage',
+                        'uploadImage'
+                      ]
+                  });
+                },
+                error : function(err, textStatus) {
+                    console.log(err);
+                }
+        });        
+    }
+{%endif%}
 
     $(function(){
-
        $("#file").change(function(e){
-             var file = e.target.files||e.dataTransfer.files;
-             if(file){
+            var file = e.target.files||e.dataTransfer.files;
+            if(file){
                  var reader = new FileReader();
                  reader.onload=function(){
                     var img = document.getElementsByClassName("showimg")[0];
                     img.src = this.result;
                  }
                 reader.readAsDataURL(file[0]);
-            }
+            }          
       });
 
        $("#file2").change(function(e){
-             var file = e.target.files||e.dataTransfer.files;
-             if(file){
+            var file = e.target.files||e.dataTransfer.files;
+            if(file){
                  var reader = new FileReader();
                  reader.onload=function(){
                     var img = document.getElementsByClassName("list_img_holder")[0];
@@ -92,6 +118,34 @@
 
     function formSubmit(){
         document.getElementById("form").submit();
+    }
+
+    function wechatImg1(){
+        wx.chooseImage({  
+            count: 1, // 默认9  
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
+            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
+            success: function (res) {  
+                var localIds = res.localIds;   
+                // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片  
+                // localId 可以用于微信手机版图片显示（目前PC版不可用）  
+                $('#showimg').attr('src',localIds[0]);  
+            }  
+        });  
+    }
+
+    function wechatImg2(){
+        wx.chooseImage({  
+            count: 1, // 默认9  
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
+            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
+            success: function (res) {  
+                var localIds = res.localIds;   
+                // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片  
+                // localId 可以用于微信手机版图片显示（目前PC版不可用）  
+                $('#list_img_holder').attr('src',localIds[0]);  
+            }  
+        });  
     }
 
 

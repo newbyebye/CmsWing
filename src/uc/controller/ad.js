@@ -34,8 +34,7 @@ export default class extends Base {
   async addAction() {
     //判断是否登陆
     await this.weblogin();
-    
-    this.assign("ad", {id : 0, type: this.param("type")});
+    this.assign("ad", {id : 0, type: this.param("type"), is_weixin: is_weixin(this.userAgent())});
     //判断浏览客户端
     if (checkMobile(this.userAgent())) {
       this.active = "ad/add";
