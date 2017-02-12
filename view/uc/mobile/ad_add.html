@@ -47,9 +47,10 @@
         {%endif%}
 
             <input id="ad_id" name="ad_id" type="hidden" value="{{ad.id}}">
-            <input id="ad_type" name="ad_type" type="hidden" value="{{ad.type}}">
+            <input id="ad_type" name="ad_type" type="hidden" value="{{ad.picture_url}}">
+            <input id="ad_picUrl" name="ad_picUrl" type="hidden" value="{{ad.type}}">
             <input id="wx_serverId1" name="wx_serverId1" type="hidden">
-            <input id="wx_serverId2" name="wx_serverId1" type="hidden">
+            <input id="wx_serverId2" name="wx_serverId2" type="hidden">
             <button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="formSubmit()">
             {% if ad.type == 0 %}{% if ad.id %}更新广告{%else%}添加广告{%endif%}{%else%}{% if ad.id %}更新名片{%else%}添加名片{%endif%}{%endif%}
             </button>
@@ -106,6 +107,7 @@
                     img.src = this.result;
                  }
                 reader.readAsDataURL(file[0]);
+                $("#ad_picUrl").val(file[0].name);
             }          
       });
 
@@ -118,6 +120,7 @@
                     img.src = this.result;
                  }
                 reader.readAsDataURL(file[0]);
+                $("#ad_picUrl").val(file[0].name);
             }
       });
     });
@@ -136,6 +139,7 @@
                 // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片  
                 // localId 可以用于微信手机版图片显示（目前PC版不可用）  
                 $('#showimg').attr('src',localIds[0]);
+                $("#ad_picUrl").val(localIds[0]);
 
                 wx.uploadImage({
                     localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
@@ -159,6 +163,7 @@
                 // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片  
                 // localId 可以用于微信手机版图片显示（目前PC版不可用）  
                 $('#list_img_holder').attr('src',localIds[0]);
+                $("#ad_picUrl").val(localIds[0]);
                 wx.uploadImage({
                     localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
                     isShowProgressTips: 1, // 默认为1，显示进度提示

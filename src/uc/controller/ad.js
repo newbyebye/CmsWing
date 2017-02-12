@@ -130,7 +130,7 @@ export default class extends Base {
       title = this.param("ad_title2");
       serverId = this.param("wx_serverId2");
     }
-    console.log("*** ", file, title, serverId);
+    console.log("*** ", file, title, serverId, this.param("ad_picUrl"));
 
     let res;
     if (file.originalFilename != ""){
