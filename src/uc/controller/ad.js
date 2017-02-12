@@ -123,7 +123,7 @@ export default class extends Base {
       if (err){
         deferred.reject(null);
       }else{
-        console.log(res);
+        //console.log(res);
 
         let filename = res.headers["content-disposition"].split("=")[1].replace('"', "").replace('"', "");
         let dateStr = dateformat("Y-m-d",new Date().getTime());
@@ -156,7 +156,7 @@ export default class extends Base {
       title = this.param("ad_title2");
       serverId = this.param("wx_serverId2");
     }
-    console.log("*** ", file, title, serverId, this.param("ad_picUrl"));
+    //console.log("*** ", file, title, serverId, this.param("ad_picUrl"));
     let res;
     if (file.originalFilename != ""){
         let filepath = file.path;
