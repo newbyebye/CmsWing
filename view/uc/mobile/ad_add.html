@@ -48,8 +48,8 @@
 
             <input id="ad_id" name="ad_id" type="hidden" value="{{ad.id}}">
             <input id="ad_type" name="ad_type" type="hidden" value="{{ad.type}}">
-            <input id="wx_serverId1" name="wechat_serverId1" type="hidden">
-            <input id="wx_serverId2" name="wechat_serverId2" type="hidden">
+            <input id="wx_serverId1" name="wx_serverId1" type="hidden">
+            <input id="wx_serverId2" name="wx_serverId1" type="hidden">
             <button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="formSubmit()">
             {% if ad.type == 0 %}{% if ad.id %}更新广告{%else%}添加广告{%endif%}{%else%}{% if ad.id %}更新名片{%else%}添加名片{%endif%}{%endif%}
             </button>

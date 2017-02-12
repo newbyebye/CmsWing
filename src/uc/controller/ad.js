@@ -40,7 +40,7 @@ export default class extends Base {
       ad.is_weixin = true;
 
       let wxUser = await this.model("wx_user").where({uid: this.user.uid}).find();
-      if (!think.isEmpty(wx_user)){
+      if (!think.isEmpty(wxUser)){
         ad.title = wxUser.nickname;
         ad.picture_url = wxUser.headimgurl;
         ad.phone = this.user.mobile;
