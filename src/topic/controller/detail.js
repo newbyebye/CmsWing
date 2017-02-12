@@ -16,7 +16,7 @@ export default class extends Base {
         return html;
       }
       else{
-        let html =`<div class="mui-bar-ad">`;
+        let html =`<div class="mui-bar-ad" style="height:95px">`;
         html += `<font>广告</font>`;
         html += `<a class="cart" href="tel:`+ ad.phone +`" onclick="adhits('`+id+`')">`;
         html += `<span><img src="`+pic.path+`">`+ad.title+`<br>`+ad.memo+`<br>`+ad.phone+`</span></a><div></div></div>`;
