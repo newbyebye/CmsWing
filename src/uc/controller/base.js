@@ -6,6 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 'use strict';
+import API from 'wechat-api';
 
 export default class extends think.controller.base {
   init(http) {
@@ -16,6 +17,7 @@ export default class extends think.controller.base {
     await this.action("weixin", "oauth");
     //网站配置
     this.setup = await this.model("setup").getset();
+    this.api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
     // console.log(this.setup);
     //当前登录状态
     this.is_login = await this.islogin();

@@ -3,15 +3,9 @@
 import Base from './base.js';
 import * as fs from 'fs';
 import * as path from 'path';
-import API from 'wechat-api';
+
 
 export default class extends Base {
-  async __before() {
-    //网站配置
-    this.setup = await this.model("setup").getset();
-    this.api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
-  }
-
   /**
    * index action
    * @return {Promise} []
