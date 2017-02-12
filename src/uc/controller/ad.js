@@ -37,9 +37,10 @@ export default class extends Base {
     await this.weblogin();
 
     let ad = {id : 0, type: this.param("type"), is_weixin: false};
-    if (parseInt(this.param("type")) == 1 && is_weixin(this.userAgent())){
+    if (is_weixin(this.userAgent())){
       ad.is_weixin = true;
-
+    }
+    if (parseInt(this.param("type")) == 1){
       let wxUser = await this.model("wx_user").where({uid: this.user.uid}).find();
       if (!think.isEmpty(wxUser)){
         ad.title = wxUser.nickname;
