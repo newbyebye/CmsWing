@@ -8,12 +8,21 @@ export default class extends Base {
     let ad = await this.model('ad').where({'id': id}).find();
     if (!think.isEmpty(ad)){
       let pic = await this.model('picture').where({id: ad.picture_id}).find();
-
-      let html =`<div class="mui-bar-ad">`;
-      html += `<font>广告</font>`;
-      html += `<a href="http://`+ ad.redirect +`" onclick="adhits('`+id+`')">`;
-      html += `<img src="`+pic.path+`" style="min-width: 360px;"></a></div>`;
-      return html;
+      if (ad.type == 0){
+        let html =`<div class="mui-bar-ad">`;
+        html += `<font>广告</font>`;
+        html += `<a href="http://`+ ad.redirect +`" onclick="adhits('`+id+`')">`;
+        html += `<img src="`+pic.path+`" style="min-width: 360px;"></a></div>`;
+        return html;
+      }
+      else{
+        let html =`<div class="mui-bar-ad">`;
+        html += `<font>广告</font>`;
+        html += `<a class="cart" href="tel:`+ ad.phone +`" onclick="adhits('`+id+`')">`;
+        html += `<span><img src="`+pic.path+`">`+ad.title+`<br>`+ad.memo+`<br>`+ad.phone+`</span></a><div></div></div>`;
+        return html;
+      }
+      
     }
     else{
       return "";

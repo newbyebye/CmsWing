@@ -35,7 +35,7 @@ export default class extends Base {
     //判断是否登陆
     await this.weblogin();
     
-    this.assign("ad", {id : 0});
+    this.assign("ad", {id : 0, type: this.param("type")});
     //判断浏览客户端
     if (checkMobile(this.userAgent())) {
       this.active = "ad/add";
@@ -43,6 +43,19 @@ export default class extends Base {
     } else {
       return this.display();
     }
+  }
+
+  async typeAction() {
+    await this.weblogin();
+
+    //判断浏览客户端
+    if (checkMobile(this.userAgent())) {
+      this.active = "ad/add";
+      return this.display(`mobile/${this.http.controller}/${this.http.action}`);
+    } else {
+      return this.display();
+    }
+
   }
 
   async defaultAction(){
@@ -90,8 +103,21 @@ export default class extends Base {
   async updateAction(){
     await this.weblogin();
 
+    let type = parseInt(this.param("ad_type"));
+    
+    console.log("**** ", type);
+ 
     //console.log("", this.param("ad_title"), this.param("ad_id"), this.param("ad_redirect"));
-    let file = think.extend({}, this.file('file'));
+    let file;
+    let title;
+    if (type == 0){
+      file = think.extend({}, this.file('file'));
+      title = this.param("ad_title");
+    }
+    else{
+      file = think.extend({}, this.file('file2'));
+      title = this.param("ad_title2");
+    }
 
     let res;
     if (file.originalFilename != ""){
@@ -142,8 +168,11 @@ export default class extends Base {
         let data = {
           user_id : this.user.uid,
           picture_id: res,
-          title : this.param("ad_title"),
-          redirect : this.param("ad_redirect")
+          title : title,
+          redirect : this.param("ad_redirect"),
+          type: type,
+          memo: this.param("ad_memo"),
+          phone: this.param("ad_phone")
         }
         let ad = await this.model("ad").where({user_id:this.user.uid}).find();
         if (think.isEmpty(ad)){
@@ -155,8 +184,10 @@ export default class extends Base {
     else{
       // updata
       let data = {
-          title : this.param("ad_title"),
-          redirect : this.param("ad_redirect")
+          title : title,
+          redirect : this.param("ad_redirect"),
+          memo: this.param("ad_memo"),
+          phone: this.param("ad_phone")
       }
       if (!think.isEmpty(res)){
           data.picture_id = res;

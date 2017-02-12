@@ -3,12 +3,13 @@
 {% include "../../topic/mobile/inc/nav.html" %}
 
 <!--下拉刷新容器-->
-<div id="pullrefresh" class="mui-content">
+<div  class="mui-content">
     <div class="mui-content-padded">
         <button id="addAd" type="button" class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" onclick="openAddAd()">添加广告</button>
     </div>
   
        {%for v in list%}
+            {%if v.type == 0%}
             <div class="mui-card">
                 <div class="mui-card-header">{{v.title}}
                 <a class="mui-card-link">点击量:&nbsp{{v.view}}</a>
@@ -22,6 +23,39 @@
                     <a class="mui-card-link" href="/uc/ad/del/id/{{v.id}}">删除</a>
                 </div>
             </div>
+            {%else%}
+            <div class="mui-card">
+                <div class="mui-card-header">名片
+                <a class="mui-card-link">点击量:&nbsp{{v.view}}</a>
+                </div>
+                <div class="mui-card-content" >
+                    
+
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell mui-media">
+                         
+                        <div class="mui-row" style="height: 100px">
+                            <div class="mui-col-sm-4 mui-col-xs-4 ">
+                                <img class="list_img_holder" src="{{v.picture_url}}" height='80px' width='80px' onclick="$('input[id=file2]').click();">
+                                <input id="file2" name="file2" type="file" style="display:none">
+                            </div>
+                            <div class="mui-col-sm-8 mui-col-xs-8">
+                               <p style="font-size: 14px; padding-left:0px;border:1px solid rgba(0,0,0,0);color:#000000;height: 25px;margin-bottom:5px">{{v.title}}</p>
+                               <p style="font-size: 14px; padding-left:0px;border:1px solid rgba(0,0,0,0);color:#000000;height: 25px;margin-bottom:5px">{{v.memo}}</p>
+                               <p style="font-size: 14px; padding-left:0px;border:1px solid rgba(0,0,0,0);color:#000000;height: 25px;margin-bottom:5px">{{v.phone}}</p>
+                            </div>
+                        </div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="mui-card-footer">
+                    <a class="mui-card-link" href="/uc/ad/default/id/{{v.id}}" {% if v.default %} style="color: #FF0000"{%endif%}  >设为默认</a>
+                    <a class="mui-card-link" href="/uc/ad/edit/id/{{v.id}}">编辑</a>
+                    <a class="mui-card-link" href="/uc/ad/del/id/{{v.id}}">删除</a>
+                </div>
+            </div>
+            {%endif%}
        {%endfor%}
 
 </div>
@@ -47,7 +81,7 @@
     });
 
     function openAddAd(){
-        mui.openWindow("/uc/ad/add");
+        mui.openWindow("/uc/ad/type");
     }
 </script>
 

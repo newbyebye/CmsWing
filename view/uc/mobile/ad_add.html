@@ -4,11 +4,12 @@
 
 <header class="mui-bar mui-bar-nav">
             <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-            <h1 class="mui-title">{% if ad.id %}更新广告{%else%}添加广告{%endif%}</h1>
+            <h1 class="mui-title">{% if ad.type == 0 %}图片链接模式{%else%}名片模式{%endif%}</h1>
 </header>
 <div class="mui-content">
     <div class="mui-content-padded" style="margin: 5px;">
         <form id="form" action="/uc/ad/update" enctype="multipart/form-data" method="post">
+        {% if ad.type == 0 %}
             <h5>广告标题(*)</h5>
             <div class="mui-input-row">
                 <input id="ad_title" name="ad_title" type="text" value="{{ad.title}}" placeholder="广告标题">
@@ -19,17 +20,37 @@
                 <img class="showimg" src="{{ad.picture_url}}" height='100' width='100%' onclick="$('input[id=file]').click();" />
             </div>
             <input id="file" name="file" type="file" style="display:none">
-            <div class="input-append">
-               <input id="photoCover" class="input-large" type="text" style="display:none">
-            </div>
 
             <h5>跳转链接地址</h5>
             <div class="mui-input-row">
                 <input id="ad_redirect" name="ad_redirect" type="text" value="{{ad.redirect}}" placeholder="URL地址：可是微店、H5、官网等">
             </div>
+        {%else%}
+            <h4>名片设计</h4>
+            
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell mui-media">
+                 
+                <div class="mui-row" style="height: 100px">
+                    <div class="mui-col-sm-4 mui-col-xs-4 ">
+                        <img class="list_img_holder" src="{{ad.picture_url}}" height='80px' width='80px' onclick="$('input[id=file2]').click();">
+                        <input id="file2" name="file2" type="file" style="display:none">
+                    </div>
+                    <div class="mui-col-sm-8 mui-col-xs-8">
+                       <input id="ad_title2" name="ad_title2" type="text" value="{{ad.title}}" placeholder="姓名" style="font-size: 14px; padding-left:0px;border:1px solid rgba(0,0,0,0);color:#000000;height: 25px;margin-bottom:5px">
+                       <input id="ad_memo" name="ad_memo" type="text" value="{{ad.memo}}" placeholder="简介" style="font-size: 14px; padding-left:0px;border:1px solid rgba(0,0,0,0);color:#000000;height: 25px;margin-bottom:5px">
+                       <input id="ad_phone" name="ad_phone" type="text" value="{{ad.phone}}" placeholder="联系方式" style="font-size: 14px; padding-left:0px;border:1px solid rgba(0,0,0,0);color:#000000;height: 25px;margin-bottom:5px">    
+                    </div>
+                </div>
+                </li>
+            </ul>
+        {%endif%}
 
             <input id="ad_id" name="ad_id" type="hidden" value="{{ad.id}}">
-            <button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="formSubmit()">{% if ad.id %}更新广告{%else%}添加广告{%endif%}</button>
+            <input id="ad_type" name="ad_type" type="hidden" value="{{ad.type}}">
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="formSubmit()">
+            {% if ad.type == 0 %}{% if ad.id %}更新广告{%else%}添加广告{%endif%}{%else%}{% if ad.id %}更新名片{%else%}添加名片{%endif%}{%endif%}
+            </button>
   
         </form>
     </div>
@@ -43,9 +64,6 @@
     });
 
     $(function(){
-        $('input[id=file]').change(function() {
-           $('#photoCover').val($(this).val());
-        });
 
        $("#file").change(function(e){
              var file = e.target.files||e.dataTransfer.files;
@@ -53,6 +71,18 @@
                  var reader = new FileReader();
                  reader.onload=function(){
                     var img = document.getElementsByClassName("showimg")[0];
+                    img.src = this.result;
+                 }
+                reader.readAsDataURL(file[0]);
+            }
+      });
+
+       $("#file2").change(function(e){
+             var file = e.target.files||e.dataTransfer.files;
+             if(file){
+                 var reader = new FileReader();
+                 reader.onload=function(){
+                    var img = document.getElementsByClassName("list_img_holder")[0];
                     img.src = this.result;
                  }
                 reader.readAsDataURL(file[0]);

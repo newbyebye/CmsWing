@@ -1,0 +1,31 @@
+{% extends "../../topic/mobile/inc/base.html" %}
+{% block content %}
+
+
+<header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+            <h1 class="mui-title">广告类型</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded" style="margin: 5px;">
+        <button id="addAd" type="button" disabled="true" class="mui-btn mui-btn-primary mui-btn-disable mui-btn-block mui-btn-outlined">请选择一种广告形式</button>
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="openAddAd('0')">图片链接模式</button>
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="openAddAd('1')">名片模式</button>
+  
+    </div>
+</div>
+{% endblock%}
+
+{% block script %}
+<script>
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+    function openAddAd(type){
+        mui.openWindow("/uc/ad/add/type/"+type);
+    }
+
+</script>
+
+{% endblock %}
