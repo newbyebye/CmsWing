@@ -1,5 +1,5 @@
 <nav class="mui-bar mui-bar-tab">
-    <a class="mui-tab-item " href="/index">
+    <a class="mui-tab-item {% if controller.http.url == '/index' %}mui-active{%endif%}" href="/index">
         <span class="mui-icon iconfont icon-home"></span>
         <span class="mui-tab-label">首页</span>
     </a>
@@ -11,17 +11,17 @@
         <span class="mui-icon mui-icon-flag"></span>
         <span class="mui-tab-label">任务</span>
     </a>
-    <a class="mui-tab-item {% if controller.http.url.startsWith('/uc/ad') %}mui-active{%endif%}" href="/uc/ad">
+    <a class="mui-tab-item {% if controller.http.url == '/uc/ad' %}mui-active{%endif%}" href="/uc/ad">
         <span class="mui-icon iconfont icon-shoplight"></span>
         <span class="mui-tab-label">广告</span>
     </a>
     {% if controller.is_login %}
-    <a class="mui-tab-item" href="/uc">
+    <a class="mui-tab-item {% if controller.http.url == '/uc' %}mui-active{%endif%}" href="/uc">
         <span class="mui-icon iconfont icon-my"></span>
         <span class="mui-tab-label">我的</span>
     </a>
     {%else%}
-    <a class="mui-tab-item" href="/uc/public/login">
+    <a class="mui-tab-item {% if controller.http.url == '/uc/public/login' %}mui-active{%endif%}" href="/uc/public/login">
         <span class="mui-icon iconfont icon-myfill"></span>
         <span class="mui-tab-label">登录</span>
     </a>
