@@ -120,7 +120,13 @@ export default class extends Base {
         deferred.reject(null);
       }else{
         console.log(res);
-        deferred.resolve(data);
+
+        let filename = res.headers["content-disposition"].split("=")[1].replace('"');
+        let uploadPath = think.RESOURCE_PATH + '/upload/picture/'+dateformat("Y-m-d",new Date().getTime());
+        think.mkdir(uploadPath);
+
+        fs.writeFileSync(uploadPath+"/"+filename);
+        deferred.resolve(uploadPath+"/"+filename);
       }
     });
 
@@ -204,9 +210,14 @@ export default class extends Base {
         }
     }
     else if (!think.isEmpty(serverId)){
-      let data = await wxGetMedia(serverId);
-      if (think.isEmpty(data)){
-
+      let path = await this.wxGetMedia(serverId);
+      if (think.isEmpty(path)){
+        let data ={
+            path:path,
+            create_time:new Date().getTime(),
+            status:1,
+        }
+        res = await this.model("picture").data(data).add();
       }
     }
 
