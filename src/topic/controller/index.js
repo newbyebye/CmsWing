@@ -8,7 +8,7 @@
 'use strict';
 import moment from "moment"
 moment.locale('zh-cn');
-import Base from './base.js';
+import Base from '../../common/controller/base.js';
 export default class extends Base {
   init(http){
     super.init(http);
@@ -23,24 +23,8 @@ export default class extends Base {
     this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
     this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
     //debugger;
-    //判断浏览客户端
-    if(checkMobile(this.userAgent())){
-      //跨域
-      let method = this.http.method.toLowerCase();
-      if(method === "options"){
-        this.setCorsHeader();
-        this.end();
-        return;
-      }
-      this.setCorsHeader();
 
-      return this.display(`mobile/${this.http.controller}/${this.http.action}`)
-    }else{
-      //debugger;
-      //console.log(think.datetime(new Date(), "YYYY-MM-DD"));
-      return this.display();
-    }
-
+    return this._display();
   }
   /**
    * 解析路由，判断是频道页面还是列表页面

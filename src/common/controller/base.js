@@ -6,7 +6,6 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 'use strict';
-import API from 'wechat-api';
 
 export default class extends think.controller.base {
   init(http) {
@@ -22,10 +21,9 @@ export default class extends think.controller.base {
   }
 
   async __before() {
-    await this.action("weixin", "oauth");
+    //await this.action("uc/weixin", "oauth");
     //网站配置
     this.setup = await this.model("setup").getset();
-    this.api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
     // console.log(this.setup);
     //当前登录状态
     this.is_login = await this.islogin();
@@ -72,7 +70,6 @@ export default class extends think.controller.base {
       }
     }
     this.cart = cartInfo;
-    //console.log(this.cart);
   }
   /**
    * 判断是否登录
@@ -218,4 +215,5 @@ export default class extends think.controller.base {
     this.header("Access-Control-Request-Method", "GET,POST,PUT,DELETE");
     this.header("Access-Control-Allow-Credentials", "true");
   }
+
 }

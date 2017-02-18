@@ -14,6 +14,9 @@ export default {
     ext:{//扩展
         reg:/^ext/
     },
+    task:{//任务
+        reg:/^task/
+    },
     //默认走topic
     topic: {//网站信息统一输出口
 

@@ -1,6 +1,13 @@
-{% extends "../inc/base.html" %}
+{% extends "../../common/inc/mobile/appbase.html" %}
 {% block content %}
 
+<header class="mui-bar mui-bar-nav">
+
+ <!--
+    <a href="/uc/cart/index" class="mui-icon iconfont icon-cart"><span class="mui-badge">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></a> -->
+    <h1 class="mui-title">制作春联</h1>
+    <!-- <a class="mui-icon iconfont icon-search mui-pull-right"></a> -->
+</header>
 
 {%if category.id%}
 {% groups data="groups",cid=category.id%}
@@ -9,11 +16,27 @@
 
 <div class="mui-content">
 
+<form action="/chunlian/gen" method="post" class="form-post" >
+<div class="mui-input-group mui-table-view">
+    <div class="mui-input-row">
+        <label>上联</label>
+        <input type="text" placeholder="写句上联" name="up" value="{{info.up}}">
+    </div>
+    <div class="mui-input-row">
+        <label>下联</label>
+        <input type="text" placeholder="写句下联" name="down" value="{{info.down}}">
+    </div>
+    <div class="mui-input-row">
+        <label>横批</label>
+        <input type="text" placeholder="再加个横排" name="title" value="{{info.title}}">
+    </div>
 
-<div class="mui-input-group mui-table-view" style="text-align:center;">
-    <img src="{{info.img}}" height="400px" width="233px" style="">
+        <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
+            <input type="hidden" value="{{http.referrer()}}" name="resurl" class="id">
+            <button  type="submit" class="mui-btn mui-btn-primary mui-btn-block addr">开始制作</button>
+        </div>
 </div>
-
+</form>
     
 </div>
 
@@ -21,56 +44,7 @@
 {% endblock%}
 
 {% block script %}
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
-    function wxinit(){
-        $.ajax({url:"/uc/weixin/jsconfig?url="+window.location.origin + window.location.pathname,
-                success : function(data) {
-                    wx.config({
-                      debug: false,
-                      appId: data.appId,
-                      timestamp: data.timestamp,
-                      nonceStr: data.nonceStr,
-                      signature: data.signature,
-                      jsApiList: [
-                        'checkJsApi',
-                        'getNetworkType',
-                        'previewImage',
-                        'onMenuShareTimeline',
-                        'onMenuShareAppMessage',
-                        'onMenuShareQQ',
-                        'onMenuShareWeibo',
-                        'onMenuShareQZone',
-                        'hideMenuItems',
-                        'showMenuItems',
-                        'hideAllNonBaseMenuItem',
-                        'showAllNonBaseMenuItem'
-                      ]
-                  });
-                },
-                error : function(err, textStatus) {
-                    console.log(err);
-                }
-        });        
-    }
-
-    wx.ready(function (){
-        let shareData = {
-            title: '我亲手贴了春联，你也来试试吧', // 分享标题
-            link: 'http://ad.weishitianli.com/{{info.img}}', // 分享链接
-            imgUrl: 'http://ad.weishitianli.com/{{info.img}}', // 分享图标
-        };
-        wx.onMenuShareTimeline(shareData);
-        wx.onMenuShareAppMessage(shareData);
-    });
-
-    function weshare(){
-        
-    }
-
-    $(document).ready(function(){
-        wxinit();
-    });
 
     //console.log();
     mui.init();

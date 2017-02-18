@@ -1,0 +1,43 @@
+{% extends "../../common/inc/mobile/appbase.html" %}
+{% block content %}
+
+{% include "../../common/inc/mobile/nav.html" %}
+<!--这里放置真实显示的DOM内容-->
+
+{% endblock%}
+
+{% block script %}
+<script type="text/javascript">
+ mui.init({
+        swipeBack:true //启用右滑关闭功能
+    });
+    var slider = mui("#sliderpic");
+    slider.slider({
+        interval: 5000
+    });
+    //alert(mui.os.plus)
+    mui('.mui-scroll-wrapper').scroll({
+        deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+    });
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#top"){
+                mui.scrollTo(0,500);
+            }else if(href=="#shoucang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else if(href=="#fenxiang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else {
+                mui.openWindow({url: href})
+            }
+
+        })
+    } 
+</script>
+{% endblock %}

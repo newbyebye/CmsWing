@@ -7,7 +7,7 @@
         <span class="mui-icon iconfont icon-community"></span>
         <span class="mui-tab-label">文库</span>
     </a>
-    <a class="mui-tab-item {% if 8 == category.model %}mui-active{%endif%}" href="/question">
+    <a class="mui-tab-item {% if controller.http.url.startsWith('/task') %}mui-active{%endif%}" href="/task">
         <span class="mui-icon mui-icon-flag"></span>
         <span class="mui-tab-label">任务</span>
     </a>

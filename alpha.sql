@@ -2595,12 +2595,54 @@ CREATE TABLE `alpha_ad` (
 DROP TABLE IF EXISTS `alpha_ad_article`;
 CREATE TABLE `alpha_ad_article` ( 
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `document_id` bigint(11) DEFAULT NULL COMMENT '图片id',
+  `document_id` bigint(11) DEFAULT NULL COMMENT '文章id',
   `ad_id` bigint(11) DEFAULT NULL COMMENT '嵌入广告id',
   `view` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '文章浏览量',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
+
+DROP TABLE IF EXISTS `alpha_task`;
+CREATE TABLE `alpha_task` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL COMMENT '任务主ID',
+  `document_id` varchar(255) NOT NULL COMMENT '广告文章id',
+  `amount` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '任务金额',
+  `view` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '浏览量',
+  `type` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '任务类型',
+  `publish_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '任务发布时间',
+  `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '执行行为的时间',
+  `update_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '执行行为的时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `alpha_task_link`;
+CREATE TABLE `alpha_task_link` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL COMMENT '承接任务个人id',
+  `task_id` varchar(255) NOT NULL COMMENT '任务id',
+  `view` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '浏览量',
+  `completed` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '任务完成统计',
+  `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '执行行为的时间',
+  `update_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '执行行为的时间',
+
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `alpha_task_record`;
+CREATE TABLE `alpha_task_record` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `task_link_id` bigint(20) NOT NULL COMMENT '任务链接id',
+  `user_id` varchar(255) NOT NULL COMMENT '用户ID',
+  `action_ip` bigint(20) NOT NULL COMMENT '执行行为者ip',
+  `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '执行行为的时间',
+  `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '日志备注',
+
+  PRIMARY KEY (`id`),
+  KEY `alpha_task_record_ip_ix` (`action_ip`),
+  KEY `alpha_task_record_link_ix` (`task_link_id`),
+  KEY `alpha_task_record_user_ix` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 
 

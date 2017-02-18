@@ -3,5 +3,5 @@
  * template config
  */
 export default {
-    file_depr: '/'
+    //file_depr: '/'
 };

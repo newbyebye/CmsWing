@@ -1,24 +1,29 @@
-{% extends "../inc/base.html" %}
+{% extends "../../common/inc/mobile/appbase.html" %}
 {% block content %}
-
-{% include "../inc/nav.html" %}
-{%if category.id%}
-{% groups data="groups",cid=category.id%}
-{%set cate = category.id|get_cate()%}
-{%endif%}
-
+<header class="mui-bar mui-bar-nav">
+    <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+    <a href="/uc/cart/index" class="mui-icon iconfont icon-cart"><span class="mui-badge">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></a>
+    <h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
+    <a class="mui-icon iconfont icon-search mui-pull-right"></a>
+</header>
+{% include "../../../common/inc/mobile/nav.html" %}
+{% include "../../../common/inc/mobile/sliderbar.html" %}
 <!--下拉刷新容器-->
 <div id="pullrefresh" class="mui-content mui-scroll-wrapper list-content">
     <div class="mui-scroll">
         <!--数据列表-->
         <ul class="mui-table-view ">
-            {%for v in list.data%}
+            {%for v in list%}
             <!--如果有缩略图-->
             {%if v.cover_id >0%}
             {% if v.model_id == 5%}
             <li class="mui-table-view-cell mui-media">
                 <a href="{{v.name|get_url(v.id)}}">
+
+
                     <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+
+
                     <div class="mui-row">
                         <div class="mui-col-sm-12 mui-col-xs-12">
                             <img class="list_img_holder" src="{{v.cover_id|get_pic('m=0,w=360')}}">
@@ -27,9 +32,9 @@
                     <p class="item_info">
 
                         <span class="src space">{{v.uid|get_nickname}}</span>
-                        <span class="cmt space"></span>
+                        <span class="cmt space">评论&nbsp;2323</span>
 
-                        <span class="time" >{{v.update_time|moment}}</span>
+                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
 
                     </p>
 
@@ -45,9 +50,9 @@
                             <p class="item_info">
 
                                 <span class="src space">{{v.uid|get_nickname}}</span>
-                                <span class="cmt space"></span>
+                                <span class="cmt space">评论&nbsp;2323</span>
 
-                                <span class="time" >{{v.update_time|moment}}</span>
+                                <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
 
                             </p>
                         </div>
@@ -80,9 +85,9 @@
                     <p class="item_info">
 
                         <span class="src space">{{v.uid|get_nickname}}</span>
-                        <span class="cmt space"></span>
+                        <span class="cmt space">评论&nbsp;2323</span>
 
-                        <span class="time" >{{v.update_time|moment}}</span>
+                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
 
                     </p>
 
@@ -97,9 +102,9 @@
                             <h4 class="dotdot line2 ">{{v.title}}</h4>
                             <p class="item_info">
                                 <span class="src space">{{v.uid|get_nickname}}</span>
-                                <span class="cmt space"></span>
+                                <span class="cmt space">评论&nbsp;2323</span>
 
-                                <span class="time" >{{v.update_time|moment}}</span>
+                                <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
 
                             </p>
                         </div>
@@ -120,9 +125,9 @@
                     <p class="item_info">
 
                         <span class="src space">{{v.uid|get_nickname}}</span>
-                        <span class="cmt space"></span>
+                        <span class="cmt space">评论&nbsp;0</span>
 
-                        <span class="time" >{{v.update_time|moment}}</span>
+                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
 
                     </p>
 
@@ -130,8 +135,6 @@
             </li>
             {%endif%}
             {%endfor%}
-
-
         </ul>
     </div>
 </div>
@@ -157,7 +160,7 @@
             <p class="item_info">
 
                 <span class="src space"><%=v.uid%></span>
-                <span class="cmt space"></span>
+                <span class="cmt space">评论&nbsp;2323</span>
 
                 <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
 
@@ -175,7 +178,7 @@
                     <p class="item_info">
 
                         <span class="src space"><%=v.uid%></span>
-                        <span class="cmt space"></span>
+                        <span class="cmt space">评论&nbsp;2323</span>
 
                         <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
 
@@ -209,7 +212,7 @@
             <p class="item_info">
 
                 <span class="src space"><%=v.uid%></span>
-                <span class="cmt space"></span>
+                <span class="cmt space">评论&nbsp;2323</span>
 
                 <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
 
@@ -226,7 +229,7 @@
                     <h4 class="dotdot line2 "><%=v.title%></h4>
                     <p class="item_info">
                         <span class="src space"><%=v.uid%></span>
-                        <span class="cmt space"></span>
+                        <span class="cmt space">评论&nbsp;2323</span>
 
                         <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
 
@@ -249,7 +252,7 @@
             <p class="item_info">
 
                 <span class="src space"><%=v.uid%></span>
-                <span class="cmt space"></span>
+                <span class="cmt space">评论&nbsp;0</span>
 
                 <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
 
@@ -265,8 +268,6 @@
 
 {% block script %}
 <script>
-
-    //console.log();
     var tplRender =  _.template(document.getElementById("tpl").innerHTML);
     mui.init({
         pullRefresh: {
@@ -280,17 +281,11 @@
             }
         }
     });
-    mui("#sliderSegmentedControl").on("tap","a.mui-control-item",function(){
-        var url = this.getAttribute("data-url");
-        //打开关于页面
-        //alert(url)
-        mui.openWindow({
-            url: url
-        });
-    })
+
     mui("#pullrefresh .mui-table-view").on("tap","li.mui-table-view-cell > a",function(){
         var url = this.getAttribute("href");
         //打开关于页面
+        //alert(url)
         mui.openWindow({
             url: url
         });
@@ -298,7 +293,8 @@
     var tops=parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
     var size=parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
     //记录位置
-    window.onscroll = function () {
+    document.getElementById("pullrefresh").onscroll = function () {
+
         var patt1 = /\(.*?\)/;
         var srtY = document.querySelector('#pullrefresh .mui-scroll').style.transform || document.querySelector('#pullrefresh .mui-scroll').style["-webkit-transform"];
         if (srtY) {
@@ -306,7 +302,9 @@
         } else {
             var Y = 0;
         }
+        console.log(Y)
         var S = document.querySelector('#pullrefresh .mui-table-view').querySelectorAll('li.mui-table-view-cell').length;
+        console.log(Y);
         if (window.sessionStorage) {
             sessionStorage.setItem("{{http.url}}_top", Y);
             sessionStorage.setItem("{{http.url}}_size", S);
@@ -316,7 +314,6 @@
      * 下拉刷新具体业务实现
      */
     function pulldownRefresh() {
-        /*
         setTimeout(function() {
             var table = document.body.querySelector('.mui-table-view');
             var cells = document.body.querySelectorAll('.mui-table-view-cell');
@@ -327,11 +324,10 @@
                 //下拉刷新，新纪录插到最前面；
                 table.insertBefore(li, table.firstChild);
             }
-             //refresh completed
-        }, 1000);
-        */
-        mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+            mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+        }, 1500);
     }
+
     /**
      * 上拉加载具体业务实现
      */
@@ -340,7 +336,7 @@
 
             var table = document.body.querySelector('#pullrefresh .mui-table-view');
             var cells = document.body.querySelectorAll('#pullrefresh .mui-table-view-cell');
-            var count = "{{list.count}}";
+            var count = "{{count}}";
             console.log((parseInt(count) > cells.length));
 
             if(parseInt(cells.length) < parseInt(count)){
@@ -366,10 +362,9 @@
             dataType:'json',//服务器返回json格式数据
             type:'get',//HTTP请求类型
             success:function(data){
-                $('#pullrefresh .mui-table-view').append(tplRender(data));
-                //获得服务器响应
+//                //获得服务器响应
 //                console.log();
-//             var fragment = document.createDocumentFragment();
+//                var fragment = document.createDocumentFragment();
 //                var li;
 //                for (var i = 0; i < data.data.length; i++) {
 //                    li = document.createElement('li');
@@ -383,13 +378,14 @@
 //                            '</a>';
 //                    fragment.appendChild(li);
 //                }
-                //console.log($(tplRender(data)));
-                //document.getElementById("tpl").innerHTML= tplRender(data)
-
+//                table.appendChild(fragment);
+                $('#pullrefresh .mui-table-view').append(tplRender(data));
             }
         });
 
     };
+    //alert(mui.os.plus)
+
 
         mui.ready(function() {
 
@@ -403,16 +399,10 @@
             }
             mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
             //alert(1)
-            console.log()
-//            $('header').on('doubleTap',function () {
-//                alert(3)
-//            })
-            /*
             document.querySelector('header h1').addEventListener('tap',function () {
                 //内容区滚动到顶部
                 mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
             });
-            */
             var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
             for(var i = 0;i<btn.length;i++){
                 btn[i].addEventListener("tap",function () {
@@ -427,8 +417,5 @@
                 })
             }
         });
-
-
 </script>
-
 {% endblock %}
