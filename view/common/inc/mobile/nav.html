@@ -1,5 +1,5 @@
 <nav class="mui-bar mui-bar-tab">
-    <a class="mui-tab-item {% if controller.http.url == '/index' %}mui-active{%endif%}" href="/index">
+    <a class="mui-tab-item {% if controller.http.url == '/index' or controller.http.url == '/' %}mui-active{%endif%}" href="/index">
         <span class="mui-icon iconfont icon-home"></span>
         <span class="mui-tab-label">首页</span>
     </a>
