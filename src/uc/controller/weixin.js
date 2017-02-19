@@ -20,19 +20,19 @@ export default class extends Base {
     return this.display();
   }
 
-  async _oauthAction(){
+  async oauthxAction(){
     //微信公众账号内自动登陆
     let openid = await this.session("wx_openid");
     //let openid = null;
     if(think.isEmpty(openid)){
       this.cookie("cmswing_wx_url",this.http.url);
-      var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.setup.wx_AppID, `http://${this.http.host}/uc/weixin/_getopenid?showwxpaytitle=1`, 1);
+      var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.setup.wx_AppID, `http://${this.http.host}/uc/weixin/getopenidx?showwxpaytitle=1`, 1);
       console.log(oauthUrl)
       this.redirect(oauthUrl);
     }
   }
 
-  async _getopenidAction(){
+  async getopenidxAction(){
     let code =  this.get("code");
     if (think.isEmpty(code)){
       return think.statusAction(401, this.http);

@@ -5,7 +5,7 @@ import Base from '../../common/controller/base.js';
 export default class extends Base {
   async showAction(){
     let p = this.param("p");
-    await this.action("uc/weixin", "_oauth");
+    await this.action("uc/weixin", "oauthx");
 
     await this.weblogin();
     console.log(this.user);
