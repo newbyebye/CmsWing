@@ -30,6 +30,16 @@ export default class extends Base {
   }
 
   async adhitsAction(){
+    await this.weblogin();
+    console.log(this.user, this.http.ip());
+
+    let taskLink = await this.model('task_link').where({id:p}).find();
+    if (think.isEmpty(taskLink)){
+      return this.json({"errno":404,"errmsg":"error"});
+    }
+
+    let result = await this.model("task_record").thenAdd({task_link_id: this.param("id"), user_id: this.user.uid, action_ip:_ip2int(this.http.ip()), create_time: new Date().getTime()}, {task_link_id: this.param("id"), user_id: this.user.uid});
+
     return this.json({});
   }
 }

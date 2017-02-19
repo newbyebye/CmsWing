@@ -4,7 +4,7 @@
 style="margin-bottom: 150px;background-color: #FFFFFF"
 {%endblock%}
 
- {% block content %}
+{% block content %}
 
 {{adhtml | safe }}
  <div class="mui-content detail" style="background-color: #fff">
@@ -88,9 +88,10 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
         wxinit();
     });
 
-    mui.init()
+    mui.init();
+
     function adhits(id, redirect){
-        $.post("/task/detail/adhits",{"id":id, "r":Math.random()});
+        $.post("/task/detail/adhits",{"id":id, "__CSRF__":$('meta[name="__CSRF__"]').attr("content"), "r":Math.random()});
         window.location.href = "//"+redirect;
     }
  </script>
