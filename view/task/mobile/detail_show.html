@@ -43,12 +43,55 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
  {% endblock%}
 
  {% block script %}
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    function wxinit(){
+        $.ajax({url:"/uc/weixin/jsconfig?url="+window.location.origin + window.location.pathname,
+                success : function(data) {
+                    wx.config({
+                      debug: false,
+                      appId: data.appId,
+                      timestamp: data.timestamp,
+                      nonceStr: data.nonceStr,
+                      signature: data.signature,
+                      jsApiList: [
+                        'checkJsApi',
+                        'getNetworkType',
+                        'previewImage',
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage',
+                        'onMenuShareQQ',
+                        'onMenuShareWeibo',
+                        'onMenuShareQZone',
+                        'hideMenuItems',
+                        'showMenuItems',
+                        'hideAllNonBaseMenuItem',
+                        'showAllNonBaseMenuItem'
+                      ]
+                  });
+                },
+                error : function(err, textStatus) {
+                    console.log(err);
+                }
+        });        
+    }
 
-<script type="text/javascript">
-     mui.init()
-     function adhits(id, redirect){
+    wx.ready(function (){
+        let shareData = {
+            title: '{{info.title}}, 赶快来和我一起体验新产品吧！', // 分享标题
+        };
+        wx.onMenuShareTimeline(shareData);
+        wx.onMenuShareAppMessage(shareData);
+    });
+
+    $(document).ready(function(){
+        wxinit();
+    });
+
+    mui.init()
+    function adhits(id, redirect){
         $.post("/task/detail/adhits",{"id":id, "r":Math.random()});
         window.location.href = "//"+redirect;
-     }
+    }
  </script>
  {% endblock %}
