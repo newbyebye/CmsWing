@@ -5,6 +5,9 @@ import Base from '../../common/controller/base.js';
 export default class extends Base {
   async showAction(){
     let p = this.param("p");
+
+    await this.weblogin();
+    console.log(this.user);
     
     this.assign('id', p);
     let taskLink = await this.model('task_link').where({id:p}).find();
