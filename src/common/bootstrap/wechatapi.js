@@ -109,12 +109,12 @@ global.massSendVideo=(api,media_id,receivers)=>{
  * @param openid
  * @returns {Promise}
  */
-global.getUser=(api,openid, isOpen)=>{
+global.getUser=(api,openid, accessToken)=>{
     let deferred = think.defer();
-    if (isOpen){
-        api.request(url, {dataType: 'json'}, wrapper(function (err, data) {
+    if (accessToken){
+        api.request("https://api.weixin.qq.com/sns/userinfo?access_token="+accessToken+"&openid="+openid+"&lang=zh_CN", {dataType: 'json'}, wrapper(function (err, data) {
             if (!think.isEmpty(data)){
-                deferred.resolve(result);
+                deferred.resolve(data);
             }
             else{
                 console.error('err'+err);

@@ -41,9 +41,9 @@ export default class extends Base {
     //获取openid
     let getopenid = ()=>{
       let deferred = think.defer();
-      pingpp.wxPubOauth.getOpenid(this.setup.wx_AppID, this.setup.wx_AppSecret, code, function(err, openid){
+      pingpp.wxPubOauth.getOpenid(this.setup.wx_AppID, this.setup.wx_AppSecret, code, function(err, openid, response){
         //console.log(openid);
-        deferred.resolve(openid);
+        deferred.resolve(response);
         // ...
         // pass openid to extra['open_id'] and create a charge
         // ...
@@ -51,9 +51,11 @@ export default class extends Base {
       return deferred.promise;
     };
 
-    let openid = await getopenid();
-    console.log(think.isEmpty(openid));
-    let userinfo = await getUser(this.api, openid, true);
+    let response = await getopenid();
+    console.log(think.isEmpty(response["openid"]));
+    let openid = response["openid"];
+    let accessToken = response["access_token"];
+    let userinfo = await getUser(this.api, openid, accessToken);
     console.log(userinfo);
     
     
@@ -124,7 +126,7 @@ export default class extends Base {
     };
     let openid = await getopenid();
     console.log(think.isEmpty(openid));
-    let userinfo = await getUser(this.api, openid, false);
+    let userinfo = await getUser(this.api, openid);
     console.log(userinfo);
     //如果没有关注先跳到关注页面
     
