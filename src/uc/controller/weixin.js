@@ -19,6 +19,79 @@ export default class extends Base {
     //auto render template file index_index.html
     return this.display();
   }
+
+  async _oauthAction(){
+    //微信公众账号内自动登陆
+    let openid = await this.session("wx_openid");
+    //let openid = null;
+    if(think.isEmpty(openid)){
+      this.cookie("cmswing_wx_url",this.http.url);
+      var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.setup.wx_AppID, `http://${this.http.host}/uc/weixin/_getopenid?showwxpaytitle=1`, 1);
+      console.log(oauthUrl)
+      this.redirect(oauthUrl);
+    }
+  }
+
+  async _getopenidAction(){
+    let code =  this.get("code");
+    if (think.isEmpty(code)){
+      return think.statusAction(401, this.http);
+    }
+    console.log(code);
+    //获取openid
+    let getopenid = ()=>{
+      let deferred = think.defer();
+      pingpp.wxPubOauth.getOpenid(this.setup.wx_AppID, this.setup.wx_AppSecret, code, function(err, openid){
+        //console.log(openid);
+        deferred.resolve(openid);
+        // ...
+        // pass openid to extra['open_id'] and create a charge
+        // ...
+      });
+      return deferred.promise;
+    };
+
+    let openid = await getopenid();
+    console.log(think.isEmpty(openid));
+    let userinfo = await getUser(this.api, openid, true);
+    console.log(userinfo);
+    
+    
+    let wx_user=await this.model("wx_user").where({openid:openid}).find();
+    //存储Openid
+    await this.session('wx_openid',openid);
+    if(think.isEmpty(wx_user)){
+      await this.model("wx_user").add(userinfo);
+      this.redirect("/uc/weixin/signin");
+    }else {
+      await this.model("wx_user").where({openid:openid}).update(userinfo);
+
+      //检查微信号是否跟网站会员绑定
+      /*
+      if(think.isEmpty(wx_user.uid)){
+        //没绑定跳转绑定页面
+        this.redirect("/uc/weixin/signin");
+
+      }else */{
+        //更新微信头像
+        let filePath=think.RESOURCE_PATH + '/upload/avatar/' + wx_user.uid;
+        think.mkdir(filePath)
+        await this.spiderImage(userinfo.headimgurl,filePath+'/avatar.png')
+        //绑定直接登陆
+        let last_login_time = await this.model("member").where({id:wx_user.uid}).getField("last_login_time",true);
+
+        let wx_userInfo = {
+          'uid': wx_user.uid,
+          'username': userinfo.nickname,
+          'last_login_time': last_login_time,
+        };
+        await this.session('webuser', wx_userInfo);
+        this.redirect(this.cookie("cmswing_wx_url"));
+      }
+    }
+  }
+
+
   async oauthAction(){
     //判断是否是微信浏览器
     //微信公众账号内自动登陆
@@ -50,9 +123,9 @@ export default class extends Base {
       return deferred.promise;
     };
     let openid = await getopenid();
-    //9think.log(think.isEmpty(openid));
-    let userinfo = await getUser(this.api,openid);
-    //console.log(userinfo);
+    console.log(think.isEmpty(openid));
+    let userinfo = await getUser(this.api, openid, false);
+    console.log(userinfo);
     //如果没有关注先跳到关注页面
     
     if(userinfo.subscribe==0){

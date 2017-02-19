@@ -6,6 +6,24 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 'use strict'
+
+global.wrapper = function (callback) {
+  return function (err, data, res) {
+    callback = callback || function () {};
+    if (err) {
+      err.name = 'WeChatAPI' + err.name;
+      return callback(err, data, res);
+    }
+    if (data && data.errcode) {
+      err = new Error(data.errmsg);
+      err.name = 'WeChatAPIError';
+      err.code = data.errcode;
+      return callback(err, data, res);
+    }
+    callback(null, data, res);
+  };
+};
+
  /* global massend 群发图文消息 */
 global.massSendNews=(api,media_id,receivers)=>{
     let deferred = think.defer();
@@ -91,17 +109,30 @@ global.massSendVideo=(api,media_id,receivers)=>{
  * @param openid
  * @returns {Promise}
  */
-global.getUser=(api,openid)=>{
+global.getUser=(api,openid, isOpen)=>{
     let deferred = think.defer();
-    api.getUser(openid, function (err, result) {
-        if(!think.isEmpty(result)){
-            deferred.resolve(result);
-            //self.end(result);
-        }else{
-            console.error('err'+err);
-            //deferred.reject(err);
-        }
-    });
+    if (isOpen){
+        api.request(url, {dataType: 'json'}, wrapper(function (err, data) {
+            if (!think.isEmpty(data)){
+                deferred.resolve(result);
+            }
+            else{
+                console.error('err'+err);
+            }
+            
+        }));
+    }
+    else{
+        api.getUser(openid, function (err, result) {
+            if(!think.isEmpty(result)){
+                deferred.resolve(result);
+                //self.end(result);
+            }else{
+                console.error('err'+err);
+                //deferred.reject(err);
+            }
+        });
+    }
     return deferred.promise;
 }
 /**
