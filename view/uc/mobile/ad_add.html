@@ -51,6 +51,7 @@
             <input id="ad_picUrl" name="ad_picUrl" type="hidden" value="{{ad.picture_url}}">
             <input id="wx_serverId1" name="wx_serverId1" type="hidden">
             <input id="wx_serverId2" name="wx_serverId2" type="hidden">
+            <input type="hidden" value="{{__CSRF__}}" name="__CSRF__">
             <button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="formSubmit()">
             {% if ad.type == 0 %}{% if ad.id %}更新广告{%else%}添加广告{%endif%}{%else%}{% if ad.id %}更新名片{%else%}添加名片{%endif%}{%endif%}
             </button>

@@ -8,7 +8,6 @@ export default class extends Base {
     await this.action("uc/weixin", "oauthx");
 
     await this.weblogin();
-    console.log(this.user);
     
     this.assign('id', p);
     let taskLink = await this.model('task_link').where({id:p}).find();
@@ -26,7 +25,6 @@ export default class extends Base {
     let content = await this.model('document_article').where({id: taskLink.document_id}).find();
 
     doc.content = content.content.split("_ueditor_page_break_tag_");
-
 
     this.assign('info', doc); 
 
