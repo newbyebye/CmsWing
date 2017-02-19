@@ -3,6 +3,95 @@
 
 {% include "../../common/inc/mobile/nav.html" %}
 <!--这里放置真实显示的DOM内容-->
+<div id="slider" class="mui-slider" >
+    <div id="sliderSegmentedControl" style="width: 90%" class="mui-scroll-wrapper mui-scroll-bar mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+        <div class="mui-scroll">
+            <a class="mui-control-item bar-item {% if type == 1 %}mui-active {%endif%}" href="#item1mobile" data-url="/task/index/index/type/1">
+                效果类
+            </a>
+            <a class="mui-control-item bar-item {%if type == 2%} mui-active{%endif%}" href="#item2mobile" data-url="/task/index/index/type/2">
+                阅读类
+            </a>
+        </div>
+    </div>
+    <div class="mui-slider-group " style="height: 0px;" >
+        <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+
+        </div>
+        <div id="item2mobile" class="mui-slider-item mui-control-content">
+        </div>
+        
+    </div>
+    
+    <!--
+    <a href="/task/index/add" class="mui-icon iconfont icon-add1 icon-sort mui-pull-right more-icon"></a>
+    -->
+</div>
+
+<div class="mui-scroll-wrapper" style="top:45px">
+    <div class="mui-scroll">
+        <ul class="mui-table-view ">
+            {%for v in list.data%}
+            <!--如果有缩略图-->
+            {%if v.cover_id >0%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="/task/index/show{{v.name|get_url(v.id)}}" >
+                    <div class="mui-row">
+                        <div class="mui-col-sm-10 mui-col-xs-10">
+
+                            <h4 class="dotdot line2 ">{{v.title}}</h4>
+                            <p class="item_info">
+
+                                <span class="src space">{{v.description}}</span>
+                                
+                            </p>
+                        </div>
+                        <div class="mui-col-sm-2 mui-col-xs-2 ">
+                            <img class="list_img_holder" src="{{v.cover_id|get_pic('m=1,w=123,h=82')}}" >
+
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {%elif v.pics%}
+            {% set pics = v.pics|strToArray%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="/task/index/show{{v.name|get_url(v.id)}}" >
+                    <div class="mui-row">
+                        <div class="mui-col-sm-10 mui-col-xs-10">
+                            <h4 class="dotdot line2 ">{{v.title}}</h4>
+                            <p class="item_info">
+                                <span class="src space">{{v.description}}</span>
+                            </p>
+                        </div>
+                        <div class="mui-col-sm-2 mui-col-xs-2 ">
+                            <img class="list_img_holder" src="{{pics[0]|get_pic('m=1,w=123,h=82')}}" >
+
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {%else%}
+            <!--无图-->
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}">
+                    <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+
+                    <p class="item_info">
+
+                        <span class="src space">{{v.description}}</span>
+                    </p>
+
+                </a>
+            </li>
+            {%endif%}
+            {%endfor%}
+
+
+        </ul>
+    </div>
+</div>
+
 
 {% endblock%}
 

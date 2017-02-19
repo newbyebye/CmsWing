@@ -560,6 +560,22 @@ video.fullvideo 		{ width:100%; height:100%; }
 	margin-top: 4px;
 	margin-bottom: 4px;
 }
+
+.task{
+	margin-top: 25px;
+}
+.task .mui-btn-block{
+	padding: 10px 0;
+}
+.task .warning p{
+	color: #ff0000;
+}
+
+.task .qcode{
+	margin-top: 25px;
+}
+
+
 /*bar*/
 .mui-segmented-control.mui-scroll-wrapper .bar-item:first-child {
 	padding-left:15px;
@@ -623,6 +639,8 @@ video.fullvideo 		{ width:100%; height:100%; }
 #SOHUCS #SOHU_MAIN .icon-pic:before {
 	content: "";
 }
+
+
 
 .mui-bar-ad{position: fixed;bottom:-10px;left:0; overflow: hidden;z-index: 9999999;width:100%;height:100px;display:block;}
 .mui-bar-ad font{font-size:10px;background:#FFF;position:absolute;left:0;top:0;z-index: 1000000;}

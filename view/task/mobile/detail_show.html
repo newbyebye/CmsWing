@@ -1,0 +1,54 @@
+{% extends "../../common/inc/mobile/articlebase.html" %}
+
+{% block bodyattr %}
+style="margin-bottom: 150px;background-color: #FFFFFF"
+{%endblock%}
+
+ {% block content %}
+
+{{adhtml | safe }}
+ <div class="mui-content detail" style="background-color: #fff">
+     <div class="mui-content-padded">
+         <!-- 文章标题 -->
+         <h1 class="title" style="text-align: center;">{{info.title}}</h1>
+         <hr>
+
+         <div class="task">
+             <div>
+                <p>我是{{user.nickname}}, 赶快来和我一起体验新产品吧！</p>
+             </div>
+              
+                <button  type="submit" class="mui-btn mui-btn-success mui-btn-block addr" onclick="adhits('{{id}}', '{{info.link_id}}');">点击体验新产品</button>
+             
+             <div class="warning">
+                 {%for val in info.content%}
+                     {{val|safe}}
+                 {%endfor%}
+             </div>
+
+             <img class="list_img_holder" width="300px" src="http://itrymall.com/assets/images/buy-guide/22.png" >
+             <img class="list_img_holder" width="300px" src="http://itrymall.com/assets/images/buy-guide/33.png" >
+             <img class="list_img_holder" width="300px" src="http://itrymall.com/assets/images/buy-guide/44.png" >
+
+             <div class="qcode">
+                <p>我是{{user.nickname}}, 这是我的二维码，快扫进来：关注之后，您也可以去接任务，得到自己的专属链接！</p>
+                <img class="list_img_holder" width="300px" src="/static/qt.png" >
+             </div>
+
+         </div>
+
+         <div hight="100">
+         </div>
+ </div>
+ {% endblock%}
+
+ {% block script %}
+
+<script type="text/javascript">
+     mui.init()
+     function adhits(id, redirect){
+        $.post("/task/detail/adhits",{"id":id, "r":Math.random()});
+        window.location.href = "//"+redirect;
+     }
+ </script>
+ {% endblock %}
