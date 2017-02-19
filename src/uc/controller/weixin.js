@@ -54,11 +54,13 @@ export default class extends Base {
     let userinfo = await getUser(this.api,openid);
     //console.log(userinfo);
     //如果没有关注先跳到关注页面
+    /*
     if(userinfo.subscribe==0){
       console.log(1111111111111)
       this.redirect('/uc/weixin/follow');
       return false;
     };
+    */
     userinfo.subscribe_time = userinfo.subscribe_time * 1000;
 
     let wx_user=await this.model("wx_user").where({openid:openid}).find();
