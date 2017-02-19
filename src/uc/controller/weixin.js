@@ -62,9 +62,16 @@ export default class extends Base {
     let wx_user=await this.model("wx_user").where({openid:openid}).find();
     //存储Openid
     await this.session('wx_openid',openid);
+    
+
     if(think.isEmpty(wx_user)){
-      await this.model("wx_user").add(userinfo);
-      this.redirect("/uc/weixin/signin");
+      let id = await this.model("wx_user").add(userinfo);
+      let wx_userInfo = {
+          'uid': id,
+          'username': userinfo.nickname
+      };
+      await this.session('webuser', wx_userInfo);
+      this.redirect(this.cookie("cmswing_wx_url"));
     }else {
       await this.model("wx_user").where({openid:openid}).update(userinfo);
 
@@ -76,14 +83,14 @@ export default class extends Base {
 
       }else */{
         //更新微信头像
-        let filePath=think.RESOURCE_PATH + '/upload/avatar/' + wx_user.uid;
-        think.mkdir(filePath)
-        await this.spiderImage(userinfo.headimgurl,filePath+'/avatar.png')
+        //let filePath=think.RESOURCE_PATH + '/upload/avatar/' + wx_user.uid;
+        //think.mkdir(filePath)
+        //await this.spiderImage(userinfo.headimgurl,filePath+'/avatar.png')
         //绑定直接登陆
         let last_login_time = await this.model("member").where({id:wx_user.uid}).getField("last_login_time",true);
 
         let wx_userInfo = {
-          'uid': wx_user.uid,
+          'uid': wx_user.id,
           'username': userinfo.nickname,
           'last_login_time': last_login_time,
         };
