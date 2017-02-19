@@ -72,11 +72,12 @@ export default class extends Base {
       await this.model("wx_user").where({openid:openid}).update(userinfo);
 
       //检查微信号是否跟网站会员绑定
+      /*
       if(think.isEmpty(wx_user.uid)){
         //没绑定跳转绑定页面
         this.redirect("/uc/weixin/signin");
 
-      }else {
+      }else */{
         //更新微信头像
         let filePath=think.RESOURCE_PATH + '/upload/avatar/' + wx_user.uid;
         think.mkdir(filePath)
