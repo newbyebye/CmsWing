@@ -571,8 +571,15 @@ video.fullvideo 		{ width:100%; height:100%; }
 	color: #ff0000;
 }
 
+.task .center{
+	text-align:center;
+}
+
 .task .qcode{
 	margin-top: 25px;
+}
+.task .qcode .center{
+	text-align:center;
 }
 
 
