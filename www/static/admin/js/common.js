@@ -18,6 +18,13 @@ $(document).on('click','.ajax-get',function(){
         }
     }
     if ( (target = $(this).attr('href')) || (target = $(this).attr('url')) ) {
+        if (target.indexOf("?") == -1){
+            target += "&__CSRF__=" + $('meta[name="__CSRF__"]').attr("content");
+        }
+        else{
+            target += "?__CSRF__=" + $('meta[name="__CSRF__"]').attr("content");
+        }
+
         $.get(target).success(function(data){
             if (data.errno==0) {
                 if (data.data.url) {
@@ -162,6 +169,12 @@ function ajaxpost(){
             query = form.find('input,select,textarea').serialize();
         }
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+        if (query.trim().length > 0){
+            query += "&__CSRF__=" + $('meta[name="__CSRF__"]').attr("content");
+        }
+        else{
+            query += "__CSRF__=" + $('meta[name="__CSRF__"]').attr("content");
+        }
         $.post(target,query).success(function(data){
             //alert(JSON.stringify(data))
             //console.log(data)

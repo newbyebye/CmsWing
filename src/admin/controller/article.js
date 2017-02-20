@@ -27,6 +27,7 @@ export default class extends Base {
         let group_id = this.get('group_id') || 0;
         let sortid = this.get('sortid')||0;
         let sortval = this.get('sortval')||null;
+        console.log("******", cate_id);
         let models;
         let groups;
         let model;
@@ -146,10 +147,13 @@ export default class extends Base {
             this.assign('model', null);
             _model = null;
         }
+
+        console.log("******", cate_id);
+
         //解析列表规则
         let fields = [];
         let ngrids = [];
-        //console.log(model);
+        console.log(model);
         let grids = model.list_grid.split("\r\n");
         for (let value of grids) {
             //字段:标题:链接
@@ -193,8 +197,8 @@ export default class extends Base {
             }
         }
        // console.log(list);
-         list = await this.parseDocumentList(list, model_id);
-        //console.log(list);
+        list = await this.parseDocumentList(list, model_id);
+        console.log(list);
         //获取面包屑信息
         let nav = await this.model('category').get_parent_category(cate_id);
         this.assign('breadcrumb', nav);

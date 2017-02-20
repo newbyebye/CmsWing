@@ -280,7 +280,8 @@
     var setting = {
         async: {
             enable: true,
-            url: "/admin/article/getmenu",
+            url: "/admin/article/getmenu?__CSRF__={{__CSRF__}}",
+            type: "GET",
         },
         view: {
             showLine: true,
