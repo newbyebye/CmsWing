@@ -22,7 +22,7 @@
 <body class="bg-info dker ">
 <section id="content" class="m-t-lg wrapper-md animated fadeInUp ">
     <div class="container aside-xl">
-        <a class="navbar-brand block" href="index.html"><span class="h1 font-bold">CmsWing</span></a>
+        <a class="navbar-brand block" href="index.html"><span class="h1 font-bold">微合宝管理系统</span></a>
         <section class="m-b-lg">
             <header class="wrapper text-center">
                 <strong>管理员登陆</strong>
@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <input type="password" name="password" placeholder="密码" class="form-control rounded input-lg text-center no-border">
                 </div>
-                {%if controller.setup.GEETEST_IS_ADMLOGIN ==1%}
+                {%if geetest %}
                 <div class="form-group">
                     <div class="form-control rounded input-lg text-center no-border">
                     <div id="captcha"></div>
@@ -52,6 +52,7 @@
                 <!--<div class="line line-dashed"></div>-->
                 <!--<p class="text-muted text-center"><small>Do not have an account?</small></p>-->
                 <!--<a href="signup.html" class="btn btn-lg btn-info btn-block rounded">Create an account</a>-->
+                <input type="hidden" name="__CSRF__" value="{{__CSRF__}}">
             </form>
         </section>
     </div>
@@ -60,7 +61,7 @@
 <footer id="footer">
     <div class="text-center padder">
         <p>
-                <small>CmsWing网站内容管理框架<br>&copy; 2015</small>
+                <small>Alpha网站内容管理框架<br>&copy; 2015</small>
         </p>
     </div>
 </footer>
@@ -72,7 +73,7 @@
 <script src="/static/admin/js/app.js"></script>
 <script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/static/admin/js/app.plugin.js"></script>
-{%if controller.setup.GEETEST_IS_ADMLOGIN ==1%}
+{%if geetest %}
 <!-- 引入封装了failback的接口--initGeetest -->
 <script src="//static.geetest.com/static/tools/gt.js"></script>
 
@@ -122,10 +123,6 @@
                         }, handlerEmbed);
                     }
                 });
-
-
-
-
     })
 </script>
 {%endif%}

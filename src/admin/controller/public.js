@@ -20,7 +20,8 @@ export default class extends think.controller.base {
         let is_login = await this.islogin();
         if(this.isPost()){
             //验证码
-            if(1==this.setup.GEETEST_IS_ADMLOGIN){
+            let showGeetest = await this.session("geetest");
+            if(!think.isEmpty(showGeetest)){
                 let Geetest = think.service("geetest"); //加载 commoon 模块下的 geetset service
                 let geetest = new Geetest();
                 let res = await geetest.validate(this.post());
@@ -29,7 +30,6 @@ export default class extends think.controller.base {
                     return think.statusAction(702, this.http);
                 }
             }
-
 
             let username = this.post('username');
             let password = this.post('password');
@@ -43,6 +43,7 @@ export default class extends think.controller.base {
                 //TODO 用户密钥
                 this.redirect('/admin/index');
             }else { //登录失败
+                await this.session("geetest", true);
                 let fail;
                 switch(res) {
                     case -1: fail = '用户不存在或被禁用'; break; //系统级别禁用
@@ -58,6 +59,12 @@ export default class extends think.controller.base {
             if(is_login){
                 this.redirect('/admin/index');
             }else{
+                let showGeetest = await this.session("geetest");
+                if(1 != this.setup.GEETEST_IS_ADMLOGIN){
+                    showGeetest = false;
+                }
+                this.assign("geetest", !think.isEmpty(showGeetest));
+
                 return this.display();
             }
         }
