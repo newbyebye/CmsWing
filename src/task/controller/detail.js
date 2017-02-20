@@ -5,9 +5,7 @@ import Base from '../../common/controller/base.js';
 export default class extends Base {
   async showAction(){
     let p = this.param("p");
-    //await this.action("uc/weixin", "oauthx");
-
-    //await this.weblogin();
+    await this.action("uc/weixin", "oauthx");
     
     this.assign('id', p);
     let taskLink = await this.model('task_link').where({id:p}).find();
@@ -32,15 +30,25 @@ export default class extends Base {
   }
 
   async adhitsAction(){
-    //await this.weblogin();
     console.log(this.user, this.http.ip());
 
     let taskLink = await this.model('task_link').where({id:this.param("id")}).find();
     if (think.isEmpty(taskLink)){
       return this.json({"errno":404,"errmsg":"error"});
     }
+
+    let wid = this.user.wid;
+    if (think.isEmpty(wid)){
+      let user = await this.model('wx_user').where({uid: this.user.uid}).find();
+      if (!think.isEmpty(user)){
+        wid = user.id;
+      }
+    }
+    if (think.isEmpty(wid)){
+      return this.json({"errno":404,"errmsg":"error"});
+    }
     
-    let result = await this.model("task_record").thenAdd({task_link_id: this.param("id"), user_id: this.user.uid, action_ip:_ip2int(this.http.ip()), create_time: new Date().getTime()}, {task_link_id: this.param("id"), user_id: this.user.uid});
+    let result = await this.model("task_record").thenAdd({task_link_id: this.param("id"), user_id: wid, action_ip:_ip2int(this.http.ip()), create_time: new Date().getTime()}, {task_link_id: this.param("id"), user_id: wid});
     if (result.type == "add"){
       this.model('task_link').where({id:this.param("id")}).increment("redirect_num", 1);
     }

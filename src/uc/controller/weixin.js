@@ -63,12 +63,12 @@ export default class extends Base {
     //存储Openid
     await this.session('wx_openid',openid);
     
-
     if(think.isEmpty(wx_user)){
       let id = await this.model("wx_user").add(userinfo);
       let wx_userInfo = {
-          'uid': id,
-          'username': userinfo.nickname
+          'uid': 0,
+          'username': userinfo.nickname,
+          'wid': id,
       };
       await this.session('webuser', wx_userInfo);
       this.redirect(this.cookie("cmswing_wx_url"));
@@ -90,9 +90,10 @@ export default class extends Base {
         let last_login_time = await this.model("member").where({id:wx_user.uid}).getField("last_login_time",true);
 
         let wx_userInfo = {
-          'uid': wx_user.id,
+          'uid': wx_user.uid,
           'username': userinfo.nickname,
           'last_login_time': last_login_time,
+          'wid':wx_user.id
         };
         await this.session('webuser', wx_userInfo);
         this.redirect(this.cookie("cmswing_wx_url"));
