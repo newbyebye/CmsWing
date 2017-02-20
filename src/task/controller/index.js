@@ -15,7 +15,7 @@ export default class extends Base {
         let cate = await this.category("task");
         let cateIds =  await this.model('category').get_sub_category(cate.id);
         cateIds.push(cate.id);
-        console.log(cateIds);
+        //console.log(cateIds);
 
         let map = {
           'pid':0,
@@ -24,7 +24,7 @@ export default class extends Base {
         };
 
         let data = await this.model('document').where(map).page(this.param('page'),10).countSelect();
-        console.log(data);
+        //console.log(data);
         this.assign("list",data);
     }
     

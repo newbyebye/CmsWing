@@ -27,7 +27,7 @@ export default class extends Base {
     if(think.isEmpty(openid)){
       this.cookie("cmswing_wx_url",this.http.url);
       var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.setup.wx_AppID, `http://${this.http.host}/uc/weixin/getopenidx?showwxpaytitle=1`, 1);
-      console.log(oauthUrl)
+      //console.log(oauthUrl)
       this.redirect(oauthUrl);
     }
   }
@@ -37,7 +37,7 @@ export default class extends Base {
     if (think.isEmpty(code)){
       return think.statusAction(401, this.http);
     }
-    console.log(code);
+    //console.log(code);
     //获取openid
     let getopenid = ()=>{
       let deferred = think.defer();
@@ -52,11 +52,11 @@ export default class extends Base {
     };
 
     let response = await getopenid();
-    console.log(think.isEmpty(response["openid"]));
+    //console.log(think.isEmpty(response["openid"]));
     let openid = response["openid"];
     let accessToken = response["access_token"];
     let userinfo = await getUser(this.api, openid, accessToken);
-    console.log(userinfo);
+    //console.log(userinfo);
     
     
     let wx_user=await this.model("wx_user").where({openid:openid}).find();
@@ -110,7 +110,7 @@ export default class extends Base {
     if(/*is_weixin(this.userAgent()) &&*/ think.isEmpty(openid)){
       this.cookie("cmswing_wx_url",this.http.url);
       var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.setup.wx_AppID, `http://${this.http.host}/uc/weixin/getopenid?showwxpaytitle=1`);
-      console.log(oauthUrl)
+      //console.log(oauthUrl)
       this.redirect(oauthUrl);
     }
 
@@ -119,7 +119,7 @@ export default class extends Base {
   async getopenidAction(){
     //获取用户openid
     let code =  this.get("code");
-    console.log(code);
+    //console.log(code);
     //获取openid
     let getopenid = ()=>{
       let deferred = think.defer();
@@ -133,16 +133,15 @@ export default class extends Base {
       return deferred.promise;
     };
     let openid = await getopenid();
-    console.log(think.isEmpty(openid));
+    //console.log(think.isEmpty(openid));
     let userinfo = await getUser(this.api, openid);
-    console.log(userinfo);
+    //console.log(userinfo);
     //如果没有关注先跳到关注页面
     
     if(userinfo.subscribe==0){
-      console.log(1111111111111)
-      //this.redirect('/uc/weixin/follow');
-      //return false;
-      userinfo.subscribe_time  = 0;
+      //console.log(1111111111111)
+      this.redirect('/uc/weixin/follow');
+      return false;
     };
     
     userinfo.subscribe_time = userinfo.subscribe_time * 1000;
@@ -158,12 +157,11 @@ export default class extends Base {
       await this.model("wx_user").where({openid:openid}).update(userinfo);
 
       //检查微信号是否跟网站会员绑定
-      /*
       if(think.isEmpty(wx_user.uid)){
         //没绑定跳转绑定页面
         this.redirect("/uc/weixin/signin");
 
-      }else */{
+      }else {
         //更新微信头像
         let filePath=think.RESOURCE_PATH + '/upload/avatar/' + wx_user.uid;
         think.mkdir(filePath)

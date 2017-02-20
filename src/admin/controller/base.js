@@ -31,7 +31,7 @@ export default class extends think.controller.base {
         let is_admin = await this.is_admin();
         //后台菜单
         this.adminmenu = await this.model('menu').getallmenu(this.user.uid,is_admin);
-        console.log(this.adminmenu);
+        //console.log(this.adminmenu);
         this.assign("setup", this.setup);
         //菜单当前状态
 

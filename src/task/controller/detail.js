@@ -30,7 +30,7 @@ export default class extends Base {
   }
 
   async adhitsAction(){
-    console.log(this.user, this.http.ip());
+    //console.log(this.user, this.http.ip());
 
     let taskLink = await this.model('task_link').where({id:this.param("id")}).find();
     if (think.isEmpty(taskLink)){
