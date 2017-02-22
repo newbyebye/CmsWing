@@ -19,10 +19,10 @@ $(document).on('click','.ajax-get',function(){
     }
     if ( (target = $(this).attr('href')) || (target = $(this).attr('url')) ) {
         if (target.indexOf("?") == -1){
-            target += "&__CSRF__=" + $('meta[name="__CSRF__"]').attr("content");
+            target += "?__CSRF__=" + $('meta[name="__CSRF__"]').attr("content");
         }
         else{
-            target += "?__CSRF__=" + $('meta[name="__CSRF__"]').attr("content");
+            target += "&__CSRF__=" + $('meta[name="__CSRF__"]').attr("content");
         }
 
         $.get(target).success(function(data){
