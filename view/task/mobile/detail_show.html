@@ -83,6 +83,8 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
     wx.ready(function (){
         let shareData = {
             title: '{{info.title}}, 赶快来和我一起体验新产品吧！', // 分享标题
+            //link: 'http://ad.weishitianli.com/{{info.img}}', // 分享链接
+            imgUrl: 'http://ad.weishitianli.com/{{info.img}}', // 分享图标
         };
         wx.onMenuShareTimeline(shareData);
         wx.onMenuShareAppMessage(shareData);
@@ -95,8 +97,9 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
     mui.init();
 
     function adhits(id, redirect){
-        $.post("/task/detail/adhits",{"id":id, "__CSRF__":$('meta[name="__CSRF__"]').attr("content"), "r":Math.random()});
-        window.location.href = "//"+redirect;
+        $.post("/task/detail/adhits",{"id":id, "__CSRF__":$('meta[name="__CSRF__"]').attr("content"), "r":Math.random()}).done(function(data){
+            window.location.href = "//"+redirect;
+        });
     }
  </script>
  {% endblock %}
