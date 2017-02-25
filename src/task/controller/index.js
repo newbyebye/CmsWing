@@ -11,6 +11,7 @@ export default class extends Base {
     let type = parseInt(this.param("type")) || 1;
     this.assign('type', type);  
     
+    // type=1 体验类任务
     if (type == 1){
         let cate = await this.category("task");
         let cateIds =  await this.model('category').get_sub_category(cate.id);

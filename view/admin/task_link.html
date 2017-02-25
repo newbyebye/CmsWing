@@ -10,10 +10,12 @@
                      <header class="header bg-light b-b">
                             <p>{{controller.meta_title}}</p>
                         </header>
-                    <section class="scrollable wrapper">       
+                    <section class="scrollable wrapper">
+                       
+                        
                         <section class="panel panel-default">
                             <header class="panel-heading">
-                                管理所有任务
+                                任务完成统计
                                 <i data-title="当前仅能统计跳转" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
                             </header>
                             
@@ -23,28 +25,8 @@
                                         <a class="btn btn-sm btn-info" href="/admin/task/add">
                                             添加任务
                                         </a>
-
-                                        <div class="btn-group">
-                                            <a class="btn btn-sm btn-info ajax-post" target-form="ids" href="/admin/task/setstatus/status/2" target-form="ids">
-                                            审核
-                                            </a>
-                                            <a class="btn btn-sm btn-info ajax-post" href="/admin/task/setstatus/status/1" target-form="ids">
-                                            禁用
-                                            </a>
-                                            <a class="btn btn-sm btn-info ajax-post" href="/admin/task/setstatus/status/0" target-form="ids">
-                                            结束
-                                            </a>
-                                        </div>
-
-                                <div class="btn-group">
-                                            <a class="btn btn-sm btn-info ajax-post" target-form="ids" href="/admin/task/setstatus/status/-1" target-form="ids">
-                                            删除
-                                            </a>
-                                </div>
                                     </div>
                                 </div>
-                                
-
                                 <div class="col-sm-3">
                                     <div class="input-group pull-right">
                                         <input type="text" class="input-sm form-control" placeholder="Search">
@@ -60,30 +42,21 @@
                                     <thead>
                                     <tr>
                                         <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
-                                        <th class="">标题</th>
-                                        <th class="">奖励</th>
-                                        <th class="">类型</th>
-                                        <th class="">状态</th>
-                                        <th class="">浏览</th>
-                                        <th class="">承接</th>
-                                        <th class="">完成</th>
-                                        <th class="">发布时间</th>
-                                        <th class="">操作</th>
+                                        <th class="">昵称</th>
+                                        <th class="">地区</th>
+                                        <th class="">行为ip</th>
+                                        <th class="">行为时间</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {% for item in list %}
                                     <tr>
                                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
-                                        <td>{{item.doc.title}}</td>
-                                        <td>{{item.reward}}金币</td>
-                                        <td>{%if item.type == 1 %} 体验类 {%else%} 浏览类{%endif%}</td>
-                                        <td>{%if item.status == 1 %} 待审核 {%else%} {%if item.status == 2 %} 发布 {%else%} 已结束{%endif%} {%endif%}</td>
-                                        <td>{{item.view_num}}</td>
-                                        <td><a href="/admin/task/link/task/{{item.id}}" class="btn btn-sm btn-info">{{item.accept_num}}</a></td>
-                                        <td>{{item.complete_num}}</td>
-                                        <td>{{item.update_time | dateformat('Y-m-d H:i:s')}}</td>
-                                        <td><a href="/admin/task/add/id/{{item.id}}" class="btn btn-sm btn-info">编辑</a></td>
+                                        <td><img src="{{item.headimgurl}}" style="width:48px;height:48px"> {{item.nickname}}</td>
+                                        <td>{{item.country}} {{item.province}} {{item.city}}</td>
+                                        <td>{{item.action_ip|int2ip}}</td>
+                                        <td>{{item.create_time | dateformat('Y-m-d H:i:s')}}</td>
+                                       
                                     </tr>
                                     {% else %}
                                     <tr><td colspan="7"><div class="alert alert-warning alert-block">

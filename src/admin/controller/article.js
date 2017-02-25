@@ -27,7 +27,8 @@ export default class extends Base {
         let group_id = this.get('group_id') || 0;
         let sortid = this.get('sortid')||0;
         let sortval = this.get('sortval')||null;
-        console.log("******", cate_id);
+
+        console.log("******", cate_id, model_id, position, group_id, sortid, sortval);
         let models;
         let groups;
         let model;
