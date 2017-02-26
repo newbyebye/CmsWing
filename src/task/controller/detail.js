@@ -5,7 +5,7 @@ import Base from '../../common/controller/base.js';
 export default class extends Base {
   async showAction(){
     let p = this.param("p");
-    await this.action("uc/weixin", "oauth");
+    //await this.action("uc/weixin", "oauth");
     //await this.weblogin();
     
     this.assign('id', p);
@@ -34,7 +34,7 @@ export default class extends Base {
   }
 
   async adhitsAction(){
-    await this.action("uc/weixin", "oauth");
+    //await this.action("uc/weixin", "oauth");
     //await this.weblogin();
     console.log(this.param("id"), this.param("remark"));
 
@@ -68,9 +68,10 @@ export default class extends Base {
     }
 
     let record = await this.model("task_record").where({task_link_id: this.param("id"), user_id: wid}).find();
-    if (think.isEmpty(this.param("remark"))){
-      let result = await this.model("task_record").add({task_link_id: this.param("id"), user_id: wid,
-       action_ip:_ip2int(this.http.ip()), create_time: new Date().getTime()});
+    if (think.isEmpty(this.param("remark"))){   
+      let result = await this.model("task_record").thenAdd({task_link_id: this.param("id"), user_id: wid,
+       action_ip:_ip2int(this.http.ip()), create_time: new Date().getTime()}, {task_link_id: this.param("id"), user_id: wid});
+
       if (result.type == "add"){
         this.model('task_link').where({id:this.param("id")}).increment("redirect_num", 1);
       }
