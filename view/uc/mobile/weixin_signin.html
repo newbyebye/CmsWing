@@ -310,9 +310,6 @@
     //初始化单页的区域滚动
     mui('.mui-scroll-wrapper').scroll();
     //上传头像
-
-
-
     //完善资料
     var formorganizing = document.getElementById("form-organizing");
     formorganizing.addEventListener('tap',function (event) {
@@ -326,14 +323,14 @@
             success:function(data){
                 //服务器返回响应，根据响应结果，分析是否登录成功；
                 if(data.errno == 0){
-                    if (data.data.url) {
-                        mui.toast(data.data.name + ' 即将跳转~');
-                    }else if(data.data.data){
-                        mui.toast(data.data.name);
+                    if (data.url) {
+                        mui.toast(data.name + ' 即将跳转~');
+                    }else if(data.name){
+                        mui.toast(data.name);
                     }
                     setTimeout(function(){
-                        if (data.data.url) {
-                            mui.openWindow({url: data.data.url})
+                        if (data.url) {
+                            mui.openWindow({url: data.url})
                         }
                     },1500);
 
