@@ -890,7 +890,7 @@ global.formatCurrency = function(num) {
     for (let i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
         num = num.substring(0, num.length - (4 * i + 3)) + ',' +
             num.substring(num.length - (4 * i + 3));
-    return (((sign) ? '' : '-') + num + '.' + cents);
+    return (((sign) ? '' : '-') + num);
 }
 
 /**
