@@ -137,8 +137,6 @@ export default class extends Base {
   }
 
   async statAction() {
-      
-
       let type = this.param("type");
       let data;
       let map = {};
@@ -198,7 +196,25 @@ export default class extends Base {
         await this.model("task_record").where({id:v.id}).update({status:this.param('status')});
         let record = await this.model("task_record").where({id:v.id}).find();
         let completed_num = await this.model("task_record").where({task_link_id:record.task_link_id, status:1}).count();
-        await this.model('task_link').where({id:record.task_link_id}).update({completed_num:completed_num});
+        let taskLink = await this.model('task_link').where({id:record.task_link_id}).find();
+        
+        // 更新积分，当前积分统一记录到任务承接人名下
+        let old_completed = taskLink.completed_num;
+        if (old_completed != completed_num){
+          let task = await this.model('task').where({id:taskLink.task_id}).find();
+          let score;
+          if (old_completed > completed_num){
+            // 减少用户积分
+            score = (old_completed - completed_num)*task.reward;
+            await this.model('member').where({id:taskLink.user_id}).decrement('amount', score);
+          }
+          else{
+            // 增加用户积分
+            score = (completed_num - old_completed)*task.reward;
+            await this.model('member').where({id:taskLink.user_id}).increment('amount', score);
+          }
+          await this.model('task_link').where({id:record.task_link_id}).update({completed_num:completed_num});
+        }   
     }
 
     return this.json({errno:0, data:{name:"修改成功"}});
