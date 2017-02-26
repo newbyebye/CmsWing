@@ -93,14 +93,16 @@ export default class extends Base {
     if (think.isEmpty(this.param("id"))){
       let doc = await this.model("task").where({document_id: this.param("ids")}).find();
       if (think.isEmpty(doc)){
-          await this.model("task").add({user_id:this.user.id, document_id: this.param("ids"), reward: this.param("reward"), scale: this.param("scale"), create_time:new Date().getTime(), update_time:new Date().getTime()});
+          await this.model("task").add({user_id:this.user.id, document_id: this.param("ids"), 
+            reward: this.param("reward"), scale: this.param("scale"), placeholder: this.param("placeholder"),
+            create_time:new Date().getTime(), update_time:new Date().getTime()});
       }
     }
     else{// 更新
       let doc = await this.model("task").where({document_id: this.param("ids"), id:{"!=": this.param("id")}}).find();
       if (think.isEmpty(doc)){
           await this.model("task").where({id:this.param("id")})
-            .update({user_id:this.user.id, document_id: this.param("ids"), 
+            .update({user_id:this.user.id, document_id: this.param("ids"), placeholder: this.param("placeholder"),
             reward: this.param("reward"), scale: this.param("scale"), update_time:new Date().getTime()});
       }
     }

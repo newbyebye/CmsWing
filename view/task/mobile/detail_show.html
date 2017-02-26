@@ -18,18 +18,19 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
                 <p>我是{{user.nickname}}, 赶快来和我一起体验新产品吧！</p>
              </div>
               
-                <button  type="submit" class="mui-btn mui-btn-success mui-btn-block addr" onclick="adhits('{{id}}', '{{info.link_id}}');">点击体验新产品</button>
+                <button   class="mui-btn mui-btn-success mui-btn-block addr" onclick="adhits('{{id}}', '{{info.link_id}}');">点击体验新产品</button>
+                
+                <p>此任务完成后可以获得{{task.reward}}金币, 如您已经完成任务，请立即提交凭据，我们会第一时间审核您的信息</p>
+                <form class="form-horizontal" action="/task/detail/adhits/id/{{id}}" method="post">
+                    <input type="text" name="remark" placeholder="{{task.placeholder}}">
+                    <button type="submit" class="mui-btn mui-btn-warning mui-btn-block addr">提交</button>
+                </form>
+                
              
-             <div class="warning">
-                 {%for val in info.content%}
-                     {{val|safe}}
-                 {%endfor%}
-             </div>
-
-             <div class="center">
-                <img class="list_img_holder" width="300px" src="http://itrymall.com/assets/images/buy-guide/22.png" >
-                <img class="list_img_holder" width="300px" src="http://itrymall.com/assets/images/buy-guide/33.png" >
-                <img class="list_img_holder" width="300px" src="http://itrymall.com/assets/images/buy-guide/44.png" >
+            <div class="warning">
+                {%for val in info.content%}
+                    {{val|safe}}
+                {%endfor%}
              </div>
 
              <div class="qcode">

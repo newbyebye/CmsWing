@@ -34,10 +34,19 @@ export default class extends Base {
 
   async adhitsAction(){
     await this.action("uc/weixin", "oauthx");
+    console.log(this.param("id"), this.param("remark"));
 
     let taskLink = await this.model('task_link').where({id:this.param("id")}).find();
     if (think.isEmpty(taskLink)){
       return this.json({"errno":404,"errmsg":"error"});
+    }
+
+    let linkids = [];
+    let ids = await this.model('task_link').field("id").where({task_id:taskLink.task_id}).select();
+    for (let id of ids){
+      if (id.id != this.param("id")){
+        linkids.push(id.id);
+      }
     }
 
     let wid = this.user.wid;
@@ -50,12 +59,31 @@ export default class extends Base {
     if (think.isEmpty(wid)){
       return this.json({"errno":404,"errmsg":"error"});
     }
-    
-    let result = await this.model("task_record").thenAdd({task_link_id: this.param("id"), user_id: wid, action_ip:_ip2int(this.http.ip()), create_time: new Date().getTime()}, {task_link_id: this.param("id"), user_id: wid});
-    if (result.type == "add"){
-      this.model('task_link').where({id:this.param("id")}).increment("redirect_num", 1);
+
+    let data = await this.model("task_link").where({id:["IN", linkids], user_id: wid}).find();
+    if (!think.isEmpty(data)){
+      return this.json({"errno":501,"errmsg":"error"});
     }
 
-    return this.json({});
+    let record = await this.model("task_record").where({task_link_id: this.param("id"), user_id: wid}).find();
+    if (think.isEmpty(this.param("remark"))){
+      let result = await this.model("task_record").add({task_link_id: this.param("id"), user_id: wid,
+       action_ip:_ip2int(this.http.ip()), create_time: new Date().getTime()});
+      if (result.type == "add"){
+        this.model('task_link').where({id:this.param("id")}).increment("redirect_num", 1);
+      }
+    }
+    else{
+      if (think.isEmpty(record)){
+        return this.json({"errno": 600, "errmsg":"先完成任务"});
+      }
+
+      await this.model("task_record").where({id:record.id}).update({remark:this.param("remark")});
+    }
+
+    return this.json({"error":0});
   }
+
+  
+
 }
