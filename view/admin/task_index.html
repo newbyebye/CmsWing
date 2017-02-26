@@ -62,6 +62,7 @@
                                         <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
                                         <th class="">标题</th>
                                         <th class="">奖励</th>
+                                        <th class="">提成</th>
                                         <th class="">类型</th>
                                         <th class="">状态</th>
                                         <th class="">浏览</th>
@@ -77,6 +78,7 @@
                                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
                                         <td>{{item.doc.title}}</td>
                                         <td>{{item.reward}}金币</td>
+                                        <td>{{item.scale}}%</td>
                                         <td>{%if item.type == 1 %} 体验类 {%else%} 浏览类{%endif%}</td>
                                         <td>{%if item.status == 1 %} 待审核 {%else%} {%if item.status == 2 %} 发布 {%else%} 已结束{%endif%} {%endif%}</td>
                                         <td>{{item.view_num}}</td>

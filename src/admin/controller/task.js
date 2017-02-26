@@ -41,8 +41,6 @@ export default class extends Base {
     }
 
   async addAction(){
-
-
     let id = this.param("id");
 
     let cate = await this.category("task");
@@ -95,7 +93,7 @@ export default class extends Base {
     if (think.isEmpty(this.param("id"))){
       let doc = await this.model("task").where({document_id: this.param("ids")}).find();
       if (think.isEmpty(doc)){
-          await this.model("task").add({user_id:this.user.id, document_id: this.param("ids"), reward: this.param("reward"), create_time:new Date().getTime(), update_time:new Date().getTime()});
+          await this.model("task").add({user_id:this.user.id, document_id: this.param("ids"), reward: this.param("reward"), scale: this.param("scale"), create_time:new Date().getTime(), update_time:new Date().getTime()});
       }
     }
     else{// 更新
@@ -103,7 +101,7 @@ export default class extends Base {
       if (think.isEmpty(doc)){
           await this.model("task").where({id:this.param("id")})
             .update({user_id:this.user.id, document_id: this.param("ids"), 
-            reward: this.param("reward"), update_time:new Date().getTime()});
+            reward: this.param("reward"), scale: this.param("scale"), update_time:new Date().getTime()});
       }
     }
 
