@@ -5,7 +5,8 @@ import Base from '../../common/controller/base.js';
 export default class extends Base {
   async showAction(){
     let p = this.param("p");
-    await this.action("uc/weixin", "oauthx");
+    //await this.action("uc/weixin", "oauthx");
+    await this.weblogin();
     
     this.assign('id', p);
     let taskLink = await this.model('task_link').where({id:p}).find();
@@ -33,7 +34,8 @@ export default class extends Base {
   }
 
   async adhitsAction(){
-    await this.action("uc/weixin", "oauthx");
+    //await this.action("uc/weixin", "oauthx");
+    await this.weblogin();
     console.log(this.param("id"), this.param("remark"));
 
     let taskLink = await this.model('task_link').where({id:this.param("id")}).find();
