@@ -13,20 +13,13 @@ export default class extends Base {
     
     // type=1 体验类任务
     if (type == 1){
-        let cate = await this.category("task");
-        let cateIds =  await this.model('category').get_sub_category(cate.id);
-        cateIds.push(cate.id);
-        //console.log(cateIds);
-
-        let map = {
-          'pid':0,
-          'status': 1,
-          'category_id': {"in": cateIds},
-        };
-
-        let data = await this.model('document').where(map).page(this.param('page'),10).countSelect();
+        let tasks = await this.model('task').where({status:2, type:1}).page(this.param('page'),10).countSelect();
+        for(let v of tasks.data){
+          let doc = await this.model('document').where({id:v.document_id}).find();
+          v.doc = doc;
+        }
         //console.log(data);
-        this.assign("list",data);
+        this.assign("list",tasks);
     }
     
     //auto render template file index_index.html
@@ -40,17 +33,18 @@ export default class extends Base {
   async showAction(){    
     // 判断是否登陆
     await this.weblogin();
-    // 任务文章ID
-    let p = this.param("p");
-    let taskLink = await this.model('task_link').where({user_id: this.user.uid, document_id: p}).find();
-    let id = '';
+    // 任务ID
+    let id = this.param("id");
+    // 查询用户是否已经承接任务，如果未承接则新增
+    let taskLink = await this.model('task_link').where({user_id: this.user.uid, task_id: id}).find();
+    let link_id ='';
     if (think.isEmpty(taskLink)){
-      id = await this.model('task_link').add({user_id: this.user.uid, document_id: p, create_time:new Date().getTime()});
+      link_id = await this.model('task_link').add({user_id: this.user.uid, task_id: id, create_time:new Date().getTime()});
     }
     else{
-      id = taskLink.id;
+      link_id = taskLink.id;
     }
 
-    return this.redirect('/task/detail/show/p/'+id+'.html');
+    return this.redirect('/task/detail/show/p/'+link_id+'.html');
   }
 }

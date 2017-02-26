@@ -5,7 +5,7 @@ import Base from '../../common/controller/base.js';
 export default class extends Base {
   async showAction(){
     let p = this.param("p");
-    await this.action("uc/weixin", "oauthx");
+    //await this.action("uc/weixin", "oauthx");
     
     this.assign('id', p);
     let taskLink = await this.model('task_link').where({id:p}).find();
@@ -19,8 +19,11 @@ export default class extends Base {
     let user = await this.model('wx_user').where({uid: taskLink.user_id}).find();
     this.assign('user', user);
 
-    let doc = await this.model('document').where({id: taskLink.document_id}).find();
-    let content = await this.model('document_article').where({id: taskLink.document_id}).find();
+    let task = await this.model('task').where({id: taskLink.task_id}).find();
+    this.assign('task', task);
+
+    let doc = await this.model('document').where({id: task.document_id}).find();
+    let content = await this.model('document_article').where({id: task.document_id}).find();
 
     doc.content = content.content.split("_ueditor_page_break_tag_");
 

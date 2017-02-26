@@ -33,16 +33,16 @@
         <ul class="mui-table-view ">
             {%for v in list.data%}
             <!--如果有缩略图-->
-            {%if v.cover_id >0%}
+            {%if v.doc.cover_id >0%}
             <li class="mui-table-view-cell mui-media">
-                <a href="/task/index/show{{v.name|get_url(v.id)}}" >
+                <a href="/task/index/show/id/{{v.id}}" >
                     <div class="mui-row">
                         <div class="mui-col-sm-10 mui-col-xs-10">
 
-                            <h4 class="dotdot line2 ">{{v.title}}</h4>
+                            <h4 class="dotdot line2 ">{{v.doc.title}}</h4>
                             <p class="item_info">
 
-                                <span class="src space">{{v.description}}</span>
+                                <span class="src space">{{v.doc.description}}</span>
                                 
                             </p>
                         </div>
@@ -53,15 +53,15 @@
                     </div>
                 </a>
             </li>
-            {%elif v.pics%}
-            {% set pics = v.pics|strToArray%}
+            {%elif v.doc.pics%}
+            {% set pics = v.doc.pics|strToArray%}
             <li class="mui-table-view-cell mui-media">
-                <a href="/task/index/show{{v.name|get_url(v.id)}}" >
+                <a href="/task/index/show/id/{{v.id}}" >
                     <div class="mui-row">
                         <div class="mui-col-sm-10 mui-col-xs-10">
-                            <h4 class="dotdot line2 ">{{v.title}}</h4>
+                            <h4 class="dotdot line2 ">{{v.doc.title}}</h4>
                             <p class="item_info">
-                                <span class="src space">{{v.description}}</span>
+                                <span class="src space">{{v.doc.description}}</span>
                             </p>
                         </div>
                         <div class="mui-col-sm-2 mui-col-xs-2 ">
@@ -74,12 +74,12 @@
             {%else%}
             <!--无图-->
             <li class="mui-table-view-cell mui-media">
-                <a href="{{v.name|get_url(v.id)}}">
-                    <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+                <a href="/task/index/show/id/{{v.id}}">
+                    <h4 class="dotdot line2 margin-bottom-6">{{v.doc.title}}</h4>
 
                     <p class="item_info">
 
-                        <span class="src space">{{v.description}}</span>
+                        <span class="src space">{{v.doc.description}}</span>
                     </p>
 
                 </a>
