@@ -101,43 +101,10 @@ export default class extends Base {
     }
   }
 
-
-  async oauthAction(){
-    //判断是否是微信浏览器
-    //微信公众账号内自动登陆
-    let openid = await this.session("wx_openid");
-    //let openid = null;
-    if(/*is_weixin(this.userAgent()) &&*/ think.isEmpty(openid)){
-      this.cookie("cmswing_wx_url",this.http.url);
-      var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.setup.wx_AppID, `http://${this.http.host}/uc/weixin/getopenid?showwxpaytitle=1`);
-      //console.log(oauthUrl)
-      this.redirect(oauthUrl);
-    }
-
-  }
-  //用微信客户端获取getopenid
-  async getopenidAction(){
-    //获取用户openid
-    let code =  this.get("code");
-    //console.log(code);
-    //获取openid
-    let getopenid = ()=>{
-      let deferred = think.defer();
-      pingpp.wxPubOauth.getOpenid(this.setup.wx_AppID, this.setup.wx_AppSecret, code, function(err, openid){
-        //console.log(openid);
-        deferred.resolve(openid);
-        // ...
-        // pass openid to extra['open_id'] and create a charge
-        // ...
-      });
-      return deferred.promise;
-    };
-    let openid = await getopenid();
-    //console.log(think.isEmpty(openid));
+  async wechartAutoLogin(openid){
     let userinfo = await getUser(this.api, openid);
     //console.log(userinfo);
     //如果没有关注先跳到关注页面
-    
     if(userinfo.subscribe==0){
       //console.log(1111111111111)
       this.redirect('/uc/weixin/follow');
@@ -178,6 +145,44 @@ export default class extends Base {
         this.redirect(this.cookie("cmswing_wx_url"));
       }
     }
+  }
+
+  async oauthAction(){
+    //判断是否是微信浏览器
+    //微信公众账号内自动登陆
+    let openid = await this.session("wx_openid");
+    //let openid = null;
+    if(/*is_weixin(this.userAgent()) && */think.isEmpty(openid)){
+      this.cookie("cmswing_wx_url",this.http.url);
+      var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.setup.wx_AppID, `http://${this.http.host}/uc/weixin/getopenid?showwxpaytitle=1`);
+      //console.log(oauthUrl)
+      this.redirect(oauthUrl);
+    }
+    else{
+      await wechartAutoLogin(openid);
+    }
+
+  }
+  //用微信客户端获取getopenid
+  async getopenidAction(){
+    //获取用户openid
+    let code =  this.get("code");
+    //console.log(code);
+    //获取openid
+    let getopenid = ()=>{
+      let deferred = think.defer();
+      pingpp.wxPubOauth.getOpenid(this.setup.wx_AppID, this.setup.wx_AppSecret, code, function(err, openid){
+        //console.log(openid);
+        deferred.resolve(openid);
+        // ...
+        // pass openid to extra['open_id'] and create a charge
+        // ...
+      });
+      return deferred.promise;
+    };
+    let openid = await getopenid();
+    //console.log(think.isEmpty(openid));
+    await wechartAutoLogin(openid);
   }
 
   async jsconfigAction(){
