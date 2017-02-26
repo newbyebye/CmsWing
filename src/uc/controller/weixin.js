@@ -313,10 +313,13 @@ export default class extends Base {
     await this.session('wx_openid',data.openid);
     this.cookie('wx_openid',null);
 
+
     if (think.isEmpty(this.cookie("cmswing_wx_url"))){
+        console.log("/uc/index")
         return this.success({name:"绑定成功",url:"/uc/index"});
     }
     else{
+        console.log("redirect", this.cookie("cmswing_wx_url"));
         return this.success({name:"绑定成功",url:this.cookie("cmswing_wx_url")});
     }
   }

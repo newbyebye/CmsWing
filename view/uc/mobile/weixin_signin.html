@@ -323,16 +323,16 @@
             success:function(data){
                 //服务器返回响应，根据响应结果，分析是否登录成功；
                 if(data.errno == 0){
-                    if (data.url) {
-                        mui.toast(data.name + ' 即将跳转~');
-                    }else if(data.name){
-                        mui.toast(data.name);
+                    if (data.data.url) {
+                        mui.toast(data.data.name + ' 即将跳转~');
+                    }else if(data.data.name){
+                        mui.toast(data.data.name);
                     }
                     setTimeout(function(){
-                        if (data.url) {
-                            mui.openWindow({url: data.url})
+                        if (data.data.url) {
+                            mui.openWindow({url: data.data.url})
                         }
-                    },1500);
+                    },1000);
 
                 }else {
                     if(data.errno==1001){
