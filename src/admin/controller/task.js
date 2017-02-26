@@ -199,6 +199,18 @@ export default class extends Base {
         let taskLink = await this.model('task_link').where({id:record.task_link_id}).find();
         
         // 更新积分，当前积分统一记录到任务承接人名下
+        let wx_user = await this.model('wx_user').where({id:record.user_id}).find();
+        let task = await this.model('task').where({id:taskLink.task_id}).find();
+        if (this.param('status') == '1'){
+          await this.model('member').where({id:wx_user.uid}).increment('amount', task.reward);
+        }
+        else{
+          await this.model('member').where({id:wx_user.uid}).decrement('amount', task.reward);
+        }
+        await this.model("action").log("coins", "member", wx_user.uid, this.user.uid, this.ip(), this.http.url);
+
+        /*
+        TODO:
         let old_completed = taskLink.completed_num;
         if (old_completed != completed_num){
           let task = await this.model('task').where({id:taskLink.task_id}).find();
@@ -214,8 +226,9 @@ export default class extends Base {
             await this.model('member').where({id:taskLink.user_id}).increment('amount', score);
           }
           await this.model("action").log("coins", "member", taskLink.user_id, this.user.uid, this.ip(), this.http.url);
-          await this.model('task_link').where({id:record.task_link_id}).update({completed_num:completed_num});
-        }   
+        }
+        */  
+        await this.model('task_link').where({id:record.task_link_id}).update({completed_num:completed_num});
     }
 
     return this.json({errno:0, data:{name:"修改成功"}});
