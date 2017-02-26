@@ -11,20 +11,18 @@
                             <p>{{controller.meta_title}}</p>
                         </header>
                     <section class="scrollable wrapper">
-                       
-                        
                         <section class="panel panel-default">
-                            <header class="panel-heading">
-                                任务完成统计
-                                <i data-title="当前仅能统计跳转" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
-                            </header>
+                            <ul class="breadcrumb">
+                                <li><a href="/admin/task/index"><i class="fa fa-home"></i>任务设置</a></li>
+                                <li><a href="/admin/task/index"><i class="fa fa-list-ul"></i>任务管理</a></li>
+                                <li class="active">任务:&nbsp;{{task.doc.title}}</li>
+                                <li>奖励:&nbsp;{{task.reward}}</li>
+                            </ul>
                             
                             <div class="row wrapper">
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
-                                        <a class="btn btn-sm btn-info" href="/admin/task/add">
-                                            添加任务
-                                        </a>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -41,22 +39,25 @@
                                 <table class="table table-striped b-t b-light">
                                     <thead>
                                     <tr>
-                                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
-                                        <th class="">昵称</th>
-                                        <th class="">地区</th>
-                                        <th class="">行为ip</th>
-                                        <th class="">行为时间</th>
+                                        <th style="width:20px;"><label class="checkbox m-n i-checks"></label></th>
+                                        <th class="">承接人</th>
+                                        <th class="">承接时间</th>
+                                        <th class="">浏览</th>
+                                        <th class="">跳转</th>
+                                        <th class="">完成</th>
+                                        <th class="">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {% for item in list %}
                                     <tr>
-                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
-                                        <td><img src="{{item.headimgurl}}" style="width:48px;height:48px"> {{item.nickname}}</td>
-                                        <td>{{item.country}} {{item.province}} {{item.city}}</td>
-                                        <td>{{item.action_ip|int2ip}}</td>
+                                        <td><label class="checkbox m-n i-checks"></label></td>
+                                        <td><img src="{{item.user.headimgurl}}" style="width:48px;height:48px"> {{item.user.nickname}}</td>
                                         <td>{{item.create_time | dateformat('Y-m-d H:i:s')}}</td>
-                                       
+                                        <td>{{item.view_num}}</td>
+                                        <td>{{item.redirect_num}}</td>
+                                        <td>{{item.completed_num}}</td>
+                                        <td><a href="/admin/task/stat/id/{{item.id}}/type/1" class="btn btn-sm btn-info">查看</a></td>
                                     </tr>
                                     {% else %}
                                     <tr><td colspan="7"><div class="alert alert-warning alert-block">

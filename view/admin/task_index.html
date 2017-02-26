@@ -12,10 +12,10 @@
                         </header>
                     <section class="scrollable wrapper">       
                         <section class="panel panel-default">
-                            <header class="panel-heading">
-                                管理所有任务
-                                <i data-title="当前仅能统计跳转" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
-                            </header>
+                            <ul class="breadcrumb">
+                                <li><a href="/admin/task/index"><i class="fa fa-home"></i>任务设置</a></li>
+                                <li class="active"><i class="fa fa-list-ul"></i>任务管理</a></li>
+                            </ul>
                             
                             <div class="row wrapper">
                                 <div class="col-sm-9 m-b-xs">
@@ -83,7 +83,9 @@
                                         <td><a href="/admin/task/link/task/{{item.id}}" class="btn btn-sm btn-info">{{item.accept_num}}</a></td>
                                         <td>{{item.complete_num}}</td>
                                         <td>{{item.update_time | dateformat('Y-m-d H:i:s')}}</td>
-                                        <td><a href="/admin/task/add/id/{{item.id}}" class="btn btn-sm btn-info">编辑</a></td>
+                                        <td><a href="/admin/task/add/id/{{item.id}}" class="btn btn-sm btn-info">编辑</a>
+                                        <a href="/admin/task/link/task/{{item.id}}" class="btn btn-sm btn-info">查看</a>
+                                        </td>
                                     </tr>
                                     {% else %}
                                     <tr><td colspan="7"><div class="alert alert-warning alert-block">

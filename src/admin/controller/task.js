@@ -42,6 +42,7 @@ export default class extends Base {
 
   async addAction(){
 
+
     let id = this.param("id");
 
     let cate = await this.category("task");
@@ -60,9 +61,11 @@ export default class extends Base {
     if (!think.isEmpty(id)){
       let task = await this.model("task").where({id: this.param("id")}).find();
       this.assign("info", task);
+      this.meta_title = '任务管理>修改任务';
       this.assign("title", "修改任务");
     }
     else{
+      this.meta_title = '任务管理>新增任务';
       this.assign("title", "新增任务");
     }
 
@@ -70,10 +73,7 @@ export default class extends Base {
   }
 
   async setstatusAction(){
-    console.log(this.param("status"), this.param("ids"));
-
     let data = await this.model("task").where({id:["IN",this.param('ids')]}).select();
-    //console.log(data);
     if(this.param('status') == -1){
         for (let v of data){
             //删除
@@ -85,10 +85,6 @@ export default class extends Base {
             await this.model("task").where({id:v.id}).update({status:this.param('status')});
         }
     }
-
-
-    // status -1 删除, 
-
     return this.json({errno:0, data:{name:"修改成功"}});
   }
 
@@ -115,9 +111,21 @@ export default class extends Base {
   }
 
   async linkAction(){
+    this.meta_title = '任务承接任务'; 
+
     let task_id   = this.param("task");
+    let task = await this.model("task").where({id:task_id}).find();
+    task.doc = await this.model("document").where({id:task.document_id}).find();
+    this.assign("task", task);
 
     let data = await this.model("task_link").where({task_id:task_id}).page(this.get('page'), 20).order('id DESC').countSelect();
+    for(let v of data.data){
+      let user = await this.model("wx_user").where({uid:v.user_id}).find();
+      v.user = user;
+    }
+
+    console.log(data);
+
     let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
     let pages = new Pages(this.http); //实例化 Adapter
     let page = pages.pages(data);
@@ -129,18 +137,36 @@ export default class extends Base {
   }
 
   async statAction() {
-    
-      this.meta_title = '任务管理';
-      this.assign({
-            "navxs": true,
-      });
-
-      let map = {'status': ['>', -1]}
-        if(!think.isEmpty(this.get("username"))){
-            map.username= ["like", "%"+this.get("username")+"%"]
-        }
       
-      let data = await this.model('task_record').page(this.get('page'),20).order('id DESC').countSelect();
+
+      let type = this.param("type");
+      let data;
+      let map = {};
+      if (think.isEmpty(type)){// 审核任务
+        this.meta_title = '任务管理>任务审核';
+        map.status = 0;
+        data = await this.model('task_record').where(map).page(this.get('page'),20).order('id DESC').countSelect();
+      }
+      else{//查看任务
+        this.meta_title = '任务管理>任务完成情况';
+        let linkId = this.param("id");
+        if (!think.isEmpty(linkId)){
+          map.task_link_id = linkId;
+
+          let taskLink = await this.model('task_link').where({id:linkId}).find();
+          if (!think.isEmpty(taskLink)){
+            let task = await this.model('task').where({id:taskLink.task_id}).find();
+            task.doc = await this.model('document').where({id:task.document_id}).find();
+            this.assign("task", task);
+
+            let user = await this.model("wx_user").where({uid:taskLink.user_id}).find();
+            this.assign("user", user);
+            this.assign("taskLink", taskLink);
+          }
+        }
+        data = await this.model('task_record').where(map).page(this.get('page'),20).order('id DESC').countSelect();
+      }
+    
       let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
       let pages = new Pages(this.http); //实例化 Adapter
       let page = pages.pages(data);
@@ -158,15 +184,24 @@ export default class extends Base {
 
         v.wx_user = wx_user;
       }
-    
-
-    //console.log(data.data);
 
     this.assign('pagerData', page); //分页展示使用
     this.assign('list', data.data);
       
+    return this.display();
+  }
 
-      return this.display();
+  async setstatAction(){
+    let data = await this.model("task_record").where({id:["IN",this.param('ids')]}).select();
+    for (let v of data){
+        //修改状态
+        await this.model("task_record").where({id:v.id}).update({status:this.param('status')});
+        let record = await this.model("task_record").where({id:v.id}).find();
+        let completed_num = await this.model("task_record").where({task_link_id:record.task_link_id, status:1}).count();
+        await this.model('task_link').where({id:record.task_link_id}).update({completed_num:completed_num});
     }
+
+    return this.json({errno:0, data:{name:"修改成功"}});
+  }
 
 }

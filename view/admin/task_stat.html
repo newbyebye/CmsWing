@@ -12,19 +12,29 @@
                         </header>
                     <section class="scrollable wrapper">
                        
-                        
                         <section class="panel panel-default">
-                            <header class="panel-heading">
-                                任务完成统计
-                                <i data-title="当前仅能统计跳转" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
-                            </header>
+                            <ul class="breadcrumb">
+                                <li><a href="/admin/task/index"><i class="fa fa-home"></i>任务设置</a></li>
+                                <li><a href="/admin/task/index"><i class="fa fa-list-ul"></i>任务管理</a></li>
+                                {% if task %}
+                                <li><a href="/admin/task/link/task/{{task.id}}">任务:&nbsp;{{task.doc.title}}</a></li>
+                                <li>奖励:&nbsp;{{task.reward}}</li>
+                                <li>任务承接人:&nbsp;{{user.nickname}}</li>
+                                {%endif%}
+                            </ul>
                             
                             <div class="row wrapper">
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
-                                        <a class="btn btn-sm btn-info" href="/admin/task/add">
-                                            添加任务
-                                        </a>
+                                        
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-info ajax-post" target-form="ids" href="/admin/task/setstat/status/1" target-form="ids">
+                                            完成审核
+                                            </a>
+                                            <a class="btn btn-sm btn-info ajax-post" href="/admin/task/setstat/status/0" target-form="ids">
+                                            取消审核
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -46,6 +56,8 @@
                                         <th class="">地区</th>
                                         <th class="">行为ip</th>
                                         <th class="">行为时间</th>
+                                        <th class="">状态</th>
+                                        <th class="">审核数据</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -56,12 +68,13 @@
                                         <td>{{item.country}} {{item.province}} {{item.city}}</td>
                                         <td>{{item.action_ip|int2ip}}</td>
                                         <td>{{item.create_time | dateformat('Y-m-d H:i:s')}}</td>
-                                       
+                                        <td>{%if item.status == 0%}待审核{%else%}已完成{%endif%}</td>
+                                        <td>{{item.remark}}</td>
                                     </tr>
                                     {% else %}
                                     <tr><td colspan="7"><div class="alert alert-warning alert-block">
                                         <button data-dismiss="alert" class="close" type="button">×</button>
-                                        <p>This would display if the 'item' collection were empty</p>
+                                        <p>当前没有需要审核的记录</p>
                                     </div></td></tr>
 
                                     {% endfor %}
