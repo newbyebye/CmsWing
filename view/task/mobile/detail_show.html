@@ -105,7 +105,7 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
         */
 
         mui.ajax('/task/detail/adhits/id/{{id}}',{
-            data:data,
+            data:{},
             dataType:'json',//服务器返回json格式数据
             type:'post',//HTTP请求类型
             timeout:10000,//超时时间设置为10秒；
@@ -115,14 +115,14 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
                 
                 mui.toast("即将跳转");
                 
-                mui.openWindow({url: {{info.link_id}}});
+                mui.openWindow({url: "//"+"{{info.link_id}}"});
                 
             },
             error:function(xhr,type,errorThrown){
                 //异常处理；
                 console.log(type);
-                mui.toast("即将跳转");
-                mui.openWindow({url: {{info.link_id}}});
+                mui.toast("即将跳转.");
+                mui.openWindow({url: "//"+"{{info.link_id}}"});
             }
         });
     }
