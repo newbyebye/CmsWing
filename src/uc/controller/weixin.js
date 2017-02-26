@@ -127,7 +127,6 @@ export default class extends Base {
       if(think.isEmpty(wx_user.uid)){
         //没绑定跳转绑定页面
         this.redirect("/uc/weixin/signin");
-
       }else {
         //更新微信头像
         let filePath=think.RESOURCE_PATH + '/upload/avatar/' + wx_user.uid;
@@ -151,15 +150,20 @@ export default class extends Base {
     //判断是否是微信浏览器
     //微信公众账号内自动登陆
     let openid = await this.session("wx_openid");
-    this.cookie("cmswing_wx_url",this.http.url);
+    
     //let openid = null;
     if(/*is_weixin(this.userAgent()) && */think.isEmpty(openid)){
+      this.cookie("cmswing_wx_url",this.http.url);
       var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.setup.wx_AppID, `http://${this.http.host}/uc/weixin/getopenid?showwxpaytitle=1`);
       //console.log(oauthUrl)
       this.redirect(oauthUrl);
     }
     else{
-      await this.wechartAutoLogin(openid);
+      let webuser = await this.session('webuser');
+      if (think.isEmpty(webuser)){
+        this.cookie("cmswing_wx_url",this.http.url);
+        await this.wechartAutoLogin(openid);
+      }
     }
 
   }
@@ -313,7 +317,7 @@ export default class extends Base {
         return this.success({name:"绑定成功",url:"/uc/index"});
     }
     else{
-        return this.redirect(this.cookie("cmswing_wx_url"));
+        return this.success({name:"绑定成功",url:this.cookie("cmswing_wx_url")});
     }
   }
   /**登录绑定 */
