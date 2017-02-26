@@ -76,7 +76,7 @@
                                     {% for item in list %}
                                     <tr>
                                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
-                                        <td>{{item.doc.title}}</td>
+                                        <td><a href="/admin/task/link/task/{{item.id}}">{{item.doc.title}}</a></td>
                                         <td>{{item.reward}}金币</td>
                                         <td>{{item.scale}}%</td>
                                         <td>{%if item.type == 1 %} 体验类 {%else%} 浏览类{%endif%}</td>
