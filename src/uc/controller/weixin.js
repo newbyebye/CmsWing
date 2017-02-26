@@ -151,9 +151,9 @@ export default class extends Base {
     //判断是否是微信浏览器
     //微信公众账号内自动登陆
     let openid = await this.session("wx_openid");
+    this.cookie("cmswing_wx_url",this.http.url);
     //let openid = null;
     if(/*is_weixin(this.userAgent()) && */think.isEmpty(openid)){
-      this.cookie("cmswing_wx_url",this.http.url);
       var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.setup.wx_AppID, `http://${this.http.host}/uc/weixin/getopenid?showwxpaytitle=1`);
       //console.log(oauthUrl)
       this.redirect(oauthUrl);
@@ -293,9 +293,9 @@ export default class extends Base {
       //用户副表
       await this.model("wx_user").where({openid:data.openid}).update({uid:reg});
       //更新微信头像
-      let filePath=think.RESOURCE_PATH + '/upload/avatar/' +reg;
-      think.mkdir(filePath)
-      await this.spiderImage(data.headimgurl,filePath+'/avatar.png')
+      //let filePath=think.RESOURCE_PATH + '/upload/avatar/' +reg;
+      //think.mkdir(filePath)
+      //await this.spiderImage(data.headimgurl,filePath+'/avatar.png')
     }
     console.log(data);
     await this.model("member").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
@@ -308,9 +308,13 @@ export default class extends Base {
     //成功后储存opid,防止无限登陆
     await this.session('wx_openid',data.openid);
     this.cookie('wx_openid',null);
-    return this.success({name:"绑定成功",url:"/uc/index"});
 
-
+    if (think.isEmpty(this.cookie("cmswing_wx_url"))){
+        return this.success({name:"绑定成功",url:"/uc/index"});
+    }
+    else{
+        return this.redirect(this.cookie("cmswing_wx_url"));
+    }
   }
   /**登录绑定 */
   async logonbindingAction(){
