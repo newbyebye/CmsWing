@@ -86,7 +86,6 @@ export default class extends think.model.base {
      * @param  integer $uid 用户ID
      * @return string       用户昵称
      */
-
     async get_nickname(uid) {
         uid = uid || 0;
         //TODO 缓存处理后续
@@ -94,6 +93,14 @@ export default class extends think.model.base {
         let info = await this.field("username").find(uid);
         name = info.username;
         return name;
+    }
 
+    async change_amount_log(uid){
+        uid = uid || 0;
+        //TODO 缓存处理后续
+        let name;
+        let info = await this.field("username, amount").find(uid);
+        name = info.username + "的金币修改为"+info.amount;
+        return name;
     }
 }

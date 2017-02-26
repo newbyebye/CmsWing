@@ -52,7 +52,6 @@ export default class extends think.model.base {
         }
 
         //插入行为日志
-
         let data = {
             action_id:action_info.id,
             user_id:user_id,
@@ -83,10 +82,10 @@ export default class extends think.model.base {
                for(let val of match){
                    val= val.replace(/(^\[)|(\]$)/g, "");
                    let param = val.split('|');
-                   //console.log(param);
+                   console.log(param);
                    if(!think.isEmpty(param[1])){
 
-                      if(param[0]=='user'){
+                      if(param[0]=='user' || param[0] == 'record'){
                           replace.push(await call_user_func(param[1],log[param[0]]));
                       }else {
                           replace.push(call_user_func(param[1],log[param[0]]));

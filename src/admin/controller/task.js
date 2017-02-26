@@ -213,6 +213,7 @@ export default class extends Base {
             score = (completed_num - old_completed)*task.reward;
             await this.model('member').where({id:taskLink.user_id}).increment('amount', score);
           }
+          await this.model("action").log("coins", "member", taskLink.user_id, this.user.uid, this.ip(), this.http.url);
           await this.model('task_link').where({id:record.task_link_id}).update({completed_num:completed_num});
         }   
     }

@@ -660,6 +660,13 @@ global.get_nickname = async (uid) => {
     }).get_nickname(uid)
     return data;
 }
+
+global.change_amount_log = async (uid) => {
+    //console.log(uid);
+    let data = await think.model('member', think.config("db")).change_amount_log(uid)
+    return data;
+}
+
 //时间格式
 /* global time_format */
 global.time_format = (time) => {
