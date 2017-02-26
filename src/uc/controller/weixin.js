@@ -159,7 +159,7 @@ export default class extends Base {
       this.redirect(oauthUrl);
     }
     else{
-      await wechartAutoLogin(openid);
+      await this.wechartAutoLogin(openid);
     }
 
   }
@@ -182,7 +182,7 @@ export default class extends Base {
     };
     let openid = await getopenid();
     //console.log(think.isEmpty(openid));
-    await wechartAutoLogin(openid);
+    await this.wechartAutoLogin(openid);
   }
 
   async jsconfigAction(){
@@ -200,11 +200,11 @@ export default class extends Base {
     //console.log(this.setup)
     //创建关注二维码
     //TODO
-    // let titck =await createLimitQRCode(this.api,1);
-    // console.log(titck);
-    let qrcod = this.api.showQRCodeURL("gQHz7zoAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xL3JqX0p2Zm5sMnBtalQwX215eE1NAAIEjMBoVwMEAAAAAA==");
+    //let titck =await createLimitQRCode(this.api,1);
+    //console.log(titck);
+    let qrcod = this.api.showQRCodeURL("gQFK8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyMmJreWgydTE5VF8xMDAwME0wM3MAAgRPzrJYAwQAAAAA");
     this.assign("qrurl",qrcod);
-    //think.log(qrcod);
+    think.log(qrcod);
     // this.end(qrcod);
     this.meta_title = `扫码关注`;
     //判断浏览客户端
@@ -273,7 +273,7 @@ export default class extends Base {
         return this.fail("电子邮箱已存在，请重新填写！")
       }
     }
-    */
+    
     if(think.isEmpty(data.password) && think.isEmpty(data.password2)){
       return this.fail("密码不能为空！")
     }else{
@@ -282,10 +282,11 @@ export default class extends Base {
         return this.fail("两次输入的密码不一致，请重新填写！")
       }
     }
+    */
     data.status = 1;
     data.reg_time = new Date().valueOf();
     data.reg_ip = _ip2int(this.ip());
-    data.password = encryptPassword(data.password);
+    //data.password = encryptPassword(data.password);
     let reg = await this.model("member").add(data);
 
     if(!think.isEmpty(reg)){
