@@ -23,7 +23,7 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
                 <p>此任务完成后可以获得{{task.reward}}金币, 如您已经完成任务，请立即提交凭据，我们会第一时间审核您的信息</p>
                 <form class="form-horizontal" action="/task/detail/adhits/id/{{id}}" method="post">
                     <input type="text" name="remark" placeholder="{{task.placeholder}}">
-                    <button type="submit" class="mui-btn mui-btn-warning mui-btn-block addr">提交</button>
+                    <button id="form-horizontal" type="button" class="mui-btn mui-btn-warning mui-btn-block addr">提交</button>
                 </form>
                 
              
@@ -102,5 +102,35 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
             window.location.href = "//"+redirect;
         });
     }
+
+    var formorganizing = document.getElementById("form-horizontal");
+    formorganizing.addEventListener('tap',function (event) {
+        var data = $(".form-horizontal").serialize();
+        mui.ajax('/task/detail/adhits/id/{{id}}',{
+            data:data,
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:10000,//超时时间设置为10秒；
+            headers:{'Content-Type':'application/json'},
+            success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                if(data.errno == 0){
+                    
+                  mui.toast(data.data.name);
+                   
+
+                }else {
+                    
+                  mui.toast(data.errmsg);
+
+                
+                }
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+            }
+        });
+    })
  </script>
  {% endblock %}

@@ -5,7 +5,7 @@ import Base from '../../common/controller/base.js';
 export default class extends Base {
   async showAction(){
     let p = this.param("p");
-    //await this.action("uc/weixin", "oauthx");
+    //await this.action("uc/weixin", "oauth");
     await this.weblogin();
     
     this.assign('id', p);
@@ -40,7 +40,7 @@ export default class extends Base {
 
     let taskLink = await this.model('task_link').where({id:this.param("id")}).find();
     if (think.isEmpty(taskLink)){
-      return this.json({"errno":404,"errmsg":"error"});
+      return this.fail(404, "error");
     }
 
     let linkids = [];
@@ -59,12 +59,12 @@ export default class extends Base {
       }
     }
     if (think.isEmpty(wid)){
-      return this.json({"errno":404,"errmsg":"error"});
+      return this.fail(404, "error");
     }
 
     let data = await this.model("task_link").where({id:["IN", linkids], user_id: wid}).find();
     if (!think.isEmpty(data)){
-      return this.json({"errno":501,"errmsg":"error"});
+      return this.fail(501, "只能做一次任务");
     }
 
     let record = await this.model("task_record").where({task_link_id: this.param("id"), user_id: wid}).find();
@@ -77,13 +77,13 @@ export default class extends Base {
     }
     else{
       if (think.isEmpty(record)){
-        return this.json({"errno": 600, "errmsg":"先完成任务"});
+        return this.fail(600, "请先完成任务");
       }
 
       await this.model("task_record").where({id:record.id}).update({remark:this.param("remark")});
     }
 
-    return this.json({"error":0});
+    return this.success({"name":"提交成功"});
   }
 
   
