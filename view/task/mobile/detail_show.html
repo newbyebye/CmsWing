@@ -18,7 +18,7 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
                 <p>我是{{user.nickname}}, 赶快来和我一起体验新产品吧！</p>
              </div>
               
-                <button   class="mui-btn mui-btn-success mui-btn-block addr" onclick="adhits('{{id}}', '{{info.link_id}}');">点击体验新产品</button>
+                <button class="mui-btn mui-btn-success mui-btn-block addr" onclick="adhits();">点击体验新产品</button>
                 
                 <p>此任务完成后可以获得{{task.reward}}金币, 如您已经完成任务，请立即提交凭据，我们会第一时间审核您的信息</p>
                 <form class="form-horizontal" action="/task/detail/adhits/id/{{id}}" method="post">
@@ -97,9 +97,33 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
 
     mui.init();
 
-    function adhits(id, redirect){
+    function adhits(redirect){
+        /*
         $.post("/task/detail/adhits",{"id":id, "__CSRF__":$('meta[name="__CSRF__"]').attr("content"), "r":Math.random()}).done(function(data){
             window.location.href = "//"+redirect;
+        });
+        */
+
+        mui.ajax('/task/detail/adhits/id/{{id}}',{
+            data:data,
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:10000,//超时时间设置为10秒；
+            headers:{'Content-Type':'application/json'},
+            success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                
+                mui.toast("即将跳转");
+                
+                mui.openWindow({url: {{info.link_id}}});
+                
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+                mui.toast("即将跳转");
+                mui.openWindow({url: {{info.link_id}}});
+            }
         });
     }
 
