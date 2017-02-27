@@ -30,6 +30,12 @@ export default class extends Base {
 
     this.assign('info', doc); 
 
+    // wx_user id 生成2维码
+    let titck =await createLimitQRCode(this.api, user.id);
+    console.log(titck);
+    let qrcod = this.api.showQRCodeURL(titck.ticket);
+    this.assign("qrurl",qrcod);
+
     return this._display();
   }
 
@@ -89,7 +95,5 @@ export default class extends Base {
 
     return this.success({"name":"提交成功"});
   }
-
-  
 
 }

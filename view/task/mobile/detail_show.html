@@ -18,27 +18,29 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
                 <p>我是{{user.nickname}}, 赶快来和我一起体验新产品吧！</p>
              </div>
               
-                <button class="mui-btn mui-btn-success mui-btn-block addr" onclick="adhits();">点击体验新产品</button>
-                
-                <p>此任务完成后可以获得{{task.reward}}金币, 如您已经完成任务，请立即提交凭据，我们会第一时间审核您的信息</p>
-                <form class="form-horizontal" action="/task/detail/adhits/id/{{id}}" method="post">
-                    <input type="text" name="remark" placeholder="{{task.placeholder}}">
-                    <button id="form-horizontal" type="button" class="mui-btn mui-btn-warning mui-btn-block addr">提交</button>
-                </form>
-                
-             
+            <button class="mui-btn mui-btn-success mui-btn-block addr" onclick="adhits();">点击体验新产品</button>
+                 
             <div class="warning">
                 {%for val in info.content%}
                     {{val|safe}}
                 {%endfor%}
-             </div>
+            </div>
 
-             <div class="qcode">
+            <p>此任务完成后可以获得{{task.reward}}金币, 如您已经完成任务，请立即提交凭据，我们会第一时间审核您的信息</p>
+            <form class="form-horizontal" action="/task/detail/adhits/id/{{id}}" method="post">
+                <input type="text" name="remark" placeholder="{{task.placeholder}}">
+                <button id="form-horizontal" type="button" class="mui-btn mui-btn-warning mui-btn-block addr">提交</button>
+            </form>
+
+            <div class="qcode">
                 <p>我是{{user.nickname}}, 这是我的二维码，快扫进来：关注之后，您也可以去接任务，得到自己的专属链接！</p>
                 <div class="center">
                     <img class="list_img_holder" width="300px" src="/static/qt.png" >
                 </div>
-             </div>
+                <li class=" text-center">
+                    <img src="{{qrurl}}" style="width: 70%">
+                </li>
+            </div>
 
          </div>
 

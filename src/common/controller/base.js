@@ -30,6 +30,7 @@ export default class extends think.controller.base {
     //用户信息
     this.user = await this.session('webuser');
     //console.log(this.user);
+    this.api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
 
     //获取当前分类信息
     //console.log(action);
