@@ -79,6 +79,16 @@ export default class extends think.controller.base {
       switch (message.Event){
 
           case "subscribe":  //首次关注
+              console.log(message);
+              let openid = message.FromUserName;
+              let key = message.EventKey;
+              console.log(message);
+              if (key.startsWith("qrscene_")){
+                // 新加入用户
+                let wid = parseInt(key.substr("qrscene_".length));
+                await this.model("wx_user_relation").thenAdd({"openid":openid, "upwid":wid}, {"openid":openid});
+              }
+
               let datas = await this.model("wx_replylist").where({reply_type:1}).order("create_time DESC").select();
               let data = datas[0];
               let content;
@@ -106,13 +116,7 @@ export default class extends think.controller.base {
               //todo
               break;
           case "SCAN"://扫码事件监听
-              let openid = message.FromUserName;
-              let key = message.EventKey;
-              if (key.startsWith("qrscene_")){
-                // 新加入用户
-                let wid = parseInt(key.substr("qrscene_".length));
-                await this.model("wx_user_relation").thenAdd({"openid":openid, "upwid":wid}, {"openid":openid});
-              }
+              
               
               console.log(message);
               break;
