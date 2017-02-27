@@ -6,6 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 'use strict';
+import API from 'wechat-api';
 
 export default class extends think.controller.base {
   init(http) {
