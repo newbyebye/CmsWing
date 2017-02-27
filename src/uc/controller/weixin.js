@@ -112,7 +112,6 @@ export default class extends Base {
     };
     
     userinfo.subscribe_time = userinfo.subscribe_time * 1000;
-
     let wx_user=await this.model("wx_user").where({openid:openid}).find();
 
     //存储Openid

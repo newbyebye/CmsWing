@@ -106,7 +106,14 @@ export default class extends think.controller.base {
               //todo
               break;
           case "SCAN"://扫码事件监听
-              //todo
+              let openid = message.FromUserName;
+              let key = message.EventKey;
+              if (key.startsWith("qrscene_")){
+                // 新加入用户
+                let wid = parseInt(key.substr("qrscene_".length));
+                await this.model("wx_user_relation").thenAdd({"openid":openid, "upwid":wid}, {"openid":openid});
+              }
+              
               console.log(message);
               break;
           default:
