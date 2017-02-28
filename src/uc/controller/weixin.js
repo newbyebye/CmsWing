@@ -202,12 +202,20 @@ export default class extends Base {
   async followAction(){
     //console.log(this.setup)
     //创建关注二维码
-    //TODO
-    //let titck =await createLimitQRCode(this.api,1);
+    let url = this.cookie("cmswing_wx_url");
+    let wid = 1;
+    if (!think.isEmpty(url)){
+      let params = url.split("?");
+      if (params.length > 0){
+        wid = parseInt(params[1].split("&")[0].split("=")[1]);
+      }
+    }
+    
+    let titck =await createLimitQRCode(this.api,1);
     //console.log(titck);
-    let qrcod = this.api.showQRCodeURL("gQFK8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyMmJreWgydTE5VF8xMDAwME0wM3MAAgRPzrJYAwQAAAAA");
+    let qrcod = this.api.showQRCodeURL(titck.ticket);
     this.assign("qrurl",qrcod);
-    think.log(qrcod);
+    //think.log(qrcod);
     // this.end(qrcod);
     this.meta_title = `扫码关注`;
     //判断浏览客户端

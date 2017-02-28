@@ -32,7 +32,6 @@ export default class extends Base {
 
     // wx_user id 生成2维码
     let titck =await createLimitQRCode(this.api, user.id);
-    console.log(titck);
     let qrcod = this.api.showQRCodeURL(titck.ticket);
     this.assign("qrurl",qrcod);
 

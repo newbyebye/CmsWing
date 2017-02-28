@@ -83,8 +83,8 @@ style="margin-bottom: 150px;background-color: #FFFFFF"
     wx.ready(function (){
         let shareData = {
             title: '{{info.title}}, 赶快来和我一起体验新产品吧！', // 分享标题
-            //link: 'http://ad.weishitianli.com/{{info.img}}', // 分享链接
-            imgUrl: 'http://ad.weishitianli.com/{{info.img}}', // 分享图标
+            link: 'http://ad.weishitianli.com/task/detail/show/p/{{id}}.html?wid={{user.id}}', // 分享链接
+            imgUrl: '{{info.cover_id|get_pic("m=1,w=123,h=82")}}', // 分享图标
         };
         wx.onMenuShareTimeline(shareData);
         wx.onMenuShareAppMessage(shareData);
