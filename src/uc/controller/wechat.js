@@ -73,6 +73,11 @@ export default class extends think.controller.base {
 
     }
 
+    async payAction(){
+      console.log(this.http);
+      return this.json({});
+    }
+
     //事件关注
  async eventAction(){
     let message = this.post();

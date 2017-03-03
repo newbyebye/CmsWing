@@ -165,10 +165,14 @@ export default class extends Base {
           type:1,
           status:1
         }
-
       }
-      let paylist = await this.model("pingxx").where(map).order("sort ASC").select();
-      this.assign("paylist", paylist);
+      //let paylist = await this.model("pingxx").where(map).order("sort ASC").select();
+      //this.assign("paylist", paylist);
+      let payment = think.service("payment");
+      let pay = new payment(this.http);
+      let ret = await pay.unifiedOrder("00001", 100, "100块");
+      think.log(ret);
+
       this.meta_title = "充值";
       if (checkMobile(this.userAgent())) {
         this.active = "user/index";

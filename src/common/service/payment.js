@@ -6,8 +6,10 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 'use strict';
+var tenpay = require('tenpay');
 
 export default class extends think.service.base {
+
     /**
      * init
      * @return {}         []
@@ -15,6 +17,21 @@ export default class extends think.service.base {
     init(http) {
         super.init(http);
         this.http = http;
+        //网站配置
+        this.setup = await this.model("setup").getset();
+        this.api  = new tenpay({
+                        appid: this.setup.wx_AppID,
+                        mchid: '1440578102',
+                        partnerKey: '94d11835159632b8977affe73c847100',
+                        pfx: require('fs').readFileSync(think.RESOURCE_PATH + '/apiclient_cert.p12'),
+                        notify_url: 'http://ad.weishitianli.com/uc/wechat/pay',
+                        //spbill_create_ip: 'IP地址'
+                    });
+    }
+
+    async unifiedOrder(order_no, order_amount, order_discription){
+
+        return await this.api.unifiedOrder({out_trade_no:order_no, total_fee: order_amount, body: order_discription});
     }
 
 //发起付款
