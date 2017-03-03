@@ -8,15 +8,17 @@
 'use strict';
 var tenpay = require('tenpay');
 
-export default class extends think.service.base {
+export default class extends think.controller.base {
 
     /**
      * init
      * @return {}         []
      */
-    init(http) {
+    init(http){
         super.init(http);
-        this.http = http;
+    }
+
+    async __before() {
         //网站配置
         this.setup = await this.model("setup").getset();
         this.api  = new tenpay({
