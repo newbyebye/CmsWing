@@ -32,6 +32,9 @@ export default class extends think.controller.base {
     }
 
     async unifiedOrder(order_no, order_amount, order_discription){
+        if (think.isEmpty(this.api)){
+            await this.__before();
+        }
 
         return await this.api.unifiedOrder({out_trade_no:order_no, total_fee: order_amount, body: order_discription});
     }
