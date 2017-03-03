@@ -31,12 +31,12 @@ export default class extends think.controller.base {
                     });
     }
 
-    async unifiedOrder(order_no, order_amount, order_discription){
+    async unifiedOrder(order_no, order_amount, order_discription, openid){
         if (think.isEmpty(this.api)){
             await this.__before();
         }
 
-        return await this.api.unifiedOrder({out_trade_no:order_no, total_fee: order_amount, body: order_discription});
+        return await this.api.unifiedOrder({out_trade_no:order_no, total_fee: order_amount, body: order_discription, openid:openid});
     }
 
 //发起付款

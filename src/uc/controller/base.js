@@ -31,6 +31,7 @@ export default class extends think.controller.base {
     this.is_login = await this.islogin();
     //用户信息
     this.user = await this.session('webuser');
+    this.openid = await this.session('wx_openid');
     //console.log(this.user);
 
     //获取当前分类信息
@@ -39,7 +40,7 @@ export default class extends think.controller.base {
     //设置主题
     //this.http.theme("default);
     //购物车
-
+    /*
     let cartList = await this.shopCart();
     let cartInfo;
     if(think.isEmpty(cartList)){
@@ -72,6 +73,7 @@ export default class extends think.controller.base {
       }
     }
     this.cart = cartInfo;
+    */
     //console.log(this.cart);
   }
   /**
