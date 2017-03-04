@@ -19,24 +19,24 @@
             <ul class="mui-table-view ">
                 <li class="mui-table-view-divider">充值金额</li>
                 <li>
-                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="padding: 16px 32px;margin: 10px 10px;">
+                <button id="btn_20" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(20)" style="padding: 16px 32px;margin: 10px 10px;">
                     20元
                 </button>
-                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="padding: 16px 32px;margin: 10px 10px;">
+                <button id="btn_30" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(30)" style="padding: 16px 32px;margin: 10px 10px;">
                     30元
                 </button>
-                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="padding: 16px 32px;margin: 10px 10px;">
+                <button id="btn_50" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(50)" style="padding: 16px 32px;margin: 10px 10px;">
                     50元
                 </button>
                 </li>
                 <li>
-                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="padding: 16px 28px;margin: 10px 10px;">
+                <button id="btn_100" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(100)" style="padding: 16px 28px;margin: 10px 10px;">
                     100元
                 </button>
-                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="padding: 16px 28px;margin: 10px 10px;">
+                <button id="btn_200" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(200)" style="padding: 16px 28px;margin: 10px 10px;">
                     200元
                 </button>
-                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="padding: 16px 28px;margin: 10px 10px;">
+                <button id="btn_300" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(300)" style="padding: 16px 28px;margin: 10px 10px;">
                     300元
                 </button>
                 </li>
@@ -47,6 +47,7 @@
             </ul></div>
         <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
             <input type="hidden" value="{{order.id}}" name="order_id">
+            <input type="hidden" value="{{order.amount}}" name="order_amount">
             <button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="pay">立即充值</button>
         </div>
     </form>
@@ -57,6 +58,13 @@
 {% block script %}
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
+    function recharge(amount){
+        $("button").addClass("mui-btn-outlined");
+        $("#pay").removeClass("mui-btn-outlined");
+        $("#btn_"+amount).removeClass("mui-btn-outlined");
+        $("#order_amount").val(amount);
+    }
+
     function wxinit(){
         $.ajax({url:"/uc/weixin/jsconfig?url="+window.location.origin + window.location.pathname,
                 success : function(data) {
