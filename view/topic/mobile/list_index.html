@@ -390,10 +390,7 @@
             }
             mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
             //alert(1)
-            document.querySelector('header h1').addEventListener('tap',function () {
-                //内容区滚动到顶部
-                mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
-            });
+            
             var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
             for(var i = 0;i<btn.length;i++){
                 btn[i].addEventListener("tap",function () {
