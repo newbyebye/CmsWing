@@ -98,7 +98,7 @@ export default class extends think.controller.base {
       if (think.isEmpty(wxpay)){
         return this.end("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[参数错误]]></return_msg></xml>");
       }
-      let order = await model.where({order_no:wxpay.out_trade_no}).find();
+      let order = await model.where({order_no:wxpay.out_trade_no, pay_status:0}).find();
       if (think.isEmpty(order)){
         return this.end("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[参数错误]]></return_msg></xml>");
       }

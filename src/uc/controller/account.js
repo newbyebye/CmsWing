@@ -89,7 +89,13 @@ export default class extends Base {
         return this.fail("请输入金额！");
       } else if (!think.isNumberString(data.order_amount)) {
         return this.fail("金额类型错误！")
-      } 
+      }
+      let amount = parseInt(data.order_amount);
+      if (amount > 300 || amount < 20){
+        return this.fail("金额类型错误！");
+      }
+      // 转为分 
+      data.order_amount = amount*100;
 
       //用户
       data.user_id = this.user.uid;

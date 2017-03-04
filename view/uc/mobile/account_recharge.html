@@ -19,24 +19,24 @@
             <ul class="mui-table-view ">
                 <li class="mui-table-view-divider">充值金额</li>
                 <li>
-                <button id="btn_20" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(20)" style="padding: 16px 32px;margin: 10px 10px;">
+                <button id="btn_20" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(20)" style="padding: 16px 30px;margin: 10px 8px;">
                     20元
                 </button>
-                <button id="btn_30" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(30)" style="padding: 16px 32px;margin: 10px 10px;">
+                <button id="btn_30" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(30)" style="padding: 16px 30px;margin: 10px 8px;">
                     30元
                 </button>
-                <button id="btn_50" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(50)" style="padding: 16px 32px;margin: 10px 10px;">
+                <button id="btn_50" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(50)" style="padding: 16px 30px;margin: 10px 8px;">
                     50元
                 </button>
                 </li>
                 <li>
-                <button id="btn_100" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(100)" style="padding: 16px 28px;margin: 10px 10px;">
+                <button id="btn_100" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(100)" style="padding: 16px 26px;margin: 10px 8px;">
                     100元
                 </button>
-                <button id="btn_200" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(200)" style="padding: 16px 28px;margin: 10px 10px;">
+                <button id="btn_200" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(200)" style="padding: 16px 26px;margin: 10px 8px;">
                     200元
                 </button>
-                <button id="btn_300" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(300)" style="padding: 16px 28px;margin: 10px 10px;">
+                <button id="btn_300" type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="recharge(300)" style="padding: 16px 26px;margin: 10px 8px;">
                     300元
                 </button>
                 </li>
@@ -66,12 +66,11 @@
     }
 
     var falg = true;
-
     function wxinit(){
         $.ajax({url:"/uc/weixin/jsconfig?url="+window.location.origin + window.location.pathname,
                 success : function(data) {
                     wx.config({
-                      debug: true,
+                      debug: false,
                       appId: data.appId,
                       timestamp: data.timestamp,
                       nonceStr: data.nonceStr,
@@ -104,26 +103,6 @@
         wxinit();
     });
 
-    
-    function query(id, callback) {
-        mui.post("/uc/order/pay/id/"+id, {}, function(res){
-            if (res.errno == 0){
-                if (res.data.url){
-                    mui.toast(data.name);
-                    mui.openWindow({url: res.data.url});
-                }
-                else{
-                    callback();
-                }
-            }
-            else{
-                mui.toast(res.errmsg);
-                $(that).removeClass('disabled').prop('disabled',false);
-                falg=false;
-            }
-        });
-    }
-
     $("#pay").on("tap",function () {
         if(falg){
             return false;
@@ -147,25 +126,11 @@
                     signType: data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
                     paySign: data.paySign, // 支付签名
                     success: function (res) {
-                        console.log(res)
+                        console.log(res);
+                        mui.toast("充值成功，页面即将跳转");
+                        mui.openWindow({url: "/uc"});
                     }
                 });
-
-                setTimeout(function(){
-                    query(data.orderId, function(){
-                        setTimeout(function(){
-                            query(data.orderId, function(){
-                                setTimeout(function(){
-                                    query(data.orderId, function(){
-                                        mui.toast("付款失败");
-                                        $(that).removeClass('disabled').prop('disabled',false);
-                                        falg=false;
-                                    });
-                                }, 4000);
-                            });
-                        }, 2000);
-                    });
-                }, 1000);
             }else{
                 mui.toast(data.errmsg);
                 setTimeout(function(){
