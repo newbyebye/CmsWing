@@ -1,6 +1,6 @@
 'use strict';
 
-import Base from './base.js';
+import Base from '../../common/controller/base.js';
 import Segment from 'segment';
 import pagination from 'think-pagination';
 export default class extends Base {

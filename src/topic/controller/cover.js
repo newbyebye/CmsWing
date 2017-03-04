@@ -8,7 +8,7 @@
 'use strict';
 import moment from "moment"
 moment.locale('zh-cn');
-import Base from './base.js';
+import Base from '../../common/controller/base.js';
 export default class extends Base {
   /**
    * index action
