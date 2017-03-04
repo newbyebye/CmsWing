@@ -46,8 +46,8 @@
                 </div>
             </ul></div>
         <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
-            <input type="hidden" value="{{order.id}}" name="order_id">
-            <input type="hidden" value="{{order.amount}}" name="order_amount">
+            <input type="hidden" value="{{order.id}}" name="order_id" id="order_id">
+            <input type="hidden" value="{{order.amount}}" name="order_amount" id="order_amount">
             <button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="pay">立即充值</button>
         </div>
     </form>
@@ -108,17 +108,15 @@
             return false;
         }
         var order_amount = $("input[name='order_amount']").val();
-        var payment = $("input[name='payment']:checked").val();
-        if(payment===undefined){
-            mui.toast("请选择一种支付方式");
+        if(order_amount===""){
+            mui.toast("请选择充值金额");
             return;
         }
-        console.log(order_amount);
-        console.log(payment);
+      
         var that = this;
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
         falg = true;
-        mui.post("/uc/account/recharge",{order_amount:order_amount,payment:payment},function(data){
+        mui.post("/uc/account/recharge",{order_amount:order_amount},function(data){
             if (data.errno!=1000) {
                 if (data.data.url) {
                     mui.toast(data.data.name + ' 即将跳转~');

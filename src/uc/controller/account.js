@@ -89,9 +89,7 @@ export default class extends Base {
         return this.fail("请输入金额！");
       } else if (!think.isNumberString(data.order_amount)) {
         return this.fail("金额类型错误！")
-      } else if (think.isEmpty(data.payment)) {
-        return this.fail("必须选一种支付方式！")
-      }
+      } 
 
       //用户
       data.user_id = this.user.uid;
@@ -112,19 +110,17 @@ export default class extends Base {
       //判断是否已经绑定pingxx_id,如果已绑定查询pingxx订单直接支付。防止订单重复生成。
       // console.log(111111111)
       //获取渠道
-      let channel = await this.model("pingxx").where({id: data.payment}).getField("channel", true);
+      ///let channel = await this.model("pingxx").where({id: data.payment}).getField("channel", true);
+      /*
       let open_id;
       if(channel == "wx_pub"){
         open_id=await this.session("wx_openid")
-      }
-      //调用ping++ 服务端
+      }*/
+
       let payment = think.service("payment");
       let pay = new payment(this.http);
-      //传入 channel,order_no,order_amount,this.ip()
-      let charges = await pay.pingxx(channel, data.order_no, data.order_amount, this.ip(),open_id);
-
-
-      //console.log(charges);
+      let charges = await pay.unifiedOrder(data.order_no, data.order_amount, "微合宝-广告营销专家", this.openid);
+      console.log(charges);
       if (charges) {
         //把pingxx_id存到订单
         data.pingxx_id = charges.id;
