@@ -189,7 +189,7 @@ export default class extends Base {
   async payAction(){
     let id = this.param("id");
 
-    let res = await this.model("order").field("pay_status").where({id:id, user_id:this.user.id}).find();
+    let res = await this.model("order").field("pay_status").where({id:id, user_id:this.user.uid}).find();
     console.log("payAction:", res);
     if (think.isEmpty(res)){
       return this.fail(1000, "付款失败");
