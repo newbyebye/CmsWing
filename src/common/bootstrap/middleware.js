@@ -52,10 +52,8 @@ think.middleware('parse_wechat_pay', async http => {
   
   if (http.pathname == '/uc/wechat/pay'){
     var payload = await http.getPayload();
-    if (think.isEmpty(payload)){
-      return;
-    }
     http._wxpay = await wxpay.validate(payload);
+    console.log("validate: ", http._wxpay);
     if (typeof http._wxpay === "string"){
       think.log(http._wxpay, 'PAY_ERROR');
       http.end("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA["+http._wxpay+"]]></return_msg></xml>");

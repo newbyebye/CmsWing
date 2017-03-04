@@ -91,7 +91,7 @@ export default class extends think.controller.base {
       transaction_id: '4007402001201703042227033753' }
   */
     async payAction(){
-      console.log(this.http._wxpay);
+      console.log("payAction:", this.http._wxpay);
       let wxpay = this.http._wxpay;
       let model = this.model('order');
 
