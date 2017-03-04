@@ -70,14 +70,59 @@ export default class extends think.controller.base {
                 break;
         }
         this.reply(content);
-
     }
 
+    /*
+    { appid: 'wxa941b7ebde89ee07',
+      bank_type: 'BOC_CREDIT',
+      cash_fee: '20',
+      fee_type: 'CNY',
+      is_subscribe: 'Y',
+      mch_id: '1440578102',
+      nonce_str: 'PLHrkqC4OhkO5Oacs7sYdV9mwRu6XPdw',
+      openid: 'oHkF3v0OyT1Bs9Z8T9H0l0jZiHjA',
+      out_trade_no: 'c991488626824867',
+      result_code: 'SUCCESS',
+      return_code: 'SUCCESS',
+      sign: '9B6CF7A4DF8592BAA01666E2E0AF9325',
+      time_end: '20170304192719',
+      total_fee: '20',
+      trade_type: 'JSAPI',
+      transaction_id: '4007402001201703042227033753' }
+  */
     async payAction(){
-      console.log(this.http);
-      console.log(this.post);
+      console.log(this.http._wxpay);
+      let wxpay = this.http._wxpay;
+      let model = this.model('order');
 
-      return this.json({});
+      if (think.isEmpty(wxpay)){
+        return this.end("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[参数错误]]></return_msg></xml>");
+      }
+      let order = await model.where({order_no:wxpay.out_trade_no}).find();
+      if (think.isEmpty(order)){
+        return this.end("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[参数错误]]></return_msg></xml>");
+      }
+
+      //发货状态 type 0:普通，1:充值     
+      try{
+        await model.startTrans();
+        // 更新充值金额 和 付款状态
+        let fee = parseInt(wxpay.total_fee);
+        if (isNaN(fee)){
+          fee = 0;
+        }
+        if (order.type == 1){
+          await model.where({id:order.id}).update({order_amount:fee, pay_status:1});
+        }
+        await this.model('member').where({id:order.user_id}).increment('amount', fee);
+        await this.model("doc_receiving").where({order_id: order.id}).update({amount:fee, pay_status:1});
+
+        await model.commit();
+      }catch(e){
+        await model.rollback();
+      }
+
+      return this.end("<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>");
     }
 
     //事件关注

@@ -101,8 +101,26 @@
         wxinit();
     });
 
-
     var falg = false;
+    function query(id, callback) {
+        mui.post("/uc/order/pay/id/"+id, {}, function(res){
+            if (res.errno == 0){
+                if (res.data.url){
+                    mui.toast(data.name);
+                    mui.openWindow({url: res.data.url});
+                }
+                else{
+                    callback();
+                }
+            }
+            else{
+                mui.toast(res.errmsg);
+                $(that).removeClass('disabled').prop('disabled',false);
+                falg=false;
+            }
+        });
+    }
+
     $("#pay").on("tap",function () {
         if(falg){
             return false;
@@ -129,11 +147,22 @@
                         console.log(res)
                     }
                 });
-            
+
                 setTimeout(function(){
-                    $(that).removeClass('disabled').prop('disabled',false);
-                    falg=false;
-                },1500);
+                    query(data.orderId, function(){
+                        setTimeout(function(){
+                            query(data.orderId, function(){
+                                setTimeout(function(){
+                                    query(data.orderId, function(){
+                                        mui.toast("付款失败");
+                                        $(that).removeClass('disabled').prop('disabled',false);
+                                        falg=false;
+                                    }
+                                }, 4000);
+                            }
+                        }, 2000);
+                    });
+                }, 1000);
             }else{
                 mui.toast(data.errmsg);
                 setTimeout(function(){

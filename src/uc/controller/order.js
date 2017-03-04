@@ -186,5 +186,25 @@ export default class extends Base {
     }
   }
 
+  async payAction(){
+    let id = this.param("id");
+
+    let res = await this.model("order").field("pay_status").where({id:id, user_id:this.user.id}).find();
+    console.log("payAction:", res);
+    if (think.isEmpty(res)){
+      return this.fail(1000, "付款失败");
+    }
+
+    if (res.pay_status == 1){
+      return this.success({name:"付款成功", url:"/uc"});
+    }
+    else if(res.pay_status == 0){
+      return this.success({name:"等待"});
+    }
+    else{
+      return this.fail(1000, "付款失败");
+    }
+  }
+
 
 }

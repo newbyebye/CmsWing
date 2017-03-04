@@ -107,25 +107,23 @@ export default class extends Base {
       data.create_time = new Date().valueOf();
       //生成订单
 
-      //判断是否已经绑定pingxx_id,如果已绑定查询pingxx订单直接支付。防止订单重复生成。
-      // console.log(111111111)
-      //获取渠道
-      ///let channel = await this.model("pingxx").where({id: data.payment}).getField("channel", true);
-      /*
-      let open_id;
-      if(channel == "wx_pub"){
-        open_id=await this.session("wx_openid")
-      }*/
-
       let payment = think.service("payment");
       let pay = new payment(this.http);
-      let charges = await pay.getPayParams(data.order_no, data.order_amount, "微合宝-广告营销专家", this.openid);
+      /*
+        appId: 'wxa941b7ebde89ee07',
+        timeStamp: '1488631942',
+        nonceStr: 'JpVJEp5GSzEmu628OsXi6CCmcCMsvvNU',
+        package: 'prepay_id=wx20170304205222f512d2b5c90649581354',
+        signType: 'MD5',
+        paySign: '3D77A141861937D850968ED9BE7BCDE9',
+        timestamp: '1488631942'
+      */
+      let charges = await pay.getPayParams(data.order_no, data.order_amount, "微合宝-广告营销专家-充值", this.openid);
       console.log("pay.unifiedOrder ret:", charges);
       if (charges) {
-        //把pingxx_id存到订单
-        data.pingxx_id = charges.id;
         let order_id = await this.model("order").add(data);
-
+        // 前端查询订单状态
+        charges.orderId = order_id;
         //支付日志
         let receiving = {
           order_id: order_id,
@@ -134,7 +132,6 @@ export default class extends Base {
           create_time: new Date().getTime(),
           payment_time: new Date().getTime(),
           doc_type: 1,
-          payment_id: data.payment,
           pay_status: 0
         }
         await this.model("doc_receiving").add(receiving);
