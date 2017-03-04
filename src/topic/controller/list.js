@@ -8,7 +8,7 @@
 'use strict';
 import moment from "moment"
 moment.locale('zh-cn');
-import Base from './base.js';
+import Base from '../../common/controller/base.js';
 import pagination from 'think-pagination';
 export default class extends Base {
   //列表页[核心]
@@ -202,20 +202,10 @@ export default class extends Base {
           }else {
             map["t."+qarr[0]] = qarr[1];
           }
-
         }
       }
       map.fid = cate.id;
-      // where.optionid = ["IN",optionidarr];
-      // where['value'] = ["IN",valuearr];
-      // let type= await this.model("typeoptionvar").where(where).select();
-      //  console.log(type);
-      // console.log(map);
-
     }
-    //console.log(map);
-    //return false;
-    //console.log(sort);
     this.assign("sort",sort);
     this.assign("nsobj",nsobj);
 
@@ -239,14 +229,7 @@ export default class extends Base {
     }else {
       data = await this.model('document').where(map).page(this.param('page'),num).order(o).countSelect();
     }
-    //console.log(data);
-    // let data = await this.model('document').join({
-    //     typeoptionvar: {
-    //         join: "left", // 有 left,right,inner 3 个值
-    //         as: "c",
-    //         on: ["sort_id", "sortid"]
-    //     }
-    // }).where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
+
     let html = pagination(data, this.http, {
       desc: false, //show description
       pageNum: 2,
@@ -269,7 +252,6 @@ export default class extends Base {
     let breadcrumb = await this.model('category').get_parent_category(cate.id,true);
     this.assign('breadcrumb', breadcrumb);
     //console.log(breadcrumb)
-
 
     /* 模板赋值并渲染模板 */
     this.assign('category', cate);
@@ -307,7 +289,7 @@ export default class extends Base {
       }
       //手机端模版
       temp = cate.template_m_lists ? `${cate.template_m_lists}` : `${this.http.action}`;
-      //think.log(temp);
+      think.log(temp);
       return this.display(`mobile/${this.http.controller}/${temp}`)
     }else{
       //console.log(temp);

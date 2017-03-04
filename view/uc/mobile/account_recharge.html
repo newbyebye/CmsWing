@@ -22,38 +22,6 @@
                 <div class="mui-input-row padding-10">
                     <input type="number" placeholder="输入充值金额" name="order_amount" min="0.01">
                 </div>
-                <li class="mui-table-view-divider">支付方式</li>
-                {% for val in paylist %}
-                <li class="mui-table-view-cell mui-radio mui-left mui-media mui-media-icon">
-                    <input name="payment" type="radio"  value="{{val.id}}" {% if val.id== order.payment %} checked {% endif%}>
-
-                    <div class="mui-media-object mui-pull-left"><img src="{{val.logo}}"> </span>
-                    </div>
-                    <div class="mui-media-body">
-                        {{val.title}}
-                    </div>
-                </li>
-                {% endfor %}
-                {% if controller.setup.PREPAID == 0 %}
-                <li class="mui-table-view-cell mui-radio mui-left mui-media mui-media-icon">
-                    <input name="payment" type="radio"  value="100" {% if paylist|length == 0  or 100== order.payment %} checked {% endif%}>
-                    <div class="mui-media-object mui-pull-left"><img src="/static/admin/img/pingxx/yfk.png"> </span>
-                    </div>
-                    <div class="mui-media-body">
-                        预付款支付
-                    </div>
-                </li>
-                {% endif %}
-                {% if controller.setup.COD == 0 %}
-                <li class="mui-table-view-cell mui-radio mui-left mui-media mui-media-icon">
-                    <input name="payment" type="radio"  value="1001"  {% if (paylist|length == 0 and controller.setup.PREPAID == 1) or 1001== order.payment %} checked {% endif%}>
-                    <div class="mui-media-object mui-pull-left"><img src="/static/admin/img/pingxx/hdfk.png"> </span>
-                    </div>
-                    <div class="mui-media-body">
-                        货到付款
-                    </div>
-                </li>
-                {% endif %}
             </ul></div>
         <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
             <input type="hidden" value="{{order.id}}" name="order_id">
@@ -65,8 +33,45 @@
 {% endblock%}
 
 {% block script %}
-<script type="text/javascript" src="/static/webapp/libs/pingpp/pingpp.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
+    function wxinit(){
+        $.ajax({url:"/uc/weixin/jsconfig?url="+window.location.origin + window.location.pathname,
+                success : function(data) {
+                    wx.config({
+                      debug: true,
+                      appId: data.appId,
+                      timestamp: data.timestamp,
+                      nonceStr: data.nonceStr,
+                      signature: data.signature,
+                      jsApiList: [
+                        'checkJsApi',
+                        'getNetworkType',
+                        'previewImage',
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage',
+                        'onMenuShareQQ',
+                        'onMenuShareWeibo',
+                        'onMenuShareQZone',
+                        'hideMenuItems',
+                        'showMenuItems',
+                        'hideAllNonBaseMenuItem',
+                        'showAllNonBaseMenuItem',
+                        'chooseWXPay'
+                      ]
+                  });
+                },
+                error : function(err, textStatus) {
+                    console.log(err);
+                }
+        });        
+    }
+
+    $(document).ready(function(){
+        wxinit();
+    });
+
+
     var falg = false;
     $("#pay").on("tap",function () {
         if(falg){

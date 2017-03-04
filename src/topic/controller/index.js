@@ -31,9 +31,9 @@ export default class extends Base {
    */
   async routeAction(){
     // this.end( this.get('category'));
-    console.log("*************" + this.get('category'));
+    //console.log("*************" + this.get('category'));
     let cate = await this.category(this.get('category').split("/")[0]);
-    console.log("routeAction ******** ", cate);
+    //console.log("routeAction ******** ", cate);
 
     if (cate.name == "article"){
       await this.action("article", "index");
@@ -44,7 +44,7 @@ export default class extends Base {
     if (this.get('category').indexOf("/") != -1){
        a = this.get('category').split("/")[1];
     }
-    console.log("&&&&&&&&&", a);
+
     if (cate.name == "chunlian"){
       await this.action("chunlian", a);
       return;
@@ -54,7 +54,6 @@ export default class extends Base {
     if(cate.mold == 2){
       type = 'sp'; // 单页面
     }
-
     switch (type){
       case 0:
         if(cate.mold==1){ // 独立模型

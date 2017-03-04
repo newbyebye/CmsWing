@@ -168,9 +168,22 @@ export default class extends Base {
       }
       //let paylist = await this.model("pingxx").where(map).order("sort ASC").select();
       //this.assign("paylist", paylist);
+      /*
+      <?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<xml>\n 
+       <out_trade_no>00001</out_trade_no>\n 
+        <total_fee>100</total_fee>\n  
+       <body>微合宝-广告营销专家</body>\n  
+       <openid>oHkF3v0OyT1Bs9Z8T9H0l0jZiHjA</openid>\n  
+       <appid>wxa941b7ebde89ee07</appid>\n  
+       <mch_id>1440578102</mch_id>\n  
+       <nonce_str>UaXKjkDda2sbiNn3Hog8ymxFAEVhX5aE</nonce_str>\n  
+       <notify_url>http://ad.weishitianli.com/uc/wechat/pay</notify_url>\n  
+       <spbill_create_ip>127.0.0.1</spbill_create_ip>\n  <trade_type>JSAPI</trade_type>\n  
+       <sign>C901C878E4533D0B40A934EF24A680FF</sign>\n</xml>
+      */
       let payment = think.service("payment");
       let pay = await new payment(this.http);
-      let ret = await pay.unifiedOrder("00001", 100, "100块", this.openid);
+      let ret = await pay.unifiedOrder("00001", 100, "微合宝-广告营销专家", this.openid);
 
       think.log(ret);
 
