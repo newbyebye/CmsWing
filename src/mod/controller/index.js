@@ -1,6 +1,6 @@
 'use strict';
 
-import Base from '../../topic/controller/base.js';
+import Base from '../../common/controller/base.js';
 
 export default class extends Base {
   init(http) {
