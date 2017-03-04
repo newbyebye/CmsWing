@@ -17,15 +17,37 @@
         <div class="mui-card">
 
             <ul class="mui-table-view ">
-
                 <li class="mui-table-view-divider">充值金额</li>
+                <li>
+                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="padding: 16px 32px;margin: 10px 10px;">
+                    20元
+                </button>
+                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="padding: 16px 32px;margin: 10px 10px;">
+                    30元
+                </button>
+                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="padding: 16px 32px;margin: 10px 10px;">
+                    50元
+                </button>
+                </li>
+                <li>
+                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="padding: 16px 28px;margin: 10px 10px;">
+                    100元
+                </button>
+                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="padding: 16px 28px;margin: 10px 10px;">
+                    200元
+                </button>
+                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="padding: 16px 28px;margin: 10px 10px;">
+                    300元
+                </button>
+                </li>
+                
                 <div class="mui-input-row padding-10">
-                    <input type="number" placeholder="输入充值金额" name="order_amount" min="0.01">
+                    
                 </div>
             </ul></div>
         <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
             <input type="hidden" value="{{order.id}}" name="order_id">
-            <button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="pay">下一步</button>
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="pay">立即充值</button>
         </div>
     </form>
 </div>

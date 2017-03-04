@@ -181,11 +181,13 @@ export default class extends Base {
        <spbill_create_ip>127.0.0.1</spbill_create_ip>\n  <trade_type>JSAPI</trade_type>\n  
        <sign>C901C878E4533D0B40A934EF24A680FF</sign>\n</xml>
       */
+      /*
       let payment = think.service("payment");
       let pay = await new payment(this.http);
       let ret = await pay.unifiedOrder("00001", 100, "微合宝-广告营销专家", this.openid);
+      */
 
-      think.log(ret);
+      //think.log(ret);
 
       this.meta_title = "充值";
       if (checkMobile(this.userAgent())) {

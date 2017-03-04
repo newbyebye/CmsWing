@@ -19,7 +19,7 @@
                 {% for v in slider%}
                 <div class="mui-slider-item">
                     <a href="{{v.name|get_url(v.id)}}">
-                        <img src="{{v.cover_id|get_pic('m=1,w=360,h=180')}}">
+                        <img src="{{v.cover_id|get_pic('m=1,w=360,h=180')}}" height="180">
                         <p class="mui-slider-title">{{v.title}}</p>
                     </a>
                 </div>
