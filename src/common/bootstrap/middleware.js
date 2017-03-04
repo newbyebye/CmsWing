@@ -49,8 +49,8 @@ think.middleware('parse_wechat_pay', async http => {
               pfx: require('fs').readFileSync(think.RESOURCE_PATH + '/apiclient_cert.p12'),
               notify_url: 'http://ad.weishitianli.com/uc/wechat/pay'
           });
-  
-  if (http.pathname == '/uc/wechat/pay'){
+  console.log("comming parse_wechat_pay", http.url);
+  if (http.url == '/uc/wechat/pay'){
     var payload = await http.getPayload();
     http._wxpay = await wxpay.validate(payload);
     console.log("validate: ", http._wxpay);
