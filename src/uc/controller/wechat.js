@@ -75,6 +75,8 @@ export default class extends think.controller.base {
 
     async payAction(){
       console.log(this.http);
+      console.log(this.post);
+
       return this.json({});
     }
 

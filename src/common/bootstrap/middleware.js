@@ -39,3 +39,25 @@ think.middleware('parse_wechat', wechatMiddleware({
         encodingAESKey: ''
     }
 }));
+
+think.middleware('parse_wechat_pay', async http => {
+  var tenpay = require('tenpay');
+  var wxpay = new tenpay({
+              appid: think.config("setup.wx_AppID"),
+              mchid: '1440578102',
+              partnerKey: '94d11835159632b8977affe73c847100',
+              pfx: require('fs').readFileSync(think.RESOURCE_PATH + '/apiclient_cert.p12'),
+              notify_url: 'http://ad.weishitianli.com/uc/wechat/pay'
+          });
+
+  console.log("input parse_wechat_pay", http);
+  
+  if (http.pathname == '/uc/wechat/pay'){
+    var payload = await http.getPayload();
+    if (thinkjs.isEmpty(payload)){
+      return;
+    }
+    http._wxpay = wxpay.validate(payload);
+  }
+
+});
