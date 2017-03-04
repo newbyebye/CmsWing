@@ -8,7 +8,7 @@
 'use strict';
 var tenpay = require('tenpay');
 
-export default class extends think.controller.base {
+export default class extends think.service.base {
 
     /**
      * init
