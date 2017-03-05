@@ -385,7 +385,6 @@ export default class extends Base {
     /**
      * 收款单
      */
-
     async receivingAction(){
         let data = await this.model("doc_receiving").page(this.get('page')).order("create_time DESC").countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
@@ -395,16 +394,18 @@ export default class extends Base {
         //console.log(data.data);
         // this.active="admin/order/list"
         for(let val of data.data){
+            /*
             switch (val.payment_id){
                 case 100:
                     val.channel = "预付款支付";
                     break;
                 case 1001:
-                    val.channel = "货到付款";
+                    val.channel = "微信支付";
                     break;
                 default:
                     val.channel = await this.model("pingxx").where({id:val.payment_id}).getField("title",true);
-            }
+            }*/
+            val.channel = "微信支付";
             val.order_id=await this.model("order").where({id:val.order_id}).getField("order_no",true);
         }
         this.assign('list', data.data);

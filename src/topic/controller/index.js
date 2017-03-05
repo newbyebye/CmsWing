@@ -24,8 +24,13 @@ export default class extends Base {
     this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
     //debugger;
 
-    return this._display();
+    return this.display();
   }
+
+  async withdrawAction(){
+    return this.display();
+  }
+
   /**
    * 解析路由，判断是频道页面还是列表页面
    */

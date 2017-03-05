@@ -1,0 +1,89 @@
+{% extends "../../common/inc/mobile/appbase.html" %}
+{%block style%}
+<style>
+    .mui-table h4 ,.mui-media-body h4{
+        line-height: 21px;
+        font-weight: 400;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">{{controller.meta_title}}</h1>
+</header>
+<div class="mui-content">
+    
+        <div class="mui-card">
+
+            <ul class="mui-table-view">
+                <li class="mui-table-view-divider">
+                    <h4>提现金额</h4>
+                <form method="post" class="mui-input-group">
+                    <div class="mui-input-row">
+                        <label>¥</label>
+                        <input type="number" height="80" name="order_amount">
+                    </div>
+                </form>
+                    当前金币{{coins}}可提现{{amount|formatCurrency}}元，<a >全部提现</a>
+                </li>
+                
+                <div class="mui-input-row padding-10">
+                    
+                </div>
+            </ul>
+        </div>
+        <div class="mui-content-padded">
+            <p>温馨提示：提现最小额度为100元，3个工作日内到账</p>
+        </div>
+        <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-block disabled" id="pay">提现</button>
+        </div>
+</div>
+
+{% endblock%}
+
+{% block script %}
+<script>
+    var falg = true;
+    
+    $("#pay").on("tap",function () {
+        if(falg){
+            return false;
+        }
+        var order_amount = $("input[name='order_amount']").val();
+        if(order_amount===""){
+            mui.toast("请输入提现金额");
+            return;
+        }
+      
+        var that = this;
+        $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+        falg = true;
+        mui.post("/uc/account/recharge",{order_amount:order_amount},function(data){
+            if (data.errno!=1000) {
+                data = data.data.data;
+                wx.chooseWXPay({
+                    timestamp: data.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                    nonceStr: data.nonceStr, // 支付签名随机串，不长于 32 位
+                    package: data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                    signType: data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                    paySign: data.paySign, // 支付签名
+                    success: function (res) {
+                        console.log(res);
+                        mui.toast("充值成功，页面即将跳转");
+                        mui.openWindow({url: "/uc"});
+                    }
+                });
+            }else{
+                mui.toast(data.errmsg);
+                setTimeout(function(){
+                    $(that).removeClass('disabled').prop('disabled',false);
+                    falg=false;
+                },1500);
+            }
+        },'json');
+        return;
+    })
+</script>
+{% endblock %}

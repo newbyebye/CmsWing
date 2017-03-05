@@ -21,6 +21,14 @@ export default class extends think.controller.base {
     }
   }
 
+  display(){
+    if (checkMobile(this.userAgent())) {
+      return super.display(`mobile/${this.http.controller}/${this.http.action}`)
+    } else {
+      return super.display();
+    }
+  }
+
   async __before() {
     //await this.action("uc/weixin", "oauth");
     //网站配置

@@ -36,7 +36,8 @@ export default class extends think.service.base {
             await this.__before();
         }
 
-        return await this.api.getPayParams({out_trade_no:order_no, total_fee: order_amount, body: order_discription, openid:openid});
+        // 微信支付金额转为分 
+        return await this.api.getPayParams({out_trade_no:order_no, total_fee: order_amount*100, body: order_discription, openid:openid});
     }
 
 //发起付款

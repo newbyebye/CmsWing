@@ -293,6 +293,7 @@ export default {
                         return formatCurrency(num);
                     }
                 })
+
                 /**
                  * 获取商品价格不格式
                  */

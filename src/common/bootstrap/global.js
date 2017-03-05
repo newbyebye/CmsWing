@@ -823,7 +823,6 @@ global.formatprice = function(price) {
     } else {
         return `<span class="text-xs"><span class="text-danger">现价:￥${present_price}</span> <br>原价:￥${formatCurrency(pr.discount_price)}</span>`;
     }
-
 }
 //获取价格格式化
 global.get_price_format = function(price, type) {

@@ -112,10 +112,11 @@ export default class extends think.controller.base {
           fee = 0;
         }
         if (order.type == 1){
-          await model.where({id:order.id}).update({order_amount:fee, pay_status:1});
+          await model.where({id:order.id}).update({order_amount:fee/100, pay_status:1});
         }
+        // 金币1个对应1分
         await this.model('member').where({id:order.user_id}).increment('amount', fee);
-        await this.model("doc_receiving").where({order_id: order.id}).update({amount:fee, pay_status:1});
+        await this.model("doc_receiving").where({order_id: order.id}).update({amount:fee/100, pay_status:1});
 
         await model.commit();
       }catch(e){

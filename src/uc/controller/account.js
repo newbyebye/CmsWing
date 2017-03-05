@@ -94,8 +94,8 @@ export default class extends Base {
       if (amount > 300 || amount < 20){
         return this.fail("金额类型错误！");
       }
-      // 转为分 
-      data.order_amount = amount*100;
+      
+      data.order_amount = amount;
 
       //用户
       data.user_id = this.user.uid;
@@ -124,6 +124,7 @@ export default class extends Base {
         paySign: '3D77A141861937D850968ED9BE7BCDE9',
         timestamp: '1488631942'
       */
+
       let charges = await pay.getPayParams(data.order_no, data.order_amount, "微合宝-广告营销专家-充值", this.openid);
       console.log("pay.unifiedOrder ret:", charges);
       if (charges) {
@@ -198,6 +199,22 @@ export default class extends Base {
       }
 
     }
+  }
 
+  /**
+   * 提现
+   */
+  async withdrawAction() {
+    await this.weblogin();
+    if (this.isAjax("POST")) {
+
+    }
+    else{
+      this.meta_title = "提现";
+      let userInfo = await this.model("member").find(this.user.uid);
+      this.assign("coins", userInfo.amount);
+      this.assign("amount", (userInfo.amount - (userInfo.amount%100))/100);
+      this.display();
+    }
   }
 }
