@@ -31,13 +31,22 @@ export default class extends think.service.base {
                     });
     }
 
-    async getPayParams(order_no, order_amount, order_discription, openid){
+    async getPayParams(order_no, amount, desc, openid){
         if (think.isEmpty(this.api)){
             await this.__before();
         }
 
         // 微信支付金额转为分 
-        return await this.api.getPayParams({out_trade_no:order_no, total_fee: order_amount*100, body: order_discription, openid:openid});
+        return await this.api.getPayParams({out_trade_no:order_no, total_fee: amount*100, body: desc, openid:openid});
+    }
+
+    async transfers(trade_no, amount, desc, openid){
+        if (think.isEmpty(this.api)){
+            await this.__before();
+        }
+
+        //'partner_trade_no', 'openid', 'check_name', 'amount', 'desc'
+        return await this.api.transfers({partner_trade_no:trade_no, amount:amount*100, desc:desc, openid:openid, check_name:"NO_CHECK"});
     }
 
 //发起付款

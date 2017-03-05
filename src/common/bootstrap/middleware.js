@@ -41,16 +41,16 @@ think.middleware('parse_wechat', wechatMiddleware({
 }));
 
 think.middleware('parse_wechat_pay', async http => {
-  var tenpay = require('tenpay');
-  var wxpay = new tenpay({
+  console.log("comming parse_wechat_pay", http.url);
+  if (http.url == '/uc/wechat/pay'){
+    var tenpay = require('tenpay');
+    var wxpay = new tenpay({
               appid: think.config("setup.wx_AppID"),
               mchid: '1440578102',
               partnerKey: '94d11835159632b8977affe73c847100',
               pfx: require('fs').readFileSync(think.RESOURCE_PATH + '/apiclient_cert.p12'),
               notify_url: 'http://ad.weishitianli.com/uc/wechat/pay'
           });
-  console.log("comming parse_wechat_pay", http.url);
-  if (http.url == '/uc/wechat/pay'){
     var payload = await http.getPayload();
     http._wxpay = await wxpay.validate(payload);
     console.log("validate: ", http._wxpay);
