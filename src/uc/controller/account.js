@@ -207,7 +207,32 @@ export default class extends Base {
   async withdrawAction() {
     await this.weblogin();
     if (this.isAjax("POST")) {
+      let data = this.post();
+      if (think.isEmpty(data.order_amount)) {
+        return this.fail("请输入金额！");
+      } else if (!think.isNumberString(data.order_amount)) {
+        return this.fail("金额类型错误！")
+      }
 
+      let amount = parseInt(data.order_amount);
+      if (amount%100 !=0 || amount <100){
+        return this.fail("金额类型错误！");
+      }
+
+      try{
+        let model = this.model('withdraw');
+        await model.startTrans();
+
+        // 金币1个对应1分
+        await this.model('member').where({id:order.user_id}).decrement('amount', amount*100);
+        await model.add({user_id:this.user.uid, time:new Date().getTime(), coins:amount*100, amount:amount});
+
+        await model.commit();
+      }catch(e){
+        await model.rollback();
+      }
+
+      return this.success({name:"提现申请已提交,3个工作日到账", url:"/uc/account"});
     }
     else{
       this.meta_title = "提现";
