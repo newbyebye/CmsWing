@@ -213,7 +213,7 @@ export default class extends Base {
       this.meta_title = "提现";
       let userInfo = await this.model("member").find(this.user.uid);
       this.assign("coins", userInfo.amount);
-      this.assign("amount", (userInfo.amount - (userInfo.amount%100))/100);
+      this.assign("amount", (userInfo.amount - (userInfo.amount%10000))/10000);
       this.display();
     }
   }

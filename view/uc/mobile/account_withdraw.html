@@ -46,7 +46,9 @@
 
 {% block script %}
 <script>
-    document.getElementById("order_amount").focus();
+    $(document).ready(function(){
+        document.getElementById("order_amount").focus();
+    });
 
     function withdrawall(){
         $("#order_amount").val($("#max_amount").val());
