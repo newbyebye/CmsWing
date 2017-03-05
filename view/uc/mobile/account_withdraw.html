@@ -68,8 +68,9 @@
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
         falg = true;
         mui.post("/uc/account/withdraw",{order_amount:order_amount},function(data){
-            if (data.errno!=1000) {
-                data = data.data.data;
+            if (data.errno == 0) {
+                mui.toast(data.data.name);
+                mui.openWindow({url: data.data.url});
             }else{
                 mui.toast(data.errmsg);
                 setTimeout(function(){

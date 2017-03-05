@@ -216,20 +216,27 @@ export default class extends Base {
 
       let amount = parseInt(data.order_amount);
       if (amount%100 !=0 || amount <100){
-        return this.fail("金额类型错误！");
+        return this.fail("金额错误！");
       }
 
+      let user = await this.model('member').field("amount").where({id:this.user.uid}).find();
+      if (user.amount < amount*100){
+        return this.fail("金额不足！");
+      }
+
+      let model = this.model('withdraw');
       try{
-        let model = this.model('withdraw');
         await model.startTrans();
 
         // 金币1个对应1分
-        await this.model('member').where({id:order.user_id}).decrement('amount', amount*100);
+        await this.model('member').where({id:this.user.uid}).decrement('amount', amount*100);
         await model.add({user_id:this.user.uid, time:new Date().getTime(), coins:amount*100, amount:amount});
 
         await model.commit();
       }catch(e){
+        console.log(e);
         await model.rollback();
+        return this.fail(e);
       }
 
       return this.success({name:"提现申请已提交,3个工作日到账", url:"/uc/account"});
