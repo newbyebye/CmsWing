@@ -77,7 +77,7 @@ export default class extends Base {
               let wx = await this.model("wx_user").field("openid").where({uid:v.user_id}).find();
               let nowtime = new Date().valueOf();
               let oid = ["t", v.user_id, nowtime];
-              let ret = await pay.transfers(oid.join(""), v.coins, "微合宝-广告营销专家-提现", wx.openid);
+              let ret = await pay.transfers(oid.join(""), v.amount, "微合宝-广告营销专家-提现", wx.openid);
               if (ret.return_code == "SUCCESS"){
                   // 提现成功修改状态
                   await this.model("withdraw").where({id:v.id}).update({status:1});
