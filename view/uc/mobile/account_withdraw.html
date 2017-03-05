@@ -22,10 +22,11 @@
                 <form method="post" class="mui-input-group">
                     <div class="mui-input-row">
                         <label>¥</label>
-                        <input type="number" height="80" name="order_amount">
+                        <input type="number" height="80" name="order_amount" id="order_amount">
+                        <input type="hidden" id="max_amount" value="{{amount}}">
                     </div>
                 </form>
-                    当前金币{{coins}}可提现{{amount|formatCurrency}}元，<a >全部提现</a>
+                    当前金币{{coins}}可提现{{amount|formatCurrency}}元，<a href="javascript:void(0)" onclick="withdrawall()">全部提现</a>
                 </li>
                 
                 <div class="mui-input-row padding-10">
@@ -45,8 +46,13 @@
 
 {% block script %}
 <script>
-    var falg = true;
-    
+    document.getElementById("order_amount").focus();
+
+    function withdrawall(){
+        $("#order_amount").val($("#max_amount").val());
+    }
+
+    var falg = false;
     $("#pay").on("tap",function () {
         if(falg){
             return false;
@@ -56,25 +62,12 @@
             mui.toast("请输入提现金额");
             return;
         }
-      
         var that = this;
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
         falg = true;
-        mui.post("/uc/account/recharge",{order_amount:order_amount},function(data){
+        mui.post("/uc/account/withdraw",{order_amount:order_amount},function(data){
             if (data.errno!=1000) {
                 data = data.data.data;
-                wx.chooseWXPay({
-                    timestamp: data.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-                    nonceStr: data.nonceStr, // 支付签名随机串，不长于 32 位
-                    package: data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-                    signType: data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-                    paySign: data.paySign, // 支付签名
-                    success: function (res) {
-                        console.log(res);
-                        mui.toast("充值成功，页面即将跳转");
-                        mui.openWindow({url: "/uc"});
-                    }
-                });
             }else{
                 mui.toast(data.errmsg);
                 setTimeout(function(){
